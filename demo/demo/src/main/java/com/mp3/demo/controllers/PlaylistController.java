@@ -4,6 +4,7 @@ import com.mp3.demo.entities.Playlist;
 import com.mp3.demo.entities.PlaylistMp3;
 import com.mp3.demo.services.PlaylistService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.context.annotation.Profile;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -12,7 +13,6 @@ import org.springframework.web.bind.annotation.*;
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
-import org.springframework.context.annotation.Profile;
 
 @Profile("api")
 @RestController
@@ -51,13 +51,22 @@ public class PlaylistController {
     }
 
     // POST /playlists/{id}/generer?dureeCible=1920
-    // dureeCible en secondes (ex: 32min = 1920)
     @PostMapping("/{id}/generer")
     public List<PlaylistMp3> generer(
             @PathVariable Long id,
             @RequestParam int dureeCible
     ) {
         return playlistService.generer(id, dureeCible);
+    }
+
+    // POST /playlists/{id}/generer-par-artistes
+    // Body JSON : ["Yzit", "Wizkid"]
+    @PostMapping("/{id}/generer-par-artistes")
+    public List<PlaylistMp3> genererParArtistes(
+            @PathVariable Long id,
+            @RequestBody List<String> artistes
+    ) {
+        return playlistService.genererParArtistes(id, artistes);
     }
 
     // GET /playlists/{id}/morceaux

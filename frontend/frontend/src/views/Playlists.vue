@@ -1,6 +1,5 @@
 <template>
   <div class="page">
-    <!-- Navbar -->
     <nav class="navbar">
       <div class="nav-logo">🎵 MP3 Manager</div>
       <div class="nav-links">
@@ -16,7 +15,6 @@
     <div class="content">
       <h2>Mes Playlists</h2>
 
-      <!-- Formulaire création -->
       <div class="create-card">
         <h3>➕ Créer une playlist</h3>
         <div class="form-row">
@@ -28,13 +26,10 @@
             <label>Durée cible (minutes)</label>
             <input v-model.number="newDuree" type="number" min="1" placeholder="32" />
           </div>
-          <button @click="create" :disabled="!newNom || !newDuree">
-            Créer
-          </button>
+          <button @click="create" :disabled="!newNom || !newDuree">Créer</button>
         </div>
       </div>
 
-      <!-- Liste des playlists -->
       <div class="playlists-grid">
         <div
           v-for="pl in playlists"
@@ -108,7 +103,7 @@ function logout() {
 </script>
 
 <style scoped>
-.page { min-height: 100vh; background: #0f0f1a; }
+.page { min-height: 100vh; background: #0f0f1a; color: #fff; }
 
 .navbar {
   display: flex; align-items: center; justify-content: space-between;
@@ -136,12 +131,12 @@ h2 { font-size: 24px; font-weight: 700; margin-bottom: 24px; }
 .create-card h3 { font-size: 16px; margin-bottom: 16px; color: #6c63ff; }
 
 .form-row { display: flex; gap: 16px; align-items: flex-end; flex-wrap: wrap; }
-
 .field { flex: 1; min-width: 160px; }
 .field label { display: block; font-size: 13px; color: #aaa; margin-bottom: 6px; }
 .field input {
   width: 100%; padding: 10px 14px; background: #0f0f1a;
   border: 1px solid #2a2a4e; border-radius: 8px; color: #fff; font-size: 14px; outline: none;
+  box-sizing: border-box;
 }
 .field input:focus { border-color: #6c63ff; }
 

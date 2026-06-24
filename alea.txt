@@ -2,6 +2,7 @@ partie desktop alohan ny envoyer azy
 
 mamaky fichier 2 le programme mamaky fichier blacklist
 blacklist resaka artiste 
+blacklist genre
 
 ex : blacklist misy an Ambondrona de tsy afaka alefa le ambondrona
 

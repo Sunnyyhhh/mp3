@@ -9,6 +9,7 @@ import com.mp3.demo.repositories.PlaylistMp3Repository;
 import com.mp3.demo.repositories.PlaylistRepository;
 import com.mp3.demo.repositories.UtilisateurRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 
 import java.io.*;
@@ -17,7 +18,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
-import org.springframework.context.annotation.Profile;
 
 @Profile("api")
 @Service
@@ -90,6 +90,40 @@ public class PlaylistService {
                 dureeAccumulee += mp3.getDuree();
             }
             if (dureeAccumulee >= dureeCibleSecondes) break;
+        }
+
+        return result;
+    }
+
+    // Générer une playlist à partir d'une liste d'artistes choisis
+    public List<PlaylistMp3> genererParArtistes(Long playlistId, List<String> artistes) {
+        Playlist playlist = findById(playlistId);
+
+        // Supprimer les anciens morceaux
+        List<PlaylistMp3> existants = playlistMp3Repository.findAll()
+                .stream()
+                .filter(pm -> pm.getPlaylist().getId().equals(playlistId))
+                .toList();
+        playlistMp3Repository.deleteAll(existants);
+
+        // Récupérer uniquement les MP3 des artistes sélectionnés
+        List<Mp3> mp3Filtres = mp3Repository.findAll()
+                .stream()
+                .filter(mp3 -> artistes.stream()
+                        .anyMatch(a -> a.equalsIgnoreCase(mp3.getArtiste())))
+                .toList();
+
+        List<PlaylistMp3> result = new ArrayList<>();
+        int ordre = 1;
+
+        for (Mp3 mp3 : mp3Filtres) {
+            PlaylistMp3 pm = PlaylistMp3.builder()
+                    .playlist(playlist)
+                    .mp3(mp3)
+                    .ordre(ordre++)
+                    .build();
+            playlistMp3Repository.save(pm);
+            result.add(pm);
         }
 
         return result;

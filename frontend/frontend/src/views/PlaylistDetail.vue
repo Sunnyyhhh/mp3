@@ -1,6 +1,5 @@
 <template>
   <div class="page">
-    <!-- Navbar -->
     <nav class="navbar">
       <div class="nav-logo">🎵 MP3 Manager</div>
       <div class="nav-links">
@@ -18,16 +17,63 @@
         <button class="btn-back" @click="router.push('/playlists')">← Retour</button>
         <div>
           <h2>{{ playlist?.nom }}</h2>
-          <p class="subtitle">Durée cible : {{ formatDuree(playlist?.dureeCible) }} • {{ morceaux.length }} morceaux • Durée totale : {{ formatDuree(totalDuree) }}</p>
+          <p class="subtitle">
+            Durée cible : {{ formatDuree(playlist?.dureeCible) }} •
+            {{ morceaux.length }} morceaux •
+            Durée totale : {{ formatDuree(totalDuree) }}
+          </p>
         </div>
         <button class="btn-zip" @click="downloadZip">⬇ Télécharger ZIP</button>
       </div>
 
       <!-- Actions -->
-      <div class="actions">
-        <button class="btn-generate" @click="generate">
-          🔀 Générer automatiquement
-        </button>
+      <div class="actions-card">
+
+        <!-- Sélecteur d'artistes -->
+        <div class="artist-section">
+          <div class="artist-section-header">
+            <span class="section-label">🎤 Filtrer par artistes</span>
+            <button
+              v-if="selectedArtists.length > 0"
+              class="btn-clear"
+              @click="selectedArtists = []"
+            >
+              ✕ Effacer la sélection
+            </button>
+          </div>
+
+          <div v-if="availableArtists.length === 0" class="no-artists">
+            Aucun artiste disponible
+          </div>
+          <div v-else class="artist-chips">
+            <span
+              v-for="artiste in availableArtists"
+              :key="artiste"
+              class="chip"
+              :class="{ selected: selectedArtists.includes(artiste) }"
+              @click="toggleArtist(artiste)"
+            >
+              {{ artiste }}
+            </span>
+          </div>
+        </div>
+
+        <!-- Boutons de génération -->
+        <div class="generate-btns">
+          <button class="btn-generate btn-auto" @click="generate">
+            🔀 Générer automatiquement
+          </button>
+          <button
+            class="btn-generate btn-artists"
+            @click="generateByArtists"
+            :disabled="selectedArtists.length === 0"
+            :title="selectedArtists.length === 0 ? 'Sélectionne au moins un artiste' : ''"
+          >
+            🎤 Générer par artistes
+            <span v-if="selectedArtists.length > 0" class="badge">{{ selectedArtists.length }}</span>
+          </button>
+        </div>
+
       </div>
 
       <!-- Lecteur -->
@@ -51,7 +97,7 @@
       <!-- Liste des morceaux -->
       <div class="morceaux-list">
         <div
-          v-for="(m, index) in morceaux"
+          v-for="(m) in morceaux"
           :key="m.id"
           class="morceau-card"
           :class="{ active: currentMorceau?.id === m.id }"
@@ -65,7 +111,6 @@
             <div class="m-meta">{{ m.mp3.artiste }} • {{ formatDuree(m.mp3.duree) }}</div>
           </div>
 
-          <!-- Remplacer -->
           <select
             class="select-replace"
             @change="replace(m.id, $event.target.value)"
@@ -80,7 +125,8 @@
         </div>
 
         <div v-if="morceaux.length === 0" class="empty">
-          Clique sur "Générer automatiquement" pour remplir la playlist
+          Sélectionne des artistes puis clique sur "Générer par artistes",<br>
+          ou clique sur "Générer automatiquement"
         </div>
       </div>
     </div>
@@ -92,8 +138,13 @@ import { ref, onMounted, computed } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { useAuthStore } from '../stores/auth'
 import {
-  getPlaylist, getPlaylistSongs, generatePlaylist,
-  replaceSong, getSongs, streamUrl,
+  getPlaylist,
+  getPlaylistSongs,
+  generatePlaylist,
+  generatePlaylistByArtists,
+  replaceSong,
+  getSongs,
+  streamUrl,
   downloadZip as downloadZipApi
 } from '../services/api'
 
@@ -107,9 +158,14 @@ const morceaux = ref([])
 const allSongs = ref([])
 const currentMorceau = ref(null)
 const currentUrl = ref('')
+const selectedArtists = ref([])
 
 const totalDuree = computed(() =>
   morceaux.value.reduce((acc, m) => acc + (m.mp3.duree || 0), 0)
+)
+
+const availableArtists = computed(() =>
+  [...new Set(allSongs.value.map(s => s.artiste).filter(Boolean))].sort()
 )
 
 onMounted(async () => {
@@ -122,6 +178,12 @@ onMounted(async () => {
   morceaux.value = mRes.data
   allSongs.value = sRes.data
 })
+
+function toggleArtist(artiste) {
+  const idx = selectedArtists.value.indexOf(artiste)
+  if (idx === -1) selectedArtists.value.push(artiste)
+  else selectedArtists.value.splice(idx, 1)
+}
 
 function play(m) {
   currentMorceau.value = m
@@ -137,6 +199,11 @@ function playNext() {
 
 async function generate() {
   const res = await generatePlaylist(id, playlist.value.dureeCible)
+  morceaux.value = res.data
+}
+
+async function generateByArtists() {
+  const res = await generatePlaylistByArtists(id, selectedArtists.value)
   morceaux.value = res.data
 }
 
@@ -170,7 +237,7 @@ function logout() {
 </script>
 
 <style scoped>
-.page { min-height: 100vh; background: #0f0f1a; }
+.page { min-height: 100vh; background: #0f0f1a; color: #fff; }
 
 .navbar {
   display: flex; align-items: center; justify-content: space-between;
@@ -190,16 +257,17 @@ function logout() {
 
 .content { padding: 32px; max-width: 900px; margin: 0 auto; }
 
-.header { display: flex; align-items: center; gap: 20px; margin-bottom: 24px; flex-wrap: wrap; }
+.header {
+  display: flex; align-items: center; gap: 20px;
+  margin-bottom: 24px; flex-wrap: wrap;
+}
 .btn-back {
   background: transparent; border: 1px solid #2a2a4e; color: #aaa;
   padding: 8px 16px; border-radius: 8px; cursor: pointer; font-size: 14px; white-space: nowrap;
 }
 .btn-back:hover { border-color: #6c63ff; color: #6c63ff; }
-
-h2 { font-size: 24px; font-weight: 700; }
+h2 { font-size: 24px; font-weight: 700; margin: 0; }
 .subtitle { font-size: 13px; color: #888; margin-top: 4px; }
-
 .btn-zip {
   margin-left: auto; padding: 10px 20px; background: #1a1a2e;
   border: 1px solid #6c63ff; color: #6c63ff; border-radius: 8px;
@@ -207,12 +275,51 @@ h2 { font-size: 24px; font-weight: 700; }
 }
 .btn-zip:hover { background: #6c63ff; color: white; }
 
-.actions { margin-bottom: 24px; }
-.btn-generate {
-  padding: 12px 24px; background: #6c63ff; color: white; border: none;
-  border-radius: 8px; font-size: 15px; font-weight: 600; cursor: pointer;
+/* Actions card */
+.actions-card {
+  background: #1a1a2e; border: 1px solid #2a2a4e;
+  border-radius: 12px; padding: 20px 24px; margin-bottom: 24px;
 }
-.btn-generate:hover { background: #5a52d5; }
+
+.artist-section { margin-bottom: 20px; }
+.artist-section-header {
+  display: flex; align-items: center; justify-content: space-between;
+  margin-bottom: 12px;
+}
+.section-label { font-size: 13px; color: #aaa; font-weight: 500; }
+.btn-clear {
+  background: transparent; border: none; color: #ff6b6b;
+  font-size: 12px; cursor: pointer; padding: 4px 8px;
+}
+.btn-clear:hover { text-decoration: underline; }
+
+.no-artists { color: #555; font-size: 13px; }
+
+.artist-chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.chip {
+  padding: 6px 14px; border-radius: 20px; font-size: 13px; cursor: pointer;
+  border: 1px solid #2a2a4e; color: #aaa; background: #0f0f1a; transition: all 0.2s;
+  user-select: none;
+}
+.chip:hover { border-color: #6c63ff; color: #6c63ff; }
+.chip.selected { background: #6c63ff; color: white; border-color: #6c63ff; }
+
+.generate-btns { display: flex; gap: 12px; flex-wrap: wrap; }
+.btn-generate {
+  padding: 10px 22px; color: white; border: none;
+  border-radius: 8px; font-size: 14px; font-weight: 600; cursor: pointer;
+  display: flex; align-items: center; gap: 8px; transition: background 0.2s;
+}
+.btn-auto { background: #6c63ff; }
+.btn-auto:hover { background: #5a52d5; }
+.btn-artists { background: #2a2a4e; }
+.btn-artists:hover:not(:disabled) { background: #3d3d6e; }
+.btn-artists:disabled { opacity: 0.4; cursor: not-allowed; }
+
+.badge {
+  background: #6c63ff; color: white; font-size: 11px;
+  padding: 2px 8px; border-radius: 20px; font-weight: 700;
+}
 
 /* Lecteur */
 .player {
@@ -228,7 +335,6 @@ h2 { font-size: 24px; font-weight: 700; }
 
 /* Morceaux */
 .morceaux-list { display: flex; flex-direction: column; gap: 8px; }
-
 .morceau-card {
   display: flex; align-items: center; gap: 12px;
   background: #1a1a2e; border: 1px solid #2a2a4e; border-radius: 10px;
@@ -254,5 +360,8 @@ h2 { font-size: 24px; font-weight: 700; }
 }
 .select-replace:focus { border-color: #6c63ff; outline: none; }
 
-.empty { text-align: center; color: #555; padding: 48px; font-size: 16px; }
+.empty {
+  text-align: center; color: #555; padding: 48px;
+  font-size: 15px; line-height: 1.8;
+}
 </style>

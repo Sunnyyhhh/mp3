@@ -32,3 +32,5 @@ export const replaceSong = (playlistMp3Id, nouveauMp3Id) =>
   api.put(`/playlists/morceaux/${playlistMp3Id}/remplacer?nouveauMp3Id=${nouveauMp3Id}`)
 export const downloadZip = (id) =>
   api.get(`/playlists/${id}/zip`, { responseType: 'blob' })
+export const generatePlaylistByArtists = (id, artistes) =>
+  api.post(`/playlists/${id}/generer-par-artistes`, artistes)
