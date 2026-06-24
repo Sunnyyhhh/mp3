@@ -1,0 +1,6 @@
+# Blacklist artistes — un nom par ligne, insensible à la casse
+# Les lignes commençant par # sont des commentaires
+
+Olivia RodriGO
+Dama
+YZIT
