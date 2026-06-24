@@ -27,8 +27,20 @@ export const createPlaylist = (nom, dureeCible, utilisateurId) =>
 export const deletePlaylist = (id) => api.delete(`/playlists/${id}`)
 export const generatePlaylist = (id, dureeCible) =>
   api.post(`/playlists/${id}/generer?dureeCible=${dureeCible}`)
+export const generatePlaylistByArtists = (id, artistes) =>
+  api.post(`/playlists/${id}/generer-par-artistes`, artistes)
 export const getPlaylistSongs = (id) => api.get(`/playlists/${id}/morceaux`)
 export const replaceSong = (playlistMp3Id, nouveauMp3Id) =>
   api.put(`/playlists/morceaux/${playlistMp3Id}/remplacer?nouveauMp3Id=${nouveauMp3Id}`)
 export const downloadZip = (id) =>
   api.get(`/playlists/${id}/zip`, { responseType: 'blob' })
+
+// ==============================
+// BLACKLIST
+// ==============================
+export const getBlacklist = (playlistId) =>
+  api.get(`/playlists/${playlistId}/blacklist`)
+export const addToBlacklist = (playlistId, type, valeur) =>
+  api.post(`/playlists/${playlistId}/blacklist`, { type, valeur })
+export const removeFromBlacklist = (playlistId, type, valeur) =>
+  api.delete(`/playlists/${playlistId}/blacklist`, { data: { type, valeur } })
