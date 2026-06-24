@@ -17,7 +17,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
+import org.springframework.context.annotation.Profile;
 
+@Profile("api")
 @Service
 @RequiredArgsConstructor
 public class PlaylistService {

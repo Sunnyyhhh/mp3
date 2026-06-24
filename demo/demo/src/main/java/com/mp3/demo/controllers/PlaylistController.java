@@ -12,7 +12,9 @@ import org.springframework.web.bind.annotation.*;
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
+import org.springframework.context.annotation.Profile;
 
+@Profile("api")
 @RestController
 @RequestMapping("/playlists")
 @RequiredArgsConstructor

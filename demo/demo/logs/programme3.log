@@ -1,0 +1,4 @@
+[2026-06-24T09:12:11.337982800] [SENDER] Nouveau message reçu depuis Programme 2
+[2026-06-24T09:12:11.338982700] [SENDER] Envoi vers API : Yzit_FoMijaly.mp3 | artiste=Yzit | titre=FoMijaly
+[2026-06-24T09:12:11.580584200] [SENDER] Envoi réussi : Yzit_FoMijaly.mp3 (HTTP 200)
+[2026-06-24T09:12:11.582325] [SENDER] Fichier supprimé du répertoire source : Yzit_FoMijaly.mp3

@@ -14,7 +14,9 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.LocalDateTime;
 import java.util.List;
+import org.springframework.context.annotation.Profile;
 
+@Profile("api")
 @RestController
 @RequestMapping("/mp3")
 @RequiredArgsConstructor

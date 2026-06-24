@@ -5,6 +5,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import java.util.List;
 
+import org.springframework.context.annotation.Profile;
+
+@Profile("api")
 @Service
 @RequiredArgsConstructor
 public class Mp3Service {
