@@ -20,6 +20,9 @@ public class Playlist {
 
     private Integer dureeCible;
 
+    @Builder.Default
+    private String statut = "BROUILLON";
+
     @ManyToOne
     @JoinColumn(name = "utilisateur_id")
     private Utilisateur utilisateur;

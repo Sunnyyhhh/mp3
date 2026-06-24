@@ -6,6 +6,6 @@ ex si je choisi bob marley et wizkid alors yaura que des chansons de bob marley 
 RESTE A FAIRE : 
 
 mettre dans la partie desktop la blackliste par artiste et genre
-mettre un filtre par genre + artiste quand on cree la playlist
+mettre un filtre par genre + artiste quand on cree la playlist OK
 mettre la possibilite d'ajouter une chanson a la main avant de vrmt generer la playlist
-    cpg si la duree depasse ou ne respecte pas les criteres
+    cpg si la duree depasse ou ne respecte pas les criteres ok

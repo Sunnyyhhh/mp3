@@ -25,22 +25,27 @@ export const getPlaylist = (id) => api.get(`/playlists/${id}`)
 export const createPlaylist = (nom, dureeCible, utilisateurId) =>
   api.post(`/playlists?nom=${nom}&dureeCible=${dureeCible}&utilisateurId=${utilisateurId}`)
 export const deletePlaylist = (id) => api.delete(`/playlists/${id}`)
-export const generatePlaylist = (id, dureeCible) =>
-  api.post(`/playlists/${id}/generer?dureeCible=${dureeCible}`)
-export const generatePlaylistByArtists = (id, artistes) =>
-  api.post(`/playlists/${id}/generer-par-artistes`, artistes)
+
+// Suggestion sans filtre (respecte durée cible)
+export const suggererPlaylist = (id) =>
+  api.post(`/playlists/${id}/suggerer`)
+
+// Suggestion avec filtres artistes + genres (respecte durée cible)
+export const suggererPlaylistParFiltres = (id, artistes, genres) =>
+  api.post(`/playlists/${id}/suggerer-par-filtres`, { artistes, genres })
+
+// Ajouter une chanson manuellement à la suggestion
+export const ajouterMorceau = (id, mp3Id) =>
+  api.post(`/playlists/${id}/ajouter-morceau?mp3Id=${mp3Id}`)
+
+// Supprimer un morceau de la suggestion
+export const supprimerMorceau = (playlistMp3Id) =>
+  api.delete(`/playlists/morceaux/${playlistMp3Id}`)
+
+// Confirmer (verrouiller) la playlist
+export const confirmerPlaylist = (id) =>
+  api.post(`/playlists/${id}/confirmer`)
+
 export const getPlaylistSongs = (id) => api.get(`/playlists/${id}/morceaux`)
-export const replaceSong = (playlistMp3Id, nouveauMp3Id) =>
-  api.put(`/playlists/morceaux/${playlistMp3Id}/remplacer?nouveauMp3Id=${nouveauMp3Id}`)
 export const downloadZip = (id) =>
   api.get(`/playlists/${id}/zip`, { responseType: 'blob' })
-
-// ==============================
-// BLACKLIST
-// ==============================
-export const getBlacklist = (playlistId) =>
-  api.get(`/playlists/${playlistId}/blacklist`)
-export const addToBlacklist = (playlistId, type, valeur) =>
-  api.post(`/playlists/${playlistId}/blacklist`, { type, valeur })
-export const removeFromBlacklist = (playlistId, type, valeur) =>
-  api.delete(`/playlists/${playlistId}/blacklist`, { data: { type, valeur } })

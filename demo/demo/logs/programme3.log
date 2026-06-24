@@ -42,3 +42,47 @@
 [2026-06-24T11:08:52.420527] [SENDER] Envoi vers API : Yzit_FoMijaly.mp3 | artiste=Yzit | titre=FoMijaly
 [2026-06-24T11:08:52.518837] [SENDER] Envoi réussi : Yzit_FoMijaly.mp3 (HTTP 200)
 [2026-06-24T11:08:52.522836900] [SENDER] Fichier supprimé du répertoire source : Yzit_FoMijaly.mp3
+[2026-06-24T21:42:30.485677100] [SENDER] Nouveau message reçu depuis Programme 2
+[2026-06-24T21:42:30.487250] [SENDER] Envoi vers API : Ankino.mp3 | artiste=Bodo | titre=Ankino
+[2026-06-24T21:42:30.689628700] [SENDER] Envoi réussi : Ankino.mp3 (HTTP 200)
+[2026-06-24T21:42:30.689628700] [SENDER] Fichier supprimé du répertoire source : Ankino.mp3
+[2026-06-24T21:42:30.694896900] [SENDER] Nouveau message reçu depuis Programme 2
+[2026-06-24T21:42:30.695419300] [SENDER] Envoi vers API : Antanambao.MP3 | artiste=Bekoto Augustin | titre=Antanambao
+[2026-06-24T21:42:30.736800800] [SENDER] Envoi réussi : Antanambao.MP3 (HTTP 200)
+[2026-06-24T21:42:30.736800800] [SENDER] Fichier supprimé du répertoire source : Antanambao.MP3
+[2026-06-24T21:42:30.742716400] [SENDER] Nouveau message reçu depuis Programme 2
+[2026-06-24T21:42:30.743250900] [SENDER] Envoi vers API : IAO.MP3 | artiste=ROSSY | titre=IAO
+[2026-06-24T21:42:30.784961400] [SENDER] Envoi réussi : IAO.MP3 (HTTP 200)
+[2026-06-24T21:42:30.787515300] [SENDER] Fichier supprimé du répertoire source : IAO.MP3
+[2026-06-24T21:42:30.788550300] [SENDER] Nouveau message reçu depuis Programme 2
+[2026-06-24T21:42:30.789057300] [SENDER] Envoi vers API : OliviaRodrigo_Less.mp3 | artiste=Olivia Rodrigo | titre=OliviaRodrigo_Less.mp3
+[2026-06-24T21:42:30.826918500] [SENDER] Envoi réussi : OliviaRodrigo_Less.mp3 (HTTP 200)
+[2026-06-24T21:42:30.832779100] [SENDER] Fichier supprimé du répertoire source : OliviaRodrigo_Less.mp3
+[2026-06-24T21:42:30.833924700] [SENDER] Nouveau message reçu depuis Programme 2
+[2026-06-24T21:42:30.835117500] [SENDER] Envoi vers API : OliviaRodrigo_Purple.mp3 | artiste=Olivia Rodrigo | titre=OliviaRodrigo_Purple.mp3
+[2026-06-24T21:42:30.876854500] [SENDER] Envoi réussi : OliviaRodrigo_Purple.mp3 (HTTP 200)
+[2026-06-24T21:42:30.878767900] [SENDER] Fichier supprimé du répertoire source : OliviaRodrigo_Purple.mp3
+[2026-06-24T21:42:30.880616900] [SENDER] Nouveau message reçu depuis Programme 2
+[2026-06-24T21:42:30.881122600] [SENDER] Envoi vers API : OliviaRodrigo_TheCure_Pop_Youseemprettysadforagirlsoinlove.mp3 | artiste=Olivia Rodrigo | titre=OliviaRodrigo_TheCure_Pop_Youseemprettysadforagirlsoinlove.mp3
+[2026-06-24T21:42:30.929809300] [SENDER] Envoi réussi : OliviaRodrigo_TheCure_Pop_Youseemprettysadforagirlsoinlove.mp3 (HTTP 200)
+[2026-06-24T21:42:30.931782600] [SENDER] Fichier supprimé du répertoire source : OliviaRodrigo_TheCure_Pop_Youseemprettysadforagirlsoinlove.mp3
+[2026-06-24T21:42:30.933297700] [SENDER] Nouveau message reçu depuis Programme 2
+[2026-06-24T21:42:30.933834400] [SENDER] Envoi vers API : Poopy_Tahakizay.mp3 | artiste=Poopy | titre=Poopy_Tahakizay.mp3
+[2026-06-24T21:42:30.990065600] [SENDER] Envoi réussi : Poopy_Tahakizay.mp3 (HTTP 200)
+[2026-06-24T21:42:30.991242600] [SENDER] Fichier supprimé du répertoire source : Poopy_Tahakizay.mp3
+[2026-06-24T21:42:30.993711900] [SENDER] Nouveau message reçu depuis Programme 2
+[2026-06-24T21:42:30.993711900] [SENDER] Envoi vers API : RijaRamanantoanina_MiandryFoana.mp3 | artiste=Rija Ramanantoanina | titre=RijaRamanantoanina_MiandryFoana.mp3
+[2026-06-24T21:42:31.030664] [SENDER] Envoi réussi : RijaRamanantoanina_MiandryFoana.mp3 (HTTP 200)
+[2026-06-24T21:42:31.033841200] [SENDER] Fichier supprimé du répertoire source : RijaRamanantoanina_MiandryFoana.mp3
+[2026-06-24T21:42:31.034626400] [SENDER] Nouveau message reçu depuis Programme 2
+[2026-06-24T21:42:31.035132400] [SENDER] Envoi vers API : ShawnMendes_Iknowwhatyoudidlastsummer.mp3 | artiste=Shawn Mendes | titre=ShawnMendes_Iknowwhatyoudidlastsummer.mp3
+[2026-06-24T21:42:31.071664300] [SENDER] Envoi réussi : ShawnMendes_Iknowwhatyoudidlastsummer.mp3 (HTTP 200)
+[2026-06-24T21:42:31.072985100] [SENDER] Fichier supprimé du répertoire source : ShawnMendes_Iknowwhatyoudidlastsummer.mp3
+[2026-06-24T21:42:31.074779400] [SENDER] Nouveau message reçu depuis Programme 2
+[2026-06-24T21:42:31.074779400] [SENDER] Envoi vers API : Wizkid_Joro.mp3 | artiste=Wizkid | titre=Wizkid_Joro.mp3
+[2026-06-24T21:42:31.112896600] [SENDER] Envoi réussi : Wizkid_Joro.mp3 (HTTP 200)
+[2026-06-24T21:42:31.115008300] [SENDER] Fichier supprimé du répertoire source : Wizkid_Joro.mp3
+[2026-06-24T21:42:31.116008800] [SENDER] Nouveau message reçu depuis Programme 2
+[2026-06-24T21:42:31.116532900] [SENDER] Envoi vers API : Yzit_FoMijaly.mp3 | artiste=Yzit | titre=Yzit_FoMijaly.mp3
+[2026-06-24T21:42:31.152795900] [SENDER] Envoi réussi : Yzit_FoMijaly.mp3 (HTTP 200)
+[2026-06-24T21:42:31.154764500] [SENDER] Fichier supprimé du répertoire source : Yzit_FoMijaly.mp3

@@ -23,141 +23,165 @@
             Durée totale : {{ formatDuree(totalDuree) }}
           </p>
         </div>
-        <button class="btn-zip" @click="downloadZip">⬇ Télécharger ZIP</button>
-      </div>
-
-      <!-- BLACKLIST -->
-      <div class="blacklist-card">
-        <div class="blacklist-header">
-          <span class="blacklist-title">🚫 Blacklist</span>
-          <span class="blacklist-hint">Les artistes et genres blacklistés seront exclus de toute génération</span>
-        </div>
-
-        <div class="blacklist-cols">
-          <!-- Artistes blacklistés -->
-          <div class="bl-col">
-            <div class="bl-col-label">Artistes exclus</div>
-            <div class="bl-chips">
-              <span
-                v-for="a in availableArtists"
-                :key="'a-' + a"
-                class="bl-chip"
-                :class="{ blocked: isBlacklisted('ARTISTE', a) }"
-                @click="toggleBlacklist('ARTISTE', a)"
-              >
-                {{ isBlacklisted('ARTISTE', a) ? '🚫' : '+' }} {{ a }}
-              </span>
-              <span v-if="availableArtists.length === 0" class="bl-empty">Aucun artiste</span>
-            </div>
-          </div>
-
-          <!-- Genres blacklistés -->
-          <div class="bl-col">
-            <div class="bl-col-label">Genres exclus</div>
-            <div class="bl-chips">
-              <span
-                v-for="g in availableGenres"
-                :key="'g-' + g"
-                class="bl-chip"
-                :class="{ blocked: isBlacklisted('GENRE', g) }"
-                @click="toggleBlacklist('GENRE', g)"
-              >
-                {{ isBlacklisted('GENRE', g) ? '🚫' : '+' }} {{ g }}
-              </span>
-              <span v-if="availableGenres.length === 0" class="bl-empty">Aucun genre</span>
-            </div>
-          </div>
-        </div>
-
-        <!-- Résumé blacklist active -->
-        <div v-if="blacklist.length > 0" class="bl-summary">
-          <span v-for="entry in blacklist" :key="entry.id" class="bl-tag">
-            🚫 {{ entry.valeur }}
-            <span class="bl-tag-type">{{ entry.type === 'ARTISTE' ? 'artiste' : 'genre' }}</span>
-            <button class="bl-tag-remove" @click="toggleBlacklist(entry.type, entry.valeur)">✕</button>
+        <div class="header-right">
+          <span class="statut-badge" :class="playlist?.statut === 'CONFIRMEE' ? 'confirmee' : 'brouillon'">
+            {{ playlist?.statut === 'CONFIRMEE' ? '✅ Confirmée' : '✏️ Brouillon' }}
           </span>
+          <button class="btn-zip" @click="downloadZip">⬇ ZIP</button>
         </div>
       </div>
 
-      <!-- ACTIONS -->
-      <div class="actions-card">
-        <div class="artist-section">
-          <div class="artist-section-header">
-            <span class="section-label">🎤 Filtrer par artistes</span>
-            <button v-if="selectedArtists.length > 0" class="btn-clear" @click="selectedArtists = []">
-              ✕ Effacer
+      <!-- ========== MODE BROUILLON ========== -->
+      <template v-if="playlist?.statut === 'BROUILLON'">
+
+        <!-- ETAPE 1 : Filtres -->
+        <div class="etape-card">
+          <div class="etape-title">① Choisir les filtres <span class="etape-hint">(optionnel)</span></div>
+
+          <div class="filtres-cols">
+            <!-- Artistes -->
+            <div class="filtre-col">
+              <div class="filtre-label">🎤 Artistes</div>
+              <label v-for="artiste in availableArtists" :key="artiste" class="checkbox-row">
+                <input type="checkbox" :value="artiste" v-model="selectedArtists" />
+                <span>{{ artiste }}</span>
+              </label>
+              <div v-if="availableArtists.length === 0" class="no-items">Aucun artiste</div>
+            </div>
+
+            <!-- Genres -->
+            <div class="filtre-col">
+              <div class="filtre-label">🎵 Genres</div>
+              <label v-for="genre in availableGenres" :key="genre" class="checkbox-row">
+                <input type="checkbox" :value="genre" v-model="selectedGenres" />
+                <span>{{ genre }}</span>
+              </label>
+              <div v-if="availableGenres.length === 0" class="no-items">Aucun genre</div>
+            </div>
+          </div>
+
+          <!-- Résumé filtres -->
+          <div v-if="selectedArtists.length > 0 || selectedGenres.length > 0" class="filtre-resume">
+            <span v-if="selectedArtists.length > 0">🎤 {{ selectedArtists.join(', ') }}</span>
+            <span v-if="selectedArtists.length > 0 && selectedGenres.length > 0" class="et">ET</span>
+            <span v-if="selectedGenres.length > 0">🎵 {{ selectedGenres.join(', ') }}</span>
+          </div>
+
+          <div class="etape-actions">
+            <button class="btn-suggerer" @click="suggerer">
+              🔍 Suggérer une playlist
+            </button>
+            <button class="btn-clear-filtres" @click="selectedArtists = []; selectedGenres = []"
+              v-if="selectedArtists.length > 0 || selectedGenres.length > 0">
+              ✕ Effacer filtres
             </button>
           </div>
-          <div v-if="availableArtists.length === 0" class="no-artists">Aucun artiste disponible</div>
-          <div v-else class="artist-chips">
-            <span
-              v-for="artiste in availableArtists"
-              :key="artiste"
-              class="chip"
-              :class="{
-                selected: selectedArtists.includes(artiste),
-                disabled: isBlacklisted('ARTISTE', artiste)
-              }"
-              @click="!isBlacklisted('ARTISTE', artiste) && toggleArtist(artiste)"
-            >
-              {{ isBlacklisted('ARTISTE', artiste) ? '🚫' : '' }} {{ artiste }}
-            </span>
+        </div>
+
+        <!-- ETAPE 2 : Suggestion + ajout manuel -->
+        <div v-if="morceaux.length > 0" class="etape-card">
+          <div class="etape-title">② Modifier la suggestion <span class="etape-hint">(ajouter / retirer des chansons)</span></div>
+
+          <!-- Lecteur -->
+          <div v-if="currentMorceau" class="player">
+            <div class="player-info">
+              <div class="player-icon">🎵</div>
+              <div>
+                <div class="player-title">{{ currentMorceau.mp3.titre }}</div>
+                <div class="player-artist">{{ currentMorceau.mp3.artiste }}</div>
+              </div>
+            </div>
+            <audio :src="currentUrl" controls autoplay class="audio-ctrl" @ended="playNext"></audio>
+          </div>
+
+          <!-- Liste des morceaux suggérés -->
+          <div class="morceaux-list">
+            <div v-for="m in morceaux" :key="m.id" class="morceau-card"
+              :class="{ active: currentMorceau?.id === m.id }">
+              <div class="m-ordre">{{ m.ordre }}</div>
+              <div class="m-icon" @click="play(m)">
+                {{ currentMorceau?.id === m.id ? '⏸' : '▶' }}
+              </div>
+              <div class="m-info" @click="play(m)">
+                <div class="m-title">{{ m.mp3.titre }}</div>
+                <div class="m-meta">{{ m.mp3.artiste }} • {{ m.mp3.genre || '—' }} • {{ formatDuree(m.mp3.duree) }}</div>
+              </div>
+              <button class="btn-retirer" @click="retirer(m.id)" title="Retirer de la playlist">✕</button>
+            </div>
+          </div>
+
+          <!-- Ajouter une chanson manuellement -->
+          <div class="ajouter-section">
+            <div class="ajouter-label">➕ Ajouter une chanson manuellement</div>
+            <div class="ajouter-row">
+              <select v-model="songToAdd" class="select-song">
+                <option value="" disabled>Choisir une chanson...</option>
+                <option v-for="s in songsNotInPlaylist" :key="s.id" :value="s.id">
+                  {{ s.artiste }} — {{ s.titre }} ({{ formatDuree(s.duree) }})
+                </option>
+              </select>
+              <button class="btn-ajouter" @click="ajouter" :disabled="!songToAdd">
+                Ajouter
+              </button>
+            </div>
           </div>
         </div>
 
-        <div class="generate-btns">
-          <button class="btn-generate btn-auto" @click="generate">
-            🔀 Générer automatiquement
+        <!-- ETAPE 3 : Confirmer -->
+        <div v-if="morceaux.length > 0" class="etape-card confirmer-card">
+          <div class="etape-title">③ Confirmer la playlist</div>
+          <p class="confirmer-hint">
+            Une fois confirmée, la playlist ne pourra plus être modifiée.<br>
+            Tu pourras toujours l'écouter, la télécharger en ZIP ou la supprimer.
+          </p>
+          <div class="confirmer-recap">
+            <span>{{ morceaux.length }} chansons</span>
+            <span>•</span>
+            <span>{{ formatDuree(totalDuree) }} au total</span>
+          </div>
+          <button class="btn-confirmer" @click="confirmer">
+            ✅ Confirmer la playlist
           </button>
-          <button
-            class="btn-generate btn-artists"
-            @click="generateByArtists"
-            :disabled="selectedArtists.length === 0"
-          >
-            🎤 Générer par artistes
-            <span v-if="selectedArtists.length > 0" class="badge">{{ selectedArtists.length }}</span>
-          </button>
-        </div>
-      </div>
-
-      <!-- LECTEUR -->
-      <div v-if="currentMorceau" class="player">
-        <div class="player-info">
-          <div class="player-icon">🎵</div>
-          <div>
-            <div class="player-title">{{ currentMorceau.mp3.titre }}</div>
-            <div class="player-artist">{{ currentMorceau.mp3.artiste }}</div>
-          </div>
-        </div>
-        <audio :src="currentUrl" controls autoplay class="audio-ctrl" @ended="playNext"></audio>
-      </div>
-
-      <!-- LISTE MORCEAUX -->
-      <div class="morceaux-list">
-        <div
-          v-for="(m) in morceaux"
-          :key="m.id"
-          class="morceau-card"
-          :class="{ active: currentMorceau?.id === m.id }"
-        >
-          <div class="m-ordre">{{ m.ordre }}</div>
-          <div class="m-icon" @click="play(m)">
-            {{ currentMorceau?.id === m.id ? '⏸' : '▶' }}
-          </div>
-          <div class="m-info" @click="play(m)">
-            <div class="m-title">{{ m.mp3.titre }}</div>
-            <div class="m-meta">{{ m.mp3.artiste }} • {{ formatDuree(m.mp3.duree) }}</div>
-          </div>
-          <select class="select-replace" @change="replace(m.id, $event.target.value)" :value="m.mp3.id">
-            <option v-for="s in allSongs" :key="s.id" :value="s.id">{{ s.artiste }} - {{ s.titre }}</option>
-          </select>
         </div>
 
-        <div v-if="morceaux.length === 0" class="empty">
-          Sélectionne des artistes puis clique sur "Générer par artistes",<br>
-          ou clique sur "Générer automatiquement"
+      </template>
+
+      <!-- ========== MODE CONFIRMEE ========== -->
+      <template v-else>
+        <div class="confirmee-banner">
+          ✅ Cette playlist est confirmée — elle ne peut plus être modifiée.
         </div>
-      </div>
+
+        <!-- Lecteur -->
+        <div v-if="currentMorceau" class="player">
+          <div class="player-info">
+            <div class="player-icon">🎵</div>
+            <div>
+              <div class="player-title">{{ currentMorceau.mp3.titre }}</div>
+              <div class="player-artist">{{ currentMorceau.mp3.artiste }}</div>
+            </div>
+          </div>
+          <audio :src="currentUrl" controls autoplay class="audio-ctrl" @ended="playNext"></audio>
+        </div>
+
+        <!-- Liste morceaux (lecture seule) -->
+        <div class="morceaux-list">
+          <div v-for="m in morceaux" :key="m.id" class="morceau-card"
+            :class="{ active: currentMorceau?.id === m.id }">
+            <div class="m-ordre">{{ m.ordre }}</div>
+            <div class="m-icon" @click="play(m)">
+              {{ currentMorceau?.id === m.id ? '⏸' : '▶' }}
+            </div>
+            <div class="m-info" @click="play(m)">
+              <div class="m-title">{{ m.mp3.titre }}</div>
+              <div class="m-meta">{{ m.mp3.artiste }} • {{ m.mp3.genre || '—' }} • {{ formatDuree(m.mp3.duree) }}</div>
+            </div>
+          </div>
+        </div>
+
+        <button class="btn-supprimer" @click="supprimer">🗑 Supprimer cette playlist</button>
+      </template>
+
     </div>
   </div>
 </template>
@@ -167,9 +191,11 @@ import { ref, onMounted, computed } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { useAuthStore } from '../stores/auth'
 import {
-  getPlaylist, getPlaylistSongs, generatePlaylist, generatePlaylistByArtists,
-  replaceSong, getSongs, streamUrl, downloadZip as downloadZipApi,
-  getBlacklist, addToBlacklist, removeFromBlacklist
+  getPlaylist, getPlaylistSongs, getSongs, streamUrl,
+  suggererPlaylist, suggererPlaylistParFiltres,
+  ajouterMorceau, supprimerMorceau,
+  confirmerPlaylist, deletePlaylist,
+  downloadZip as downloadZipApi
 } from '../services/api'
 
 const route = useRoute()
@@ -183,43 +209,61 @@ const allSongs = ref([])
 const currentMorceau = ref(null)
 const currentUrl = ref('')
 const selectedArtists = ref([])
-const blacklist = ref([])
+const selectedGenres = ref([])
+const songToAdd = ref('')
 
 const totalDuree = computed(() =>
   morceaux.value.reduce((acc, m) => acc + (m.mp3.duree || 0), 0)
 )
+
 const availableArtists = computed(() =>
   [...new Set(allSongs.value.map(s => s.artiste).filter(Boolean))].sort()
 )
+
 const availableGenres = computed(() =>
   [...new Set(allSongs.value.map(s => s.genre).filter(Boolean))].sort()
 )
 
-function isBlacklisted(type, valeur) {
-  return blacklist.value.some(
-    b => b.type === type && b.valeur.toLowerCase() === valeur.toLowerCase()
-  )
-}
+// Chansons pas encore dans la playlist
+const songsNotInPlaylist = computed(() => {
+  const ids = morceaux.value.map(m => m.mp3.id)
+  return allSongs.value.filter(s => !ids.includes(s.id))
+})
 
-async function toggleBlacklist(type, valeur) {
-  if (isBlacklisted(type, valeur)) {
-    await removeFromBlacklist(id, type, valeur)
+async function suggerer() {
+  let res
+  if (selectedArtists.value.length === 0 && selectedGenres.value.length === 0) {
+    res = await suggererPlaylist(id)
   } else {
-    await addToBlacklist(id, type, valeur)
-    if (type === 'ARTISTE') {
-      selectedArtists.value = selectedArtists.value.filter(
-        a => a.toLowerCase() !== valeur.toLowerCase()
-      )
-    }
+    res = await suggererPlaylistParFiltres(id, selectedArtists.value, selectedGenres.value)
   }
-  const res = await getBlacklist(id)
-  blacklist.value = res.data
+  morceaux.value = res.data
 }
 
-function toggleArtist(artiste) {
-  const idx = selectedArtists.value.indexOf(artiste)
-  if (idx === -1) selectedArtists.value.push(artiste)
-  else selectedArtists.value.splice(idx, 1)
+async function ajouter() {
+  if (!songToAdd.value) return
+  await ajouterMorceau(id, songToAdd.value)
+  songToAdd.value = ''
+  const res = await getPlaylistSongs(id)
+  morceaux.value = res.data
+}
+
+async function retirer(playlistMp3Id) {
+  await supprimerMorceau(playlistMp3Id)
+  morceaux.value = morceaux.value.filter(m => m.id !== playlistMp3Id)
+  if (currentMorceau.value?.id === playlistMp3Id) currentMorceau.value = null
+}
+
+async function confirmer() {
+  if (!confirm('Confirmer la playlist ? Elle ne sera plus modifiable.')) return
+  const res = await confirmerPlaylist(id)
+  playlist.value = res.data
+}
+
+async function supprimer() {
+  if (!confirm('Supprimer définitivement cette playlist ?')) return
+  await deletePlaylist(id)
+  router.push('/playlists')
 }
 
 function play(m) {
@@ -230,22 +274,6 @@ function play(m) {
 function playNext() {
   const idx = morceaux.value.findIndex(m => m.id === currentMorceau.value?.id)
   if (idx < morceaux.value.length - 1) play(morceaux.value[idx + 1])
-}
-
-async function generate() {
-  const res = await generatePlaylist(id, playlist.value.dureeCible)
-  morceaux.value = res.data
-}
-
-async function generateByArtists() {
-  const res = await generatePlaylistByArtists(id, selectedArtists.value)
-  morceaux.value = res.data
-}
-
-async function replace(playlistMp3Id, nouveauMp3Id) {
-  await replaceSong(playlistMp3Id, nouveauMp3Id)
-  const res = await getPlaylistSongs(id)
-  morceaux.value = res.data
 }
 
 async function downloadZip() {
@@ -271,13 +299,12 @@ function logout() {
 }
 
 onMounted(async () => {
-  const [plRes, mRes, sRes, blRes] = await Promise.all([
-    getPlaylist(id), getPlaylistSongs(id), getSongs(), getBlacklist(id)
+  const [plRes, mRes, sRes] = await Promise.all([
+    getPlaylist(id), getPlaylistSongs(id), getSongs()
   ])
   playlist.value = plRes.data
   morceaux.value = mRes.data
   allSongs.value = sRes.data
-  blacklist.value = blRes.data
 })
 </script>
 
@@ -298,117 +325,150 @@ onMounted(async () => {
   color: #ff6b6b; border-radius: 6px; cursor: pointer; font-size: 13px;
 }
 .nav-user button:hover { background: #ff6b6b; color: white; }
+
 .content { padding: 32px; max-width: 900px; margin: 0 auto; }
-.header { display: flex; align-items: center; gap: 20px; margin-bottom: 24px; flex-wrap: wrap; }
+
+.header { display: flex; align-items: center; gap: 16px; margin-bottom: 24px; flex-wrap: wrap; }
 .btn-back {
   background: transparent; border: 1px solid #2a2a4e; color: #aaa;
   padding: 8px 16px; border-radius: 8px; cursor: pointer; font-size: 14px; white-space: nowrap;
 }
 .btn-back:hover { border-color: #6c63ff; color: #6c63ff; }
-h2 { font-size: 24px; font-weight: 700; margin: 0; }
+h2 { font-size: 22px; font-weight: 700; margin: 0; }
 .subtitle { font-size: 13px; color: #888; margin-top: 4px; }
+.header-right { margin-left: auto; display: flex; align-items: center; gap: 12px; }
+
+.statut-badge {
+  padding: 5px 14px; border-radius: 20px; font-size: 12px; font-weight: 600;
+}
+.statut-badge.brouillon { background: #2a2a00; border: 1px solid #aaaa00; color: #eeee00; }
+.statut-badge.confirmee { background: #002a00; border: 1px solid #00aa00; color: #00ee00; }
+
 .btn-zip {
-  margin-left: auto; padding: 10px 20px; background: #1a1a2e;
-  border: 1px solid #6c63ff; color: #6c63ff; border-radius: 8px;
-  cursor: pointer; font-size: 14px; font-weight: 600; white-space: nowrap;
+  padding: 8px 16px; background: #1a1a2e; border: 1px solid #6c63ff;
+  color: #6c63ff; border-radius: 8px; cursor: pointer; font-size: 13px; font-weight: 600;
 }
 .btn-zip:hover { background: #6c63ff; color: white; }
 
-/* BLACKLIST */
-.blacklist-card {
-  background: #1a1a2e; border: 1px solid #ff6b6b33;
-  border-radius: 12px; padding: 20px 24px; margin-bottom: 20px;
-}
-.blacklist-header { display: flex; align-items: center; gap: 12px; margin-bottom: 16px; flex-wrap: wrap; }
-.blacklist-title { font-size: 15px; font-weight: 700; color: #ff6b6b; }
-.blacklist-hint { font-size: 12px; color: #666; }
-.blacklist-cols { display: flex; gap: 32px; flex-wrap: wrap; margin-bottom: 16px; }
-.bl-col { flex: 1; min-width: 200px; }
-.bl-col-label { font-size: 12px; color: #aaa; margin-bottom: 10px; text-transform: uppercase; letter-spacing: 0.05em; }
-.bl-chips { display: flex; flex-wrap: wrap; gap: 8px; }
-.bl-chip {
-  padding: 5px 12px; border-radius: 20px; font-size: 12px; cursor: pointer;
-  border: 1px solid #2a2a4e; color: #aaa; background: #0f0f1a;
-  transition: all 0.2s; user-select: none;
-}
-.bl-chip:hover { border-color: #ff6b6b; color: #ff6b6b; }
-.bl-chip.blocked { background: #ff6b6b22; border-color: #ff6b6b; color: #ff6b6b; }
-.bl-empty { font-size: 12px; color: #444; }
-.bl-summary { display: flex; flex-wrap: wrap; gap: 8px; padding-top: 12px; border-top: 1px solid #2a2a4e; }
-.bl-tag {
-  display: flex; align-items: center; gap: 6px;
-  background: #ff6b6b22; border: 1px solid #ff6b6b55; border-radius: 20px;
-  padding: 4px 10px; font-size: 12px; color: #ff9999;
-}
-.bl-tag-type { color: #ff6b6b88; font-size: 10px; }
-.bl-tag-remove {
-  background: transparent; border: none; color: #ff6b6b; cursor: pointer; font-size: 11px; padding: 0;
-}
-.bl-tag-remove:hover { color: white; }
-
-/* ACTIONS */
-.actions-card {
+/* ETAPES */
+.etape-card {
   background: #1a1a2e; border: 1px solid #2a2a4e;
-  border-radius: 12px; padding: 20px 24px; margin-bottom: 24px;
+  border-radius: 12px; padding: 24px; margin-bottom: 20px;
 }
-.artist-section { margin-bottom: 20px; }
-.artist-section-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; }
-.section-label { font-size: 13px; color: #aaa; font-weight: 500; }
-.btn-clear { background: transparent; border: none; color: #ff6b6b; font-size: 12px; cursor: pointer; padding: 4px 8px; }
-.btn-clear:hover { text-decoration: underline; }
-.no-artists { color: #555; font-size: 13px; }
-.artist-chips { display: flex; flex-wrap: wrap; gap: 8px; }
-.chip {
-  padding: 6px 14px; border-radius: 20px; font-size: 13px; cursor: pointer;
-  border: 1px solid #2a2a4e; color: #aaa; background: #0f0f1a; transition: all 0.2s; user-select: none;
+.etape-title {
+  font-size: 15px; font-weight: 700; color: #6c63ff; margin-bottom: 18px;
 }
-.chip:hover:not(.disabled) { border-color: #6c63ff; color: #6c63ff; }
-.chip.selected { background: #6c63ff; color: white; border-color: #6c63ff; }
-.chip.disabled { opacity: 0.4; cursor: not-allowed; border-color: #ff6b6b44; color: #ff6b6b88; }
-.generate-btns { display: flex; gap: 12px; flex-wrap: wrap; }
-.btn-generate {
-  padding: 10px 22px; color: white; border: none; border-radius: 8px;
-  font-size: 14px; font-weight: 600; cursor: pointer; display: flex; align-items: center; gap: 8px; transition: background 0.2s;
-}
-.btn-auto { background: #6c63ff; }
-.btn-auto:hover { background: #5a52d5; }
-.btn-artists { background: #2a2a4e; }
-.btn-artists:hover:not(:disabled) { background: #3d3d6e; }
-.btn-artists:disabled { opacity: 0.4; cursor: not-allowed; }
-.badge { background: #6c63ff; color: white; font-size: 11px; padding: 2px 8px; border-radius: 20px; font-weight: 700; }
+.etape-hint { font-size: 12px; color: #555; font-weight: 400; margin-left: 8px; }
 
-/* LECTEUR */
-.player {
-  background: #1a1a2e; border: 1px solid #6c63ff; border-radius: 12px;
-  padding: 20px 24px; margin-bottom: 24px; display: flex; align-items: center; gap: 24px; flex-wrap: wrap;
+/* Filtres checkboxes */
+.filtres-cols { display: flex; gap: 40px; flex-wrap: wrap; margin-bottom: 16px; }
+.filtre-col { flex: 1; min-width: 180px; }
+.filtre-label { font-size: 12px; color: #aaa; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 10px; }
+
+.checkbox-row {
+  display: flex; align-items: center; gap: 10px;
+  padding: 7px 0; cursor: pointer; font-size: 14px; color: #ccc;
+  border-bottom: 1px solid #1f1f3a; transition: color 0.15s;
 }
-.player-info { display: flex; align-items: center; gap: 16px; flex: 1; }
-.player-icon { font-size: 32px; }
-.player-title { font-size: 16px; font-weight: 600; }
-.player-artist { font-size: 13px; color: #aaa; margin-top: 4px; }
+.checkbox-row:hover { color: #fff; }
+.checkbox-row input[type="checkbox"] {
+  width: 16px; height: 16px; accent-color: #6c63ff; cursor: pointer;
+}
+
+.no-items { color: #555; font-size: 13px; }
+
+.filtre-resume {
+  display: flex; align-items: center; gap: 8px; flex-wrap: wrap;
+  font-size: 13px; color: #aaa; padding: 10px 12px;
+  background: #0f0f1a; border-radius: 8px; margin-bottom: 16px;
+}
+.et { color: #6c63ff; font-weight: 700; font-size: 11px; padding: 2px 6px; background: #6c63ff22; border-radius: 4px; }
+
+.etape-actions { display: flex; gap: 12px; align-items: center; flex-wrap: wrap; }
+.btn-suggerer {
+  padding: 10px 24px; background: #6c63ff; color: white; border: none;
+  border-radius: 8px; font-size: 14px; font-weight: 600; cursor: pointer;
+}
+.btn-suggerer:hover { background: #5a52d5; }
+.btn-clear-filtres {
+  background: transparent; border: none; color: #ff6b6b; font-size: 13px; cursor: pointer;
+}
+.btn-clear-filtres:hover { text-decoration: underline; }
+
+/* Ajouter manuellement */
+.ajouter-section { margin-top: 20px; padding-top: 16px; border-top: 1px solid #2a2a4e; }
+.ajouter-label { font-size: 13px; color: #aaa; font-weight: 600; margin-bottom: 10px; }
+.ajouter-row { display: flex; gap: 10px; flex-wrap: wrap; }
+.select-song {
+  flex: 1; min-width: 200px; background: #0f0f1a; border: 1px solid #2a2a4e;
+  color: #fff; padding: 10px 14px; border-radius: 8px; font-size: 14px; outline: none;
+}
+.select-song:focus { border-color: #6c63ff; }
+.btn-ajouter {
+  padding: 10px 20px; background: #6c63ff; color: white; border: none;
+  border-radius: 8px; font-size: 14px; font-weight: 600; cursor: pointer; white-space: nowrap;
+}
+.btn-ajouter:hover:not(:disabled) { background: #5a52d5; }
+.btn-ajouter:disabled { opacity: 0.4; cursor: not-allowed; }
+
+/* Confirmer */
+.confirmer-card { border-color: #6c63ff55; }
+.confirmer-hint { font-size: 13px; color: #888; line-height: 1.7; margin-bottom: 16px; }
+.confirmer-recap {
+  display: flex; gap: 12px; align-items: center;
+  font-size: 14px; color: #ccc; margin-bottom: 20px;
+}
+.btn-confirmer {
+  padding: 12px 32px; background: #00aa44; color: white; border: none;
+  border-radius: 8px; font-size: 15px; font-weight: 700; cursor: pointer;
+}
+.btn-confirmer:hover { background: #00cc55; }
+
+/* Confirmée */
+.confirmee-banner {
+  background: #002a00; border: 1px solid #00aa00; color: #00ee00;
+  padding: 14px 20px; border-radius: 10px; font-size: 14px;
+  font-weight: 600; margin-bottom: 24px;
+}
+
+/* Lecteur */
+.player {
+  background: #0f0f1a; border: 1px solid #6c63ff; border-radius: 12px;
+  padding: 16px 20px; margin-bottom: 16px; display: flex; align-items: center; gap: 20px; flex-wrap: wrap;
+}
+.player-info { display: flex; align-items: center; gap: 14px; flex: 1; }
+.player-icon { font-size: 28px; }
+.player-title { font-size: 15px; font-weight: 600; }
+.player-artist { font-size: 12px; color: #aaa; margin-top: 3px; }
 .audio-ctrl { flex: 2; min-width: 200px; }
 
-/* MORCEAUX */
-.morceaux-list { display: flex; flex-direction: column; gap: 8px; }
+/* Morceaux */
+.morceaux-list { display: flex; flex-direction: column; gap: 6px; margin-bottom: 8px; }
 .morceau-card {
-  display: flex; align-items: center; gap: 12px;
-  background: #1a1a2e; border: 1px solid #2a2a4e; border-radius: 10px;
-  padding: 12px 16px; transition: all 0.2s;
+  display: flex; align-items: center; gap: 10px;
+  background: #0f0f1a; border: 1px solid #2a2a4e; border-radius: 8px;
+  padding: 10px 14px; transition: all 0.2s;
 }
 .morceau-card:hover { border-color: #6c63ff; }
-.morceau-card.active { border-color: #6c63ff; background: #1f1f3a; }
-.m-ordre { width: 24px; text-align: center; color: #555; font-size: 13px; }
+.morceau-card.active { border-color: #6c63ff; background: #1a1a3a; }
+.m-ordre { width: 22px; text-align: center; color: #555; font-size: 12px; }
 .m-icon {
-  width: 34px; height: 34px; background: #6c63ff; border-radius: 50%;
-  display: flex; align-items: center; justify-content: center; font-size: 13px; cursor: pointer; flex-shrink: 0;
+  width: 30px; height: 30px; background: #6c63ff; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center; font-size: 12px; cursor: pointer; flex-shrink: 0;
 }
 .m-info { flex: 1; cursor: pointer; }
 .m-title { font-size: 14px; font-weight: 500; }
-.m-meta { font-size: 12px; color: #888; margin-top: 3px; }
-.select-replace {
-  background: #0f0f1a; border: 1px solid #2a2a4e; color: #aaa;
-  padding: 6px 10px; border-radius: 6px; font-size: 12px; cursor: pointer; max-width: 200px;
+.m-meta { font-size: 11px; color: #888; margin-top: 2px; }
+.btn-retirer {
+  background: transparent; border: none; color: #ff6b6b; cursor: pointer;
+  font-size: 14px; padding: 4px 8px; opacity: 0.6; transition: opacity 0.2s;
 }
-.select-replace:focus { border-color: #6c63ff; outline: none; }
-.empty { text-align: center; color: #555; padding: 48px; font-size: 15px; line-height: 1.8; }
+.btn-retirer:hover { opacity: 1; }
+
+.btn-supprimer {
+  margin-top: 24px; padding: 10px 24px; background: transparent;
+  border: 1px solid #ff6b6b; color: #ff6b6b; border-radius: 8px;
+  cursor: pointer; font-size: 14px;
+}
+.btn-supprimer:hover { background: #ff6b6b; color: white; }
 </style>
