@@ -1,16 +1,11 @@
 package com.mp3.demo.services;
 
-import com.mp3.demo.entities.Mp3;
-import com.mp3.demo.entities.Playlist;
-import com.mp3.demo.entities.PlaylistMp3;
-import com.mp3.demo.entities.Utilisateur;
-import com.mp3.demo.repositories.Mp3Repository;
-import com.mp3.demo.repositories.PlaylistMp3Repository;
-import com.mp3.demo.repositories.PlaylistRepository;
-import com.mp3.demo.repositories.UtilisateurRepository;
+import com.mp3.demo.entities.*;
+import com.mp3.demo.repositories.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.io.*;
 import java.nio.file.Files;
@@ -28,8 +23,12 @@ public class PlaylistService {
     private final PlaylistMp3Repository playlistMp3Repository;
     private final Mp3Repository mp3Repository;
     private final UtilisateurRepository utilisateurRepository;
+    private final BlacklistRepository blacklistRepository;
 
-    // Créer une playlist vide
+    // ==============================
+    // CRUD Playlist
+    // ==============================
+
     public Playlist create(String nom, Integer dureeCible, Long utilisateurId) {
         Utilisateur utilisateur = utilisateurRepository.findById(utilisateurId)
                 .orElseThrow(() -> new RuntimeException("Utilisateur introuvable"));
@@ -43,35 +42,80 @@ public class PlaylistService {
         return playlistRepository.save(playlist);
     }
 
-    // Récupérer toutes les playlists
     public List<Playlist> findAll() {
         return playlistRepository.findAll();
     }
 
-    // Récupérer une playlist par id
     public Playlist findById(Long id) {
         return playlistRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Playlist introuvable"));
     }
 
-    // Supprimer une playlist
     public void delete(Long id) {
         playlistRepository.deleteById(id);
     }
 
-    // Générer automatiquement une playlist selon une durée cible (en secondes)
+    // ==============================
+    // Blacklist
+    // ==============================
+
+    public List<Blacklist> getBlacklist(Long playlistId) {
+        return blacklistRepository.findByPlaylistId(playlistId);
+    }
+
+    public Blacklist addToBlacklist(Long playlistId, String type, String valeur) {
+        Playlist playlist = findById(playlistId);
+        Blacklist entry = Blacklist.builder()
+                .playlist(playlist)
+                .type(type.toUpperCase())
+                .valeur(valeur)
+                .build();
+        return blacklistRepository.save(entry);
+    }
+
+    @Transactional
+    public void removeFromBlacklist(Long playlistId, String type, String valeur) {
+        blacklistRepository.deleteByPlaylistIdAndTypeAndValeur(playlistId, type.toUpperCase(), valeur);
+    }
+
+    // ==============================
+    // Génération avec filtre blacklist
+    // ==============================
+
+    private List<Mp3> filtrerBlacklist(List<Mp3> mp3List, Long playlistId) {
+        List<Blacklist> blacklist = blacklistRepository.findByPlaylistId(playlistId);
+
+        List<String> artistesBlacklistes = blacklist.stream()
+                .filter(b -> b.getType().equals("ARTISTE"))
+                .map(b -> b.getValeur().toLowerCase())
+                .toList();
+
+        List<String> genresBlacklistes = blacklist.stream()
+                .filter(b -> b.getType().equals("GENRE"))
+                .map(b -> b.getValeur().toLowerCase())
+                .toList();
+
+        return mp3List.stream()
+                .filter(mp3 -> {
+                    if (mp3.getArtiste() != null && artistesBlacklistes.contains(mp3.getArtiste().toLowerCase()))
+                        return false;
+                    if (mp3.getGenre() != null && genresBlacklistes.contains(mp3.getGenre().toLowerCase()))
+                        return false;
+                    return true;
+                })
+                .toList();
+    }
+
     public List<PlaylistMp3> generer(Long playlistId, int dureeCibleSecondes) {
         Playlist playlist = findById(playlistId);
 
-        // Supprimer les anciens morceaux de la playlist
         List<PlaylistMp3> existants = playlistMp3Repository.findAll()
                 .stream()
                 .filter(pm -> pm.getPlaylist().getId().equals(playlistId))
                 .toList();
         playlistMp3Repository.deleteAll(existants);
 
-        // Récupérer tous les MP3 disponibles
-        List<Mp3> tousMp3 = mp3Repository.findAll();
+        List<Mp3> tousMp3 = filtrerBlacklist(mp3Repository.findAll(), playlistId);
 
         List<PlaylistMp3> result = new ArrayList<>();
         int dureeAccumulee = 0;
@@ -95,23 +139,23 @@ public class PlaylistService {
         return result;
     }
 
-    // Générer une playlist à partir d'une liste d'artistes choisis
     public List<PlaylistMp3> genererParArtistes(Long playlistId, List<String> artistes) {
         Playlist playlist = findById(playlistId);
 
-        // Supprimer les anciens morceaux
         List<PlaylistMp3> existants = playlistMp3Repository.findAll()
                 .stream()
                 .filter(pm -> pm.getPlaylist().getId().equals(playlistId))
                 .toList();
         playlistMp3Repository.deleteAll(existants);
 
-        // Récupérer uniquement les MP3 des artistes sélectionnés
         List<Mp3> mp3Filtres = mp3Repository.findAll()
                 .stream()
                 .filter(mp3 -> artistes.stream()
                         .anyMatch(a -> a.equalsIgnoreCase(mp3.getArtiste())))
                 .toList();
+
+        // Appliquer la blacklist (genres blacklistés s'appliquent même ici)
+        mp3Filtres = filtrerBlacklist(mp3Filtres, playlistId);
 
         List<PlaylistMp3> result = new ArrayList<>();
         int ordre = 1;
@@ -129,7 +173,10 @@ public class PlaylistService {
         return result;
     }
 
-    // Récupérer les morceaux d'une playlist
+    // ==============================
+    // Morceaux
+    // ==============================
+
     public List<PlaylistMp3> getMorceaux(Long playlistId) {
         return playlistMp3Repository.findAll()
                 .stream()
@@ -138,7 +185,6 @@ public class PlaylistService {
                 .toList();
     }
 
-    // Remplacer un morceau dans la playlist
     public PlaylistMp3 remplacerMorceau(Long playlistMp3Id, Long nouveauMp3Id) {
         PlaylistMp3 pm = playlistMp3Repository.findById(playlistMp3Id)
                 .orElseThrow(() -> new RuntimeException("Entrée playlist introuvable"));
@@ -150,7 +196,10 @@ public class PlaylistService {
         return playlistMp3Repository.save(pm);
     }
 
-    // Télécharger la playlist en ZIP
+    // ==============================
+    // ZIP
+    // ==============================
+
     public byte[] telechargerZip(Long playlistId) throws IOException {
         List<PlaylistMp3> morceaux = getMorceaux(playlistId);
 

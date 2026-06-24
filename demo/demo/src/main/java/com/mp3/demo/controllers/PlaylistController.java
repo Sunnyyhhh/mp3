@@ -1,5 +1,6 @@
 package com.mp3.demo.controllers;
 
+import com.mp3.demo.entities.Blacklist;
 import com.mp3.demo.entities.Playlist;
 import com.mp3.demo.entities.PlaylistMp3;
 import com.mp3.demo.services.PlaylistService;
@@ -22,7 +23,7 @@ public class PlaylistController {
 
     private final PlaylistService playlistService;
 
-    // POST /playlists?nom=MaPlaylist&dureeCible=1920&utilisateurId=1
+    // POST /playlists
     @PostMapping
     public Playlist create(
             @RequestParam String nom,
@@ -60,7 +61,6 @@ public class PlaylistController {
     }
 
     // POST /playlists/{id}/generer-par-artistes
-    // Body JSON : ["Yzit", "Wizkid"]
     @PostMapping("/{id}/generer-par-artistes")
     public List<PlaylistMp3> genererParArtistes(
             @PathVariable Long id,
@@ -88,10 +88,39 @@ public class PlaylistController {
     @GetMapping("/{id}/zip")
     public ResponseEntity<byte[]> telechargerZip(@PathVariable Long id) throws IOException {
         byte[] zip = playlistService.telechargerZip(id);
-
         return ResponseEntity.ok()
                 .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"playlist_" + id + ".zip\"")
                 .contentType(MediaType.APPLICATION_OCTET_STREAM)
                 .body(zip);
+    }
+
+    // ==============================
+    // BLACKLIST
+    // ==============================
+
+    // GET /playlists/{id}/blacklist
+    @GetMapping("/{id}/blacklist")
+    public List<Blacklist> getBlacklist(@PathVariable Long id) {
+        return playlistService.getBlacklist(id);
+    }
+
+    // POST /playlists/{id}/blacklist
+    // Body JSON : { "type": "ARTISTE", "valeur": "Eminem" }
+    @PostMapping("/{id}/blacklist")
+    public Blacklist addToBlacklist(
+            @PathVariable Long id,
+            @RequestBody Map<String, String> body
+    ) {
+        return playlistService.addToBlacklist(id, body.get("type"), body.get("valeur"));
+    }
+
+    // DELETE /playlists/{id}/blacklist
+    // Body JSON : { "type": "GENRE", "valeur": "Rock" }
+    @DeleteMapping("/{id}/blacklist")
+    public void removeFromBlacklist(
+            @PathVariable Long id,
+            @RequestBody Map<String, String> body
+    ) {
+        playlistService.removeFromBlacklist(id, body.get("type"), body.get("valeur"));
     }
 }
