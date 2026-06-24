@@ -1,26 +1,33 @@
 package com.mp3.demo.desktop;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mpatric.mp3agic.ID3v1;
 import com.mpatric.mp3agic.ID3v2;
 import com.mpatric.mp3agic.Mp3File;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
 import java.io.*;
+import java.nio.file.*;
 import java.time.LocalDateTime;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
+import java.util.stream.Collectors;
 
 /**
- * Programme 2 — Extraction de métadonnées
+ * Programme 2 — Extraction de métadonnées + filtre blacklist
  *
  * - Écoute la queue RabbitMQ : queue.scanner.to.metadata
  * - Reçoit le chemin d'un fichier MP3
  * - Extrait les métadonnées (titre, artiste, album, genre, durée)
- * - Envoie le résultat JSON dans la queue : queue.metadata.to.sender
+ * - Vérifie si l'artiste ou le genre est blacklisté (lecture de fichiers texte)
+ *   → Si blacklisté : supprime le fichier du répertoire, stop
+ *   → Sinon         : envoie le résultat JSON dans queue.metadata.to.sender
+ *
+ * Fichiers blacklist (un nom/genre par ligne, insensible à la casse) :
+ *   - blacklist-artistes.txt
+ *   - blacklist-genres.txt
  *
  * Profil Spring : metadata
  * Lancement     : java -jar demo.jar --spring.profiles.active=metadata
@@ -30,8 +37,10 @@ import java.util.Map;
 public class Programme2Metadata {
 
     private final RabbitTemplate rabbitTemplate;
-    private final ObjectMapper objectMapper = new ObjectMapper();
-    private static final String LOG_FILE = "logs/programme2.log";
+
+    private static final String LOG_FILE              = "logs/programme2.log";
+    private static final String BLACKLIST_ARTISTES    = "blacklist-artistes.txt";
+    private static final String BLACKLIST_GENRES      = "blacklist-genres.txt";
 
     public Programme2Metadata(RabbitTemplate rabbitTemplate) {
         this.rabbitTemplate = rabbitTemplate;
@@ -54,14 +63,13 @@ public class Programme2Metadata {
                 return;
             }
 
-            // Valeurs par défaut
+            // ── 1. Extraction des métadonnées ─────────────────────────────────────
             String artiste = "";
             String titre   = "";
             String album   = "";
             String genre   = "";
             int    duree   = 0;
 
-            // Extraction des tags MP3
             Mp3File mp3File = new Mp3File(fichier);
             duree = (int) mp3File.getLengthInSeconds();
 
@@ -80,7 +88,7 @@ public class Programme2Metadata {
                 genre   = tag.getGenreDescription() != null ? tag.getGenreDescription() : "";
             }
 
-            // Fallback : extraire artiste/titre depuis le nom du fichier si les tags sont vides
+            // Fallback : extraire artiste/titre depuis le nom du fichier si tags vides
             // Format attendu : "Artiste_Titre.mp3"
             if (titre.isEmpty() || artiste.isEmpty()) {
                 String nom = fichier.getName()
@@ -95,7 +103,27 @@ public class Programme2Metadata {
                 }
             }
 
-            // Construire le message JSON à envoyer à Programme 3
+            log("Métadonnées extraites : artiste=\"" + artiste + "\" | genre=\"" + genre + "\"");
+
+            // ── 2. Chargement des blacklists ──────────────────────────────────────
+            Set<String> artistesBlacklistes = chargerBlacklist(BLACKLIST_ARTISTES);
+            Set<String> genresBlacklistes   = chargerBlacklist(BLACKLIST_GENRES);
+
+            // ── 3. Vérification blacklist artiste ─────────────────────────────────
+            if (!artiste.isEmpty() && artistesBlacklistes.contains(artiste.toLowerCase().trim())) {
+                log("⛔ Artiste blacklisté : \"" + artiste + "\" → suppression du fichier");
+                supprimerFichier(fichier);
+                return;
+            }
+
+            // ── 4. Vérification blacklist genre ───────────────────────────────────
+            if (!genre.isEmpty() && genresBlacklistes.contains(genre.toLowerCase().trim())) {
+                log("⛔ Genre blacklisté : \"" + genre + "\" → suppression du fichier");
+                supprimerFichier(fichier);
+                return;
+            }
+
+            // ── 5. Pas blacklisté → on envoie à Programme 3 ──────────────────────
             Map<String, Object> message = new HashMap<>();
             message.put("chemin",  chemin);
             message.put("titre",   titre);
@@ -104,15 +132,14 @@ public class Programme2Metadata {
             message.put("genre",   genre);
             message.put("duree",   duree);
 
-            // Envoyer vers l'exchange MP3, routing key → Programme 3
             rabbitTemplate.convertAndSend(
                     RabbitMQConfig.EXCHANGE_MP3,
                     RabbitMQConfig.ROUTING_METADATA_TO_SENDER,
-                    message  // Jackson2JsonMessageConverter sérialise la Map en JSON automatiquement
+                    message
             );
 
             long fin = System.currentTimeMillis();
-            log("Extraction terminée : " + fichier.getName()
+            log("✅ Envoyé à Programme 3 : " + fichier.getName()
                     + " | artiste=" + artiste
                     + " | titre="   + titre
                     + " | durée="   + duree + "s"
@@ -121,6 +148,43 @@ public class Programme2Metadata {
         } catch (Exception e) {
             log("Erreur extraction pour " + chemin + " : " + e.getMessage()
                     + " → fichier conservé pour retraitement");
+        }
+    }
+
+    /**
+     * Lit un fichier texte de blacklist et retourne un Set en minuscules.
+     * Chaque ligne = un artiste ou un genre.
+     * Les lignes vides et commentaires (#) sont ignorés.
+     * Si le fichier n'existe pas, retourne un Set vide.
+     */
+    private Set<String> chargerBlacklist(String nomFichier) {
+        File fichier = new File(nomFichier);
+
+        if (!fichier.exists()) {
+            log("Fichier blacklist introuvable (ignoré) : " + nomFichier);
+            return Collections.emptySet();
+        }
+
+        try {
+            return Files.lines(fichier.toPath())
+                    .map(String::trim)
+                    .filter(ligne -> !ligne.isEmpty() && !ligne.startsWith("#"))
+                    .map(String::toLowerCase)
+                    .collect(Collectors.toSet());
+        } catch (IOException e) {
+            log("Erreur lecture blacklist \"" + nomFichier + "\" : " + e.getMessage());
+            return Collections.emptySet();
+        }
+    }
+
+    /**
+     * Supprime physiquement le fichier du répertoire source.
+     */
+    private void supprimerFichier(File fichier) {
+        if (fichier.delete()) {
+            log("🗑 Fichier supprimé : " + fichier.getName());
+        } else {
+            log("⚠️ Impossible de supprimer : " + fichier.getName());
         }
     }
 

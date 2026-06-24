@@ -1,6 +1,5 @@
 package com.mp3.demo.controllers;
 
-import com.mp3.demo.entities.Blacklist;
 import com.mp3.demo.entities.Playlist;
 import com.mp3.demo.entities.PlaylistMp3;
 import com.mp3.demo.services.PlaylistService;
@@ -51,37 +50,49 @@ public class PlaylistController {
         playlistService.delete(id);
     }
 
-    // POST /playlists/{id}/generer?dureeCible=1920
-    @PostMapping("/{id}/generer")
-    public List<PlaylistMp3> generer(
-            @PathVariable Long id,
-            @RequestParam int dureeCible
-    ) {
-        return playlistService.generer(id, dureeCible);
+    // POST /playlists/{id}/suggerer (sans filtre, respecte durée cible)
+    @PostMapping("/{id}/suggerer")
+    public List<PlaylistMp3> suggerer(@PathVariable Long id) {
+        return playlistService.suggerer(id);
     }
 
-    // POST /playlists/{id}/generer-par-artistes
-    @PostMapping("/{id}/generer-par-artistes")
-    public List<PlaylistMp3> genererParArtistes(
+    // POST /playlists/{id}/suggerer-par-filtres
+    // Body JSON : { "artistes": ["Olivia Rodrigo"], "genres": ["Pop"] }
+    @PostMapping("/{id}/suggerer-par-filtres")
+    public List<PlaylistMp3> suggererParFiltres(
             @PathVariable Long id,
-            @RequestBody List<String> artistes
+            @RequestBody Map<String, List<String>> body
     ) {
-        return playlistService.genererParArtistes(id, artistes);
+        List<String> artistes = body.getOrDefault("artistes", List.of());
+        List<String> genres   = body.getOrDefault("genres",   List.of());
+        return playlistService.suggererParFiltres(id, artistes, genres);
+    }
+
+    // POST /playlists/{id}/ajouter-morceau?mp3Id=5
+    @PostMapping("/{id}/ajouter-morceau")
+    public PlaylistMp3 ajouterMorceau(
+            @PathVariable Long id,
+            @RequestParam Long mp3Id
+    ) {
+        return playlistService.ajouterMorceau(id, mp3Id);
+    }
+
+    // DELETE /playlists/morceaux/{playlistMp3Id}
+    @DeleteMapping("/morceaux/{playlistMp3Id}")
+    public void supprimerMorceau(@PathVariable Long playlistMp3Id) {
+        playlistService.supprimerMorceau(playlistMp3Id);
+    }
+
+    // POST /playlists/{id}/confirmer → verrouille la playlist
+    @PostMapping("/{id}/confirmer")
+    public Playlist confirmer(@PathVariable Long id) {
+        return playlistService.confirmer(id);
     }
 
     // GET /playlists/{id}/morceaux
     @GetMapping("/{id}/morceaux")
     public List<PlaylistMp3> getMorceaux(@PathVariable Long id) {
         return playlistService.getMorceaux(id);
-    }
-
-    // PUT /playlists/morceaux/{playlistMp3Id}/remplacer?nouveauMp3Id=3
-    @PutMapping("/morceaux/{playlistMp3Id}/remplacer")
-    public PlaylistMp3 remplacer(
-            @PathVariable Long playlistMp3Id,
-            @RequestParam Long nouveauMp3Id
-    ) {
-        return playlistService.remplacerMorceau(playlistMp3Id, nouveauMp3Id);
     }
 
     // GET /playlists/{id}/zip
@@ -92,35 +103,5 @@ public class PlaylistController {
                 .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"playlist_" + id + ".zip\"")
                 .contentType(MediaType.APPLICATION_OCTET_STREAM)
                 .body(zip);
-    }
-
-    // ==============================
-    // BLACKLIST
-    // ==============================
-
-    // GET /playlists/{id}/blacklist
-    @GetMapping("/{id}/blacklist")
-    public List<Blacklist> getBlacklist(@PathVariable Long id) {
-        return playlistService.getBlacklist(id);
-    }
-
-    // POST /playlists/{id}/blacklist
-    // Body JSON : { "type": "ARTISTE", "valeur": "Eminem" }
-    @PostMapping("/{id}/blacklist")
-    public Blacklist addToBlacklist(
-            @PathVariable Long id,
-            @RequestBody Map<String, String> body
-    ) {
-        return playlistService.addToBlacklist(id, body.get("type"), body.get("valeur"));
-    }
-
-    // DELETE /playlists/{id}/blacklist
-    // Body JSON : { "type": "GENRE", "valeur": "Rock" }
-    @DeleteMapping("/{id}/blacklist")
-    public void removeFromBlacklist(
-            @PathVariable Long id,
-            @RequestBody Map<String, String> body
-    ) {
-        playlistService.removeFromBlacklist(id, body.get("type"), body.get("valeur"));
     }
 }

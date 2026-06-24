@@ -1,24 +1,22 @@
-[2026-06-24T11:07:00.037094900] [SCANNER] === Programme 1 (Scanner) démarré ===
-[2026-06-24T11:07:00.038092800] [SCANNER] Surveillance du répertoire : C:/Users/miari/Documents/projetMP3/mp3/musique
-[2026-06-24T11:08:50.135643300] [SCANNER] Nouveau MP3 détecté : Ankino.mp3
-[2026-06-24T11:08:50.393775700] [SCANNER] Message envoyé à Programme 2 pour : Ankino.mp3
-[2026-06-24T11:08:50.396405] [SCANNER] Nouveau MP3 détecté : Antanambao.MP3
-[2026-06-24T11:08:50.399079800] [SCANNER] Message envoyé à Programme 2 pour : Antanambao.MP3
-[2026-06-24T11:08:50.400146] [SCANNER] Nouveau MP3 détecté : IAO.MP3
-[2026-06-24T11:08:50.403075] [SCANNER] Message envoyé à Programme 2 pour : IAO.MP3
-[2026-06-24T11:08:50.404166400] [SCANNER] Nouveau MP3 détecté : OliviaRodrigo_Less.mp3
-[2026-06-24T11:08:50.405283300] [SCANNER] Message envoyé à Programme 2 pour : OliviaRodrigo_Less.mp3
-[2026-06-24T11:08:50.406471100] [SCANNER] Nouveau MP3 détecté : OliviaRodrigo_Purple.mp3
-[2026-06-24T11:08:50.409470600] [SCANNER] Message envoyé à Programme 2 pour : OliviaRodrigo_Purple.mp3
-[2026-06-24T11:08:50.420095] [SCANNER] Nouveau MP3 détecté : OliviaRodrigo_TheCure_Pop_Youseemprettysadforagirlsoinlove.mp3
-[2026-06-24T11:08:50.428663200] [SCANNER] Message envoyé à Programme 2 pour : OliviaRodrigo_TheCure_Pop_Youseemprettysadforagirlsoinlove.mp3
-[2026-06-24T11:08:50.429909] [SCANNER] Nouveau MP3 détecté : Poopy_Tahakizay.mp3
-[2026-06-24T11:08:50.434059] [SCANNER] Message envoyé à Programme 2 pour : Poopy_Tahakizay.mp3
-[2026-06-24T11:08:50.435954600] [SCANNER] Nouveau MP3 détecté : RijaRamanantoanina_MiandryFoana.mp3
-[2026-06-24T11:08:50.438278900] [SCANNER] Message envoyé à Programme 2 pour : RijaRamanantoanina_MiandryFoana.mp3
-[2026-06-24T11:08:50.438841500] [SCANNER] Nouveau MP3 détecté : ShawnMendes_Iknowwhatyoudidlastsummer.mp3
-[2026-06-24T11:08:50.440520900] [SCANNER] Message envoyé à Programme 2 pour : ShawnMendes_Iknowwhatyoudidlastsummer.mp3
-[2026-06-24T11:08:50.441068900] [SCANNER] Nouveau MP3 détecté : Wizkid_Joro.mp3
-[2026-06-24T11:08:50.442756900] [SCANNER] Message envoyé à Programme 2 pour : Wizkid_Joro.mp3
-[2026-06-24T11:08:50.444002400] [SCANNER] Nouveau MP3 détecté : Yzit_FoMijaly.mp3
-[2026-06-24T11:08:50.445866100] [SCANNER] Message envoyé à Programme 2 pour : Yzit_FoMijaly.mp3
+[2026-06-24T22:26:09.228449300] [SCANNER] Nouveau MP3 détecté : Ankino.mp3
+[2026-06-24T22:26:09.316290900] [SCANNER] Message envoyé à Programme 2 pour : Ankino.mp3
+[2026-06-24T22:26:09.316932500] [SCANNER] Nouveau MP3 détecté : Antanambao.MP3
+[2026-06-24T22:26:09.318203100] [SCANNER] Message envoyé à Programme 2 pour : Antanambao.MP3
+[2026-06-24T22:26:09.318725900] [SCANNER] Nouveau MP3 détecté : IAO.MP3
+[2026-06-24T22:26:09.319247300] [SCANNER] Message envoyé à Programme 2 pour : IAO.MP3
+[2026-06-24T22:26:09.319768700] [SCANNER] Nouveau MP3 détecté : OliviaRodrigo_Less.mp3
+[2026-06-24T22:26:09.320292200] [SCANNER] Message envoyé à Programme 2 pour : OliviaRodrigo_Less.mp3
+[2026-06-24T22:26:09.320292200] [SCANNER] Nouveau MP3 détecté : OliviaRodrigo_Purple.mp3
+[2026-06-24T22:26:09.320809] [SCANNER] Message envoyé à Programme 2 pour : OliviaRodrigo_Purple.mp3
+[2026-06-24T22:26:09.321347200] [SCANNER] Nouveau MP3 détecté : OliviaRodrigo_TheCure_Pop_Youseemprettysadforagirlsoinlove.mp3
+[2026-06-24T22:26:09.321881700] [SCANNER] Message envoyé à Programme 2 pour : OliviaRodrigo_TheCure_Pop_Youseemprettysadforagirlsoinlove.mp3
+[2026-06-24T22:26:09.322409100] [SCANNER] Nouveau MP3 détecté : Poopy_Tahakizay.mp3
+[2026-06-24T22:26:09.322936900] [SCANNER] Message envoyé à Programme 2 pour : Poopy_Tahakizay.mp3
+[2026-06-24T22:26:09.323335500] [SCANNER] Nouveau MP3 détecté : RijaRamanantoanina_MiandryFoana.mp3
+[2026-06-24T22:26:09.323866800] [SCANNER] Message envoyé à Programme 2 pour : RijaRamanantoanina_MiandryFoana.mp3
+[2026-06-24T22:26:09.324399600] [SCANNER] Nouveau MP3 détecté : ShawnMendes_Iknowwhatyoudidlastsummer.mp3
+[2026-06-24T22:26:09.324918800] [SCANNER] Message envoyé à Programme 2 pour : ShawnMendes_Iknowwhatyoudidlastsummer.mp3
+[2026-06-24T22:26:09.324918800] [SCANNER] Nouveau MP3 détecté : Wizkid_Joro.mp3
+[2026-06-24T22:26:09.325961700] [SCANNER] Message envoyé à Programme 2 pour : Wizkid_Joro.mp3
+[2026-06-24T22:26:09.325961700] [SCANNER] Nouveau MP3 détecté : Yzit_FoMijaly.mp3
+[2026-06-24T22:26:09.326485500] [SCANNER] Message envoyé à Programme 2 pour : Yzit_FoMijaly.mp3
