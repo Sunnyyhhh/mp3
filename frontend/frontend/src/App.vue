@@ -1,0 +1,35 @@
+<template>
+  <div id="app">
+    <RouterView />
+  </div>
+</template>
+
+<script setup>
+import { RouterView } from 'vue-router'
+</script>
+
+<style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: #0f0f1a;
+  color: #ffffff;
+  min-height: 100vh;
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #1a1a2e;
+}
+::-webkit-scrollbar-thumb {
+  background: #6c63ff;
+  border-radius: 3px;
+}
+</style>

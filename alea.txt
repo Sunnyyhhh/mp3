@@ -1,0 +1,15 @@
+partie desktop alohan ny envoyer azy 
+
+mamaky fichier 2 le programme mamaky fichier blacklist
+blacklist resaka artiste 
+
+ex : blacklist misy an Ambondrona de tsy afaka alefa le ambondrona
+
+atao insensible a la casse 
+
+
+rehefa anaty blacklist => atao anaty liste des mp3 a effacer
+
+
+on peut faire une edition de la playlist avant la vraie generation
+
