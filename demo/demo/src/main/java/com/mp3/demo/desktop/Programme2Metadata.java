@@ -21,13 +21,13 @@ import java.util.stream.Collectors;
  * - Écoute la queue RabbitMQ : queue.scanner.to.metadata
  * - Reçoit le chemin d'un fichier MP3
  * - Extrait les métadonnées (titre, artiste, album, genre, durée)
- * - Vérifie si l'artiste ou le genre est blacklisté (lecture de fichiers texte)
+ * - Vérifie si l'artiste ou le genre est blacklisté (lecture d'un fichier texte)
  *   → Si blacklisté : supprime le fichier du répertoire, stop
  *   → Sinon         : envoie le résultat JSON dans queue.metadata.to.sender
  *
- * Fichiers blacklist (un nom/genre par ligne, insensible à la casse) :
- *   - blacklist-artistes.txt
- *   - blacklist-genres.txt
+ * Fichier blacklist unique (sections [ARTISTES] et [GENRES],
+ * un nom par ligne, insensible à la casse) :
+ *   - blacklist.txt
  *
  * Profil Spring : metadata
  * Lancement     : java -jar demo.jar --spring.profiles.active=metadata
@@ -39,8 +39,9 @@ public class Programme2Metadata {
     private final RabbitTemplate rabbitTemplate;
 
     private static final String LOG_FILE              = "logs/programme2.log";
-    private static final String BLACKLIST_ARTISTES    = "blacklist-artistes.txt";
-    private static final String BLACKLIST_GENRES      = "blacklist-genres.txt";
+    private static final String BLACKLIST_FILE        = "blacklist.txt";
+    private static final String SECTION_ARTISTES       = "[ARTISTES]";
+    private static final String SECTION_GENRES         = "[GENRES]";
 
     public Programme2Metadata(RabbitTemplate rabbitTemplate) {
         this.rabbitTemplate = rabbitTemplate;
@@ -105,9 +106,10 @@ public class Programme2Metadata {
 
             log("Métadonnées extraites : artiste=\"" + artiste + "\" | genre=\"" + genre + "\"");
 
-            // ── 2. Chargement des blacklists ──────────────────────────────────────
-            Set<String> artistesBlacklistes = chargerBlacklist(BLACKLIST_ARTISTES);
-            Set<String> genresBlacklistes   = chargerBlacklist(BLACKLIST_GENRES);
+            // ── 2. Chargement de la blacklist unique ──────────────────────────────
+            Map<String, Set<String>> blacklists = chargerBlacklist(BLACKLIST_FILE);
+            Set<String> artistesBlacklistes = blacklists.get(SECTION_ARTISTES);
+            Set<String> genresBlacklistes   = blacklists.get(SECTION_GENRES);
 
             // ── 3. Vérification blacklist artiste ─────────────────────────────────
             if (!artiste.isEmpty() && artistesBlacklistes.contains(artiste.toLowerCase().trim())) {
@@ -152,29 +154,52 @@ public class Programme2Metadata {
     }
 
     /**
-     * Lit un fichier texte de blacklist et retourne un Set en minuscules.
-     * Chaque ligne = un artiste ou un genre.
+     * Lit le fichier blacklist unique et retourne une Map associant chaque
+     * en-tête de section ([ARTISTES] / [GENRES]) à son Set de valeurs en minuscules.
      * Les lignes vides et commentaires (#) sont ignorés.
-     * Si le fichier n'existe pas, retourne un Set vide.
+     * Si le fichier n'existe pas, retourne des sets vides pour les deux sections.
      */
-    private Set<String> chargerBlacklist(String nomFichier) {
+    private Map<String, Set<String>> chargerBlacklist(String nomFichier) {
+        Map<String, Set<String>> resultat = new HashMap<>();
+        resultat.put(SECTION_ARTISTES, new HashSet<>());
+        resultat.put(SECTION_GENRES, new HashSet<>());
+
         File fichier = new File(nomFichier);
 
         if (!fichier.exists()) {
             log("Fichier blacklist introuvable (ignoré) : " + nomFichier);
-            return Collections.emptySet();
+            return resultat;
         }
 
         try {
-            return Files.lines(fichier.toPath())
-                    .map(String::trim)
-                    .filter(ligne -> !ligne.isEmpty() && !ligne.startsWith("#"))
-                    .map(String::toLowerCase)
-                    .collect(Collectors.toSet());
+            List<String> lignes = Files.readAllLines(fichier.toPath());
+            String sectionCourante = null;
+
+            for (String ligneBrute : lignes) {
+                String ligne = ligneBrute.trim();
+
+                if (ligne.isEmpty() || ligne.startsWith("#")) {
+                    continue;
+                }
+
+                if (ligne.equalsIgnoreCase(SECTION_ARTISTES)) {
+                    sectionCourante = SECTION_ARTISTES;
+                    continue;
+                }
+                if (ligne.equalsIgnoreCase(SECTION_GENRES)) {
+                    sectionCourante = SECTION_GENRES;
+                    continue;
+                }
+
+                if (sectionCourante != null) {
+                    resultat.get(sectionCourante).add(ligne.toLowerCase());
+                }
+            }
         } catch (IOException e) {
             log("Erreur lecture blacklist \"" + nomFichier + "\" : " + e.getMessage());
-            return Collections.emptySet();
         }
+
+        return resultat;
     }
 
     /**

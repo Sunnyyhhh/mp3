@@ -1,38 +1,38 @@
-[2026-06-24T22:26:09.335175100] [METADATA] Reçu fichier à traiter : C:\Users\miari\Documents\projetMP3\mp3\musique\Ankino.mp3
-[2026-06-24T22:26:09.349401100] [METADATA] Métadonnées extraites : artiste="Bodo" | genre="Pop"
-[2026-06-24T22:26:09.371369700] [METADATA] ? Envoyé à Programme 3 : Ankino.mp3 | artiste=Bodo | titre=Ankino | durée=230s | temps=31ms
-[2026-06-24T22:26:09.372405100] [METADATA] Reçu fichier à traiter : C:\Users\miari\Documents\projetMP3\mp3\musique\Antanambao.MP3
-[2026-06-24T22:26:09.377593700] [METADATA] Métadonnées extraites : artiste="Bekoto Augustin" | genre="Folk"
-[2026-06-24T22:26:09.379075200] [METADATA] ? Envoyé à Programme 3 : Antanambao.MP3 | artiste=Bekoto Augustin | titre=Antanambao | durée=175s | temps=7ms
-[2026-06-24T22:26:09.380120600] [METADATA] Reçu fichier à traiter : C:\Users\miari\Documents\projetMP3\mp3\musique\IAO.MP3
-[2026-06-24T22:26:09.384425500] [METADATA] Métadonnées extraites : artiste="ROSSY" | genre="salegy"
-[2026-06-24T22:26:09.385484400] [METADATA] ? Genre blacklisté : "salegy" ? suppression du fichier
-[2026-06-24T22:26:09.388608600] [METADATA] ? Fichier supprimé : IAO.MP3
-[2026-06-24T22:26:09.389654800] [METADATA] Reçu fichier à traiter : C:\Users\miari\Documents\projetMP3\mp3\musique\OliviaRodrigo_Less.mp3
-[2026-06-24T22:26:09.392257200] [METADATA] Métadonnées extraites : artiste="Olivia Rodrigo" | genre="Pop"
-[2026-06-24T22:26:09.394338100] [METADATA] ? Artiste blacklisté : "Olivia Rodrigo" ? suppression du fichier
-[2026-06-24T22:26:09.396361800] [METADATA] ? Fichier supprimé : OliviaRodrigo_Less.mp3
-[2026-06-24T22:26:09.397324600] [METADATA] Reçu fichier à traiter : C:\Users\miari\Documents\projetMP3\mp3\musique\OliviaRodrigo_Purple.mp3
-[2026-06-24T22:26:09.400934800] [METADATA] Métadonnées extraites : artiste="Olivia Rodrigo" | genre="Pop"
-[2026-06-24T22:26:09.401936900] [METADATA] ? Artiste blacklisté : "Olivia Rodrigo" ? suppression du fichier
-[2026-06-24T22:26:09.403936] [METADATA] ? Fichier supprimé : OliviaRodrigo_Purple.mp3
-[2026-06-24T22:26:09.405490200] [METADATA] Reçu fichier à traiter : C:\Users\miari\Documents\projetMP3\mp3\musique\OliviaRodrigo_TheCure_Pop_Youseemprettysadforagirlsoinlove.mp3
-[2026-06-24T22:26:09.409943] [METADATA] Métadonnées extraites : artiste="Olivia Rodrigo" | genre="Pop"
-[2026-06-24T22:26:09.410947300] [METADATA] ? Artiste blacklisté : "Olivia Rodrigo" ? suppression du fichier
-[2026-06-24T22:26:09.414080200] [METADATA] ? Fichier supprimé : OliviaRodrigo_TheCure_Pop_Youseemprettysadforagirlsoinlove.mp3
-[2026-06-24T22:26:09.415586700] [METADATA] Reçu fichier à traiter : C:\Users\miari\Documents\projetMP3\mp3\musique\Poopy_Tahakizay.mp3
-[2026-06-24T22:26:09.421424900] [METADATA] Métadonnées extraites : artiste="Poopy" | genre="Pop"
-[2026-06-24T22:26:09.423231100] [METADATA] ? Envoyé à Programme 3 : Poopy_Tahakizay.mp3 | artiste=Poopy | titre=Poopy_Tahakizay.mp3 | durée=435s | temps=6ms
-[2026-06-24T22:26:09.423736200] [METADATA] Reçu fichier à traiter : C:\Users\miari\Documents\projetMP3\mp3\musique\RijaRamanantoanina_MiandryFoana.mp3
-[2026-06-24T22:26:09.428069900] [METADATA] Métadonnées extraites : artiste="Rija Ramanantoanina" | genre="Jazz"
-[2026-06-24T22:26:09.429170600] [METADATA] ? Envoyé à Programme 3 : RijaRamanantoanina_MiandryFoana.mp3 | artiste=Rija Ramanantoanina | titre=RijaRamanantoanina_MiandryFoana.mp3 | durée=255s | temps=5ms
-[2026-06-24T22:26:09.430328200] [METADATA] Reçu fichier à traiter : C:\Users\miari\Documents\projetMP3\mp3\musique\ShawnMendes_Iknowwhatyoudidlastsummer.mp3
-[2026-06-24T22:26:09.433981600] [METADATA] Métadonnées extraites : artiste="Shawn Mendes" | genre="Pop"
-[2026-06-24T22:26:09.435568900] [METADATA] ? Envoyé à Programme 3 : ShawnMendes_Iknowwhatyoudidlastsummer.mp3 | artiste=Shawn Mendes | titre=ShawnMendes_Iknowwhatyoudidlastsummer.mp3 | durée=228s | temps=5ms
-[2026-06-24T22:26:09.436101200] [METADATA] Reçu fichier à traiter : C:\Users\miari\Documents\projetMP3\mp3\musique\Wizkid_Joro.mp3
-[2026-06-24T22:26:09.440729700] [METADATA] Métadonnées extraites : artiste="Wizkid" | genre="Pop"
-[2026-06-24T22:26:09.442272500] [METADATA] ? Envoyé à Programme 3 : Wizkid_Joro.mp3 | artiste=Wizkid | titre=Wizkid_Joro.mp3 | durée=264s | temps=6ms
-[2026-06-24T22:26:09.442775800] [METADATA] Reçu fichier à traiter : C:\Users\miari\Documents\projetMP3\mp3\musique\Yzit_FoMijaly.mp3
-[2026-06-24T22:26:09.446845600] [METADATA] Métadonnées extraites : artiste="Yzit" | genre="Pop"
-[2026-06-24T22:26:09.447888] [METADATA] ? Artiste blacklisté : "Yzit" ? suppression du fichier
-[2026-06-24T22:26:09.450157900] [METADATA] ? Fichier supprimé : Yzit_FoMijaly.mp3
+[2026-06-30T19:22:28.879124100] [METADATA] Reçu fichier à traiter : C:\Users\miari\Documents\projetMP3\mp3\musique\Ankino.mp3
+[2026-06-30T19:22:28.894664700] [METADATA] Métadonnées extraites : artiste="Bodo" | genre="Pop"
+[2026-06-30T19:22:28.916779900] [METADATA] ? Envoyé à Programme 3 : Ankino.mp3 | artiste=Bodo | titre=Ankino | durée=230s | temps=34ms
+[2026-06-30T19:22:28.918600300] [METADATA] Reçu fichier à traiter : C:\Users\miari\Documents\projetMP3\mp3\musique\Antanambao.MP3
+[2026-06-30T19:22:28.924760600] [METADATA] Métadonnées extraites : artiste="Bekoto Augustin" | genre="Folk"
+[2026-06-30T19:22:28.927012100] [METADATA] ? Envoyé à Programme 3 : Antanambao.MP3 | artiste=Bekoto Augustin | titre=Antanambao | durée=175s | temps=8ms
+[2026-06-30T19:22:28.927910600] [METADATA] Reçu fichier à traiter : C:\Users\miari\Documents\projetMP3\mp3\musique\IAO.MP3
+[2026-06-30T19:22:28.933245200] [METADATA] Métadonnées extraites : artiste="ROSSY" | genre="salegy"
+[2026-06-30T19:22:28.934471700] [METADATA] ? Genre blacklisté : "salegy" ? suppression du fichier
+[2026-06-30T19:22:28.937082] [METADATA] ? Fichier supprimé : IAO.MP3
+[2026-06-30T19:22:28.938671400] [METADATA] Reçu fichier à traiter : C:\Users\miari\Documents\projetMP3\mp3\musique\OliviaRodrigo_Less.mp3
+[2026-06-30T19:22:28.943078400] [METADATA] Métadonnées extraites : artiste="Olivia Rodrigo" | genre="Pop"
+[2026-06-30T19:22:28.944087500] [METADATA] ? Artiste blacklisté : "Olivia Rodrigo" ? suppression du fichier
+[2026-06-30T19:22:28.946596100] [METADATA] ? Fichier supprimé : OliviaRodrigo_Less.mp3
+[2026-06-30T19:22:28.947779100] [METADATA] Reçu fichier à traiter : C:\Users\miari\Documents\projetMP3\mp3\musique\OliviaRodrigo_Purple.mp3
+[2026-06-30T19:22:28.952194400] [METADATA] Métadonnées extraites : artiste="Olivia Rodrigo" | genre="Pop"
+[2026-06-30T19:22:28.952194400] [METADATA] ? Artiste blacklisté : "Olivia Rodrigo" ? suppression du fichier
+[2026-06-30T19:22:28.956337900] [METADATA] ? Fichier supprimé : OliviaRodrigo_Purple.mp3
+[2026-06-30T19:22:28.957343500] [METADATA] Reçu fichier à traiter : C:\Users\miari\Documents\projetMP3\mp3\musique\OliviaRodrigo_TheCure_Pop_Youseemprettysadforagirlsoinlove.mp3
+[2026-06-30T19:22:28.960709800] [METADATA] Métadonnées extraites : artiste="Olivia Rodrigo" | genre="Pop"
+[2026-06-30T19:22:28.960709800] [METADATA] ? Artiste blacklisté : "Olivia Rodrigo" ? suppression du fichier
+[2026-06-30T19:22:28.965456600] [METADATA] ? Fichier supprimé : OliviaRodrigo_TheCure_Pop_Youseemprettysadforagirlsoinlove.mp3
+[2026-06-30T19:22:28.966464600] [METADATA] Reçu fichier à traiter : C:\Users\miari\Documents\projetMP3\mp3\musique\Poopy_Tahakizay.mp3
+[2026-06-30T19:22:28.968980200] [METADATA] Métadonnées extraites : artiste="Poopy" | genre="Pop"
+[2026-06-30T19:22:28.975025900] [METADATA] ? Envoyé à Programme 3 : Poopy_Tahakizay.mp3 | artiste=Poopy | titre=Poopy_Tahakizay.mp3 | durée=435s | temps=9ms
+[2026-06-30T19:22:28.975586900] [METADATA] Reçu fichier à traiter : C:\Users\miari\Documents\projetMP3\mp3\musique\RijaRamanantoanina_MiandryFoana.mp3
+[2026-06-30T19:22:28.982287800] [METADATA] Métadonnées extraites : artiste="Rija Ramanantoanina" | genre="Jazz"
+[2026-06-30T19:22:28.984234900] [METADATA] ? Envoyé à Programme 3 : RijaRamanantoanina_MiandryFoana.mp3 | artiste=Rija Ramanantoanina | titre=RijaRamanantoanina_MiandryFoana.mp3 | durée=255s | temps=8ms
+[2026-06-30T19:22:28.985282800] [METADATA] Reçu fichier à traiter : C:\Users\miari\Documents\projetMP3\mp3\musique\ShawnMendes_Iknowwhatyoudidlastsummer.mp3
+[2026-06-30T19:22:28.989365] [METADATA] Métadonnées extraites : artiste="Shawn Mendes" | genre="Pop"
+[2026-06-30T19:22:28.990632900] [METADATA] ? Envoyé à Programme 3 : ShawnMendes_Iknowwhatyoudidlastsummer.mp3 | artiste=Shawn Mendes | titre=ShawnMendes_Iknowwhatyoudidlastsummer.mp3 | durée=228s | temps=5ms
+[2026-06-30T19:22:28.991440500] [METADATA] Reçu fichier à traiter : C:\Users\miari\Documents\projetMP3\mp3\musique\Wizkid_Joro.mp3
+[2026-06-30T19:22:28.995770300] [METADATA] Métadonnées extraites : artiste="Wizkid" | genre="Pop"
+[2026-06-30T19:22:28.996825600] [METADATA] ? Envoyé à Programme 3 : Wizkid_Joro.mp3 | artiste=Wizkid | titre=Wizkid_Joro.mp3 | durée=264s | temps=5ms
+[2026-06-30T19:22:28.997946200] [METADATA] Reçu fichier à traiter : C:\Users\miari\Documents\projetMP3\mp3\musique\Yzit_FoMijaly.mp3
+[2026-06-30T19:22:29.001677100] [METADATA] Métadonnées extraites : artiste="Yzit" | genre="Pop"
+[2026-06-30T19:22:29.002527900] [METADATA] ? Artiste blacklisté : "Yzit" ? suppression du fichier
+[2026-06-30T19:22:29.005605100] [METADATA] ? Fichier supprimé : Yzit_FoMijaly.mp3
