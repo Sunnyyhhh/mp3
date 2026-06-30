@@ -1,13 +1,13 @@
 <template>
   <div class="page">
     <nav class="navbar">
-      <div class="nav-logo">🎵 MP3 Manager</div>
+      <div class="nav-logo"> MP3 Manager</div>
       <div class="nav-links">
         <RouterLink to="/songs">Chansons</RouterLink>
         <RouterLink to="/playlists">Playlists</RouterLink>
       </div>
       <div class="nav-user">
-        <span>👤 {{ auth.user?.nom }}</span>
+        <span> {{ auth.user?.nom }}</span>
         <button @click="logout">Déconnexion</button>
       </div>
     </nav>
@@ -25,7 +25,7 @@
         </div>
         <div class="header-right">
           <span class="statut-badge" :class="playlist?.statut === 'CONFIRMEE' ? 'confirmee' : 'brouillon'">
-            {{ playlist?.statut === 'CONFIRMEE' ? '✅ Confirmée' : '✏️ Brouillon' }}
+            {{ playlist?.statut === 'CONFIRMEE' ? ' Confirmée' : ' Brouillon' }}
           </span>
           <button class="btn-zip" @click="downloadZip">⬇ ZIP</button>
         </div>
@@ -41,7 +41,7 @@
           <div class="filtres-cols">
             <!-- Artistes -->
             <div class="filtre-col">
-              <div class="filtre-label">🎤 Artistes</div>
+              <div class="filtre-label"> Artistes</div>
               <label v-for="artiste in availableArtists" :key="artiste" class="checkbox-row">
                 <input type="checkbox" :value="artiste" v-model="selectedArtists" />
                 <span>{{ artiste }}</span>
@@ -51,7 +51,7 @@
 
             <!-- Genres -->
             <div class="filtre-col">
-              <div class="filtre-label">🎵 Genres</div>
+              <div class="filtre-label"> Genres</div>
               <label v-for="genre in availableGenres" :key="genre" class="checkbox-row">
                 <input type="checkbox" :value="genre" v-model="selectedGenres" />
                 <span>{{ genre }}</span>
@@ -62,18 +62,18 @@
 
           <!-- Résumé filtres -->
           <div v-if="selectedArtists.length > 0 || selectedGenres.length > 0" class="filtre-resume">
-            <span v-if="selectedArtists.length > 0">🎤 {{ selectedArtists.join(', ') }}</span>
+            <span v-if="selectedArtists.length > 0"> {{ selectedArtists.join(', ') }}</span>
             <span v-if="selectedArtists.length > 0 && selectedGenres.length > 0" class="et">ET</span>
-            <span v-if="selectedGenres.length > 0">🎵 {{ selectedGenres.join(', ') }}</span>
+            <span v-if="selectedGenres.length > 0">{{ selectedGenres.join(', ') }}</span>
           </div>
 
           <div class="etape-actions">
             <button class="btn-suggerer" @click="suggerer">
-              🔍 Suggérer une playlist
+               Suggérer une playlist
             </button>
             <button class="btn-clear-filtres" @click="selectedArtists = []; selectedGenres = []"
               v-if="selectedArtists.length > 0 || selectedGenres.length > 0">
-              ✕ Effacer filtres
+               Effacer filtres
             </button>
           </div>
         </div>
@@ -130,17 +130,13 @@
         <!-- ETAPE 3 : Confirmer -->
         <div v-if="morceaux.length > 0" class="etape-card confirmer-card">
           <div class="etape-title">③ Confirmer la playlist</div>
-          <p class="confirmer-hint">
-            Une fois confirmée, la playlist ne pourra plus être modifiée.<br>
-            Tu pourras toujours l'écouter, la télécharger en ZIP ou la supprimer.
-          </p>
           <div class="confirmer-recap">
             <span>{{ morceaux.length }} chansons</span>
             <span>•</span>
             <span>{{ formatDuree(totalDuree) }} au total</span>
           </div>
           <button class="btn-confirmer" @click="confirmer">
-            ✅ Confirmer la playlist
+           Confirmer la playlist
           </button>
         </div>
 
@@ -149,7 +145,7 @@
       <!-- ========== MODE CONFIRMEE ========== -->
       <template v-else>
         <div class="confirmee-banner">
-          ✅ Cette playlist est confirmée — elle ne peut plus être modifiée.
+          Cette playlist est confirmée — elle ne peut plus être modifiée.
         </div>
 
         <!-- Lecteur -->
@@ -309,10 +305,10 @@ onMounted(async () => {
 </script>
 
 <style scoped>
-.page { min-height: 100vh; background: #0f0f1a; color: #fff; }
+.page { min-height: 100vh;background: #f5f7fb; color: #1a1a1a;  }
 .navbar {
   display: flex; align-items: center; justify-content: space-between;
-  padding: 16px 32px; background: #1a1a2e; border-bottom: 1px solid #2a2a4e;
+  padding: 16px 32px;background: white; ; border-bottom: 1px solid #2a2a4e;
 }
 .nav-logo { font-size: 20px; font-weight: 700; color: #6c63ff; }
 .nav-links { display: flex; gap: 24px; }
@@ -352,22 +348,22 @@ h2 { font-size: 22px; font-weight: 700; margin: 0; }
 
 /* ETAPES */
 .etape-card {
-  background: #1a1a2e; border: 1px solid #2a2a4e;
+  background: white; border: 1px solid #2a2a4e;
   border-radius: 12px; padding: 24px; margin-bottom: 20px;
 }
 .etape-title {
   font-size: 15px; font-weight: 700; color: #6c63ff; margin-bottom: 18px;
 }
-.etape-hint { font-size: 12px; color: #555; font-weight: 400; margin-left: 8px; }
+.etape-hint { font-size: 12px; color: #000000; font-weight: 400; margin-left: 8px; }
 
 /* Filtres checkboxes */
 .filtres-cols { display: flex; gap: 40px; flex-wrap: wrap; margin-bottom: 16px; }
 .filtre-col { flex: 1; min-width: 180px; }
-.filtre-label { font-size: 12px; color: #aaa; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 10px; }
+.filtre-label { font-size: 12px; color: #000000; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 10px; }
 
 .checkbox-row {
   display: flex; align-items: center; gap: 10px;
-  padding: 7px 0; cursor: pointer; font-size: 14px; color: #ccc;
+  padding: 7px 0; cursor: pointer; font-size: 14px; color: #000000;
   border-bottom: 1px solid #1f1f3a; transition: color 0.15s;
 }
 .checkbox-row:hover { color: #fff; }
@@ -416,7 +412,7 @@ h2 { font-size: 22px; font-weight: 700; margin: 0; }
 .confirmer-hint { font-size: 13px; color: #888; line-height: 1.7; margin-bottom: 16px; }
 .confirmer-recap {
   display: flex; gap: 12px; align-items: center;
-  font-size: 14px; color: #ccc; margin-bottom: 20px;
+  font-size: 14px; color: #000000; margin-bottom: 20px;
 }
 .btn-confirmer {
   padding: 12px 32px; background: #00aa44; color: white; border: none;
@@ -446,11 +442,11 @@ h2 { font-size: 22px; font-weight: 700; margin: 0; }
 .morceaux-list { display: flex; flex-direction: column; gap: 6px; margin-bottom: 8px; }
 .morceau-card {
   display: flex; align-items: center; gap: 10px;
-  background: #0f0f1a; border: 1px solid #2a2a4e; border-radius: 8px;
+  background: white; border: 1px solid #2a2a4e; border-radius: 8px;
   padding: 10px 14px; transition: all 0.2s;
 }
 .morceau-card:hover { border-color: #6c63ff; }
-.morceau-card.active { border-color: #6c63ff; background: #1a1a3a; }
+.morceau-card.active { border-color: #6c63ff; background: white; }
 .m-ordre { width: 22px; text-align: center; color: #555; font-size: 12px; }
 .m-icon {
   width: 30px; height: 30px; background: #6c63ff; border-radius: 50%;

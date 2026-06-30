@@ -1,13 +1,13 @@
 <template>
   <div class="page">
     <nav class="navbar">
-      <div class="nav-logo">🎵 MP3 Manager</div>
+      <div class="nav-logo"> MP3 Manager</div>
       <div class="nav-links">
         <RouterLink to="/songs">Chansons</RouterLink>
         <RouterLink to="/playlists">Playlists</RouterLink>
       </div>
       <div class="nav-user">
-        <span>👤 {{ auth.user?.nom }}</span>
+        <span>{{ auth.user?.nom }}</span>
         <button @click="logout">Déconnexion</button>
       </div>
     </nav>
@@ -103,69 +103,234 @@ function logout() {
 </script>
 
 <style scoped>
-.page { min-height: 100vh; background: #0f0f1a; color: #fff; }
+.page {
+  min-height: 100vh;
+  background: #f5f7fb;
+}
+
+/* ================= NAVBAR ================= */
 
 .navbar {
-  display: flex; align-items: center; justify-content: space-between;
-  padding: 16px 32px; background: #1a1a2e; border-bottom: 1px solid #2a2a4e;
+  height: 72px;
+  background: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 40px;
+  box-shadow: 0 3px 12px rgba(0,0,0,.05);
+  position: sticky;
+  top: 0;
+  z-index: 100;
 }
-.nav-logo { font-size: 20px; font-weight: 700; color: #6c63ff; }
-.nav-links { display: flex; gap: 24px; }
-.nav-links a { color: #aaa; text-decoration: none; font-size: 15px; }
-.nav-links a:hover, .nav-links a.router-link-active { color: #6c63ff; }
-.nav-user { display: flex; align-items: center; gap: 16px; }
-.nav-user span { color: #aaa; font-size: 14px; }
-.nav-user button {
-  padding: 8px 16px; background: transparent; border: 1px solid #ff6b6b;
-  color: #ff6b6b; border-radius: 6px; cursor: pointer; font-size: 13px;
-}
-.nav-user button:hover { background: #ff6b6b; color: white; }
 
-.content { padding: 32px; max-width: 900px; margin: 0 auto; }
-h2 { font-size: 24px; font-weight: 700; margin-bottom: 24px; }
+.nav-logo {
+  font-size: 22px;
+  font-weight: 700;
+  color: #4f46e5;
+}
+
+.nav-links {
+  display: flex;
+  gap: 30px;
+}
+
+.nav-links a {
+  text-decoration: none;
+  color: #64748b;
+  font-weight: 500;
+  transition: .25s;
+}
+
+.nav-links a:hover,
+.nav-links .router-link-active {
+  color: #4f46e5;
+}
+
+.nav-user {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.nav-user span {
+  color: #475569;
+  font-weight: 500;
+}
+
+.nav-user button {
+  background: #ef4444;
+  color: white;
+  border: none;
+  padding: 10px 18px;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: .25s;
+}
+
+.nav-user button:hover {
+  background: #dc2626;
+}
+
+/* ================= CONTENU ================= */
+
+.content {
+  max-width: 1100px;
+  margin: 40px auto;
+  padding: 0 20px;
+}
+
+h2 {
+  color: #1e293b;
+  font-size: 30px;
+  margin-bottom: 30px;
+}
+
+/* ================= FORMULAIRE ================= */
 
 .create-card {
-  background: #1a1a2e; border: 1px solid #2a2a4e;
-  border-radius: 12px; padding: 24px; margin-bottom: 32px;
+  background: white;
+  border-radius: 18px;
+  padding: 28px;
+  margin-bottom: 35px;
+  box-shadow: 0 10px 30px rgba(0,0,0,.06);
 }
-.create-card h3 { font-size: 16px; margin-bottom: 16px; color: #6c63ff; }
 
-.form-row { display: flex; gap: 16px; align-items: flex-end; flex-wrap: wrap; }
-.field { flex: 1; min-width: 160px; }
-.field label { display: block; font-size: 13px; color: #aaa; margin-bottom: 6px; }
+.create-card h3 {
+  margin-bottom: 22px;
+  color: #4f46e5;
+}
+
+.form-row {
+  display: flex;
+  gap: 18px;
+  align-items: end;
+  flex-wrap: wrap;
+}
+
+.field {
+  flex: 1;
+  min-width: 220px;
+}
+
+.field label {
+  display: block;
+  margin-bottom: 8px;
+  color: #475569;
+  font-weight: 600;
+}
+
 .field input {
-  width: 100%; padding: 10px 14px; background: #0f0f1a;
-  border: 1px solid #2a2a4e; border-radius: 8px; color: #fff; font-size: 14px; outline: none;
+  width: 100%;
+  padding: 14px 16px;
+  border: 1px solid #d1d5db;
+  border-radius: 12px;
+  background: #f9fafb;
+  font-size: 15px;
+  transition: .25s;
   box-sizing: border-box;
 }
-.field input:focus { border-color: #6c63ff; }
 
-.form-row > button {
-  padding: 10px 24px; background: #6c63ff; color: white; border: none;
-  border-radius: 8px; font-size: 15px; font-weight: 600; cursor: pointer; white-space: nowrap;
+.field input:focus {
+  outline: none;
+  border-color: #4f46e5;
+  background: white;
+  box-shadow: 0 0 0 4px rgba(79,70,229,.12);
 }
-.form-row > button:hover:not(:disabled) { background: #5a52d5; }
-.form-row > button:disabled { opacity: 0.4; cursor: not-allowed; }
 
-.playlists-grid { display: flex; flex-direction: column; gap: 10px; }
+.form-row button {
+  height: 48px;
+  padding: 0 28px;
+  border: none;
+  border-radius: 12px;
+  background: #4f46e5;
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+  transition: .25s;
+}
+
+.form-row button:hover:not(:disabled) {
+  background: #4338ca;
+}
+
+.form-row button:disabled {
+  opacity: .5;
+  cursor: not-allowed;
+}
+
+/* ================= PLAYLISTS ================= */
+
+.playlists-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
 
 .pl-card {
-  display: flex; align-items: center; gap: 16px;
-  background: #1a1a2e; border: 1px solid #2a2a4e; border-radius: 10px;
-  padding: 16px 20px; cursor: pointer; transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  background: white;
+  padding: 18px 22px;
+  border-radius: 16px;
+  box-shadow: 0 5px 15px rgba(0,0,0,.05);
+  transition: .25s;
+  cursor: pointer;
 }
-.pl-card:hover { border-color: #6c63ff; background: #1f1f3a; }
 
-.pl-icon { font-size: 28px; }
-.pl-info { flex: 1; }
-.pl-name { font-size: 16px; font-weight: 600; }
-.pl-meta { font-size: 12px; color: #888; margin-top: 4px; }
+.pl-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 30px rgba(79,70,229,.15);
+}
+
+.pl-icon {
+  width: 55px;
+  height: 55px;
+  border-radius: 50%;
+  background: #4f46e5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 26px;
+  color: white;
+}
+
+.pl-info {
+  flex: 1;
+}
+
+.pl-name {
+  font-size: 18px;
+  font-weight: 600;
+  color: #1e293b;
+}
+
+.pl-meta {
+  margin-top: 6px;
+  color: #64748b;
+}
 
 .btn-delete {
-  background: transparent; border: none; cursor: pointer;
-  font-size: 16px; opacity: 0.5; transition: opacity 0.2s; padding: 4px 8px;
+  width: 42px;
+  height: 42px;
+  border: none;
+  border-radius: 10px;
+  background: #fee2e2;
+  color: #dc2626;
+  cursor: pointer;
+  transition: .25s;
+  font-size: 18px;
 }
-.btn-delete:hover { opacity: 1; }
 
-.empty { text-align: center; color: #555; padding: 48px; font-size: 16px; }
+.btn-delete:hover {
+  background: #dc2626;
+  color: white;
+}
+
+.empty {
+  text-align: center;
+  padding: 80px;
+  color: #64748b;
+  font-size: 18px;
+}
 </style>

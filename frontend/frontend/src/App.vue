@@ -16,20 +16,26 @@ import { RouterView } from 'vue-router'
 }
 
 body {
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background: #0f0f1a;
-  color: #ffffff;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  background: #f5f7fb;
+  color: #2d3748;
   min-height: 100vh;
 }
 
-::-webkit-scrollbar {
-  width: 6px;
+#app{
+  min-height:100vh;
 }
-::-webkit-scrollbar-track {
-  background: #1a1a2e;
+
+::-webkit-scrollbar{
+    width:8px;
 }
-::-webkit-scrollbar-thumb {
-  background: #6c63ff;
-  border-radius: 3px;
+
+::-webkit-scrollbar-track{
+    background:#e5e7eb;
+}
+
+::-webkit-scrollbar-thumb{
+    background:#8b5cf6;
+    border-radius:10px;
 }
 </style>

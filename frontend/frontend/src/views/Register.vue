@@ -1,7 +1,6 @@
 <template>
   <div class="auth-page">
     <div class="auth-card">
-      <div class="logo">🎵</div>
       <h1>Créer un compte</h1>
       <p class="subtitle">Rejoins MP3 Manager</p>
 
@@ -66,64 +65,109 @@ async function handleRegister() {
 .auth-page {
   min-height: 100vh;
   display: flex;
-  align-items: center;
   justify-content: center;
-  background: linear-gradient(135deg, #0f0f1a 0%, #1a1a3e 100%);
+  align-items: center;
+  background: linear-gradient(135deg, #eef4ff 0%, #f8f9fc 100%);
 }
 
 .auth-card {
-  background: #1a1a2e;
-  border: 1px solid #2a2a4e;
-  border-radius: 16px;
-  padding: 48px 40px;
   width: 100%;
-  max-width: 420px;
+  max-width: 430px;
+  background: white;
+  border-radius: 20px;
+  padding: 45px;
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.08);
+}
+
+.logo {
+  font-size: 60px;
+  margin-bottom: 15px;
   text-align: center;
 }
 
-.logo { font-size: 48px; margin-bottom: 12px; }
+h1 {
+  text-align: center;
+  color: #4f46e5;
+  margin-bottom: 8px;
+}
 
-h1 { font-size: 28px; font-weight: 700; color: #6c63ff; margin-bottom: 8px; }
+.subtitle {
+  text-align: center;
+  color: #6b7280;
+  margin-bottom: 35px;
+}
 
-.subtitle { color: #888; margin-bottom: 32px; font-size: 14px; }
+.field {
+  margin-bottom: 20px;
+}
 
-.field { text-align: left; margin-bottom: 20px; }
-
-.field label { display: block; font-size: 13px; color: #aaa; margin-bottom: 6px; }
+.field label {
+  display: block;
+  margin-bottom: 8px;
+  color: #4b5563;
+  font-weight: 600;
+}
 
 .field input {
   width: 100%;
-  padding: 12px 16px;
-  background: #0f0f1a;
-  border: 1px solid #2a2a4e;
-  border-radius: 8px;
-  color: #fff;
+  padding: 14px 16px;
+  border: 1px solid #d1d5db;
+  border-radius: 12px;
   font-size: 15px;
-  outline: none;
-  transition: border-color 0.2s;
+  background: #f9fafb;
+  transition: all 0.25s ease;
 }
 
-.field input:focus { border-color: #6c63ff; }
+.field input:focus {
+  outline: none;
+  border-color: #4f46e5;
+  background: white;
+  box-shadow: 0 0 0 4px rgba(79, 70, 229, 0.12);
+}
 
 button {
   width: 100%;
-  padding: 14px;
-  background: #6c63ff;
-  color: white;
+  margin-top: 10px;
+  padding: 15px;
   border: none;
-  border-radius: 8px;
+  border-radius: 12px;
+  background: #4f46e5;
+  color: white;
   font-size: 16px;
   font-weight: 600;
   cursor: pointer;
-  margin-top: 8px;
-  transition: background 0.2s;
+  transition: all 0.25s ease;
 }
 
-button:hover:not(:disabled) { background: #5a52d5; }
-button:disabled { opacity: 0.6; cursor: not-allowed; }
+button:hover:not(:disabled) {
+  background: #4338ca;
+  transform: translateY(-2px);
+}
 
-.error { color: #ff6b6b; font-size: 13px; margin-bottom: 12px; }
+button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
 
-.link { margin-top: 24px; font-size: 14px; color: #888; }
-.link a { color: #6c63ff; text-decoration: none; font-weight: 600; }
+.error {
+  color: #dc2626;
+  font-size: 14px;
+  margin-bottom: 15px;
+}
+
+.link {
+  text-align: center;
+  margin-top: 25px;
+  color: #6b7280;
+}
+
+.link a {
+  color: #4f46e5;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.link a:hover {
+  text-decoration: underline;
+}
 </style>
