@@ -14,3 +14,21 @@ rehefa anaty blacklist => atao anaty liste des mp3 a effacer
 
 on peut faire une edition de la playlist avant la vraie generation
 
+
+
+Desktop
+blacklist 
+artiste : jeneraly
+
+duree 360s
+
+
+Faire 2 playlist
+1 - PL1 => duree 10 min 
+    inclus : Folk , Slow 
+    exclus : bessa
+    
+2 - PL2 => duree 13 min
+    inclus : Rija ramanantoanina + bessa + Eric Manana
+    exclus : Jazz - Mahaleo
+

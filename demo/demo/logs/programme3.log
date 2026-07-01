@@ -1,28 +1,80 @@
-[2026-07-01T10:48:01.993446900] [SENDER] Nouveau message reçu depuis Programme 2
-[2026-07-01T10:48:01.993446900] [SENDER] Envoi vers API : Ankino.mp3 | artiste=Bodo | titre=Ankino
-[2026-07-01T10:48:02.353809400] [SENDER] ? Insertion en base réussie : Ankino.mp3 (HTTP 200)
-[2026-07-01T10:48:02.364664100] [SENDER] Message envoyé à Programme 4 pour suppression : Ankino.mp3
-[2026-07-01T10:48:11.922223700] [SENDER] Nouveau message reçu depuis Programme 2
-[2026-07-01T10:48:11.923109] [SENDER] Envoi vers API : Antanambao.MP3 | artiste=Bekoto Augustin | titre=Antanambao
-[2026-07-01T10:48:11.967318500] [SENDER] ? Insertion en base réussie : Antanambao.MP3 (HTTP 200)
-[2026-07-01T10:48:11.968622800] [SENDER] Message envoyé à Programme 4 pour suppression : Antanambao.MP3
-[2026-07-01T10:48:11.969769200] [SENDER] Nouveau message reçu depuis Programme 2
-[2026-07-01T10:48:11.970304] [SENDER] Envoi vers API : OliviaRodrigo_Less.mp3 | artiste=Olivia Rodrigo | titre=OliviaRodrigo_Less.mp3
-[2026-07-01T10:48:12.016790800] [SENDER] ? Insertion en base réussie : OliviaRodrigo_Less.mp3 (HTTP 200)
-[2026-07-01T10:48:12.016790800] [SENDER] Message envoyé à Programme 4 pour suppression : OliviaRodrigo_Less.mp3
-[2026-07-01T10:48:12.022049300] [SENDER] Nouveau message reçu depuis Programme 2
-[2026-07-01T10:48:12.022821700] [SENDER] Envoi vers API : OliviaRodrigo_Purple.mp3 | artiste=Olivia Rodrigo | titre=OliviaRodrigo_Purple.mp3
-[2026-07-01T10:48:12.058732700] [SENDER] ? Insertion en base réussie : OliviaRodrigo_Purple.mp3 (HTTP 200)
-[2026-07-01T10:48:12.062747800] [SENDER] Message envoyé à Programme 4 pour suppression : OliviaRodrigo_Purple.mp3
-[2026-07-01T10:48:12.064094500] [SENDER] Nouveau message reçu depuis Programme 2
-[2026-07-01T10:48:12.064649600] [SENDER] Envoi vers API : RijaRamanantoanina_MiandryFoana.mp3 | artiste=Rija Ramanantoanina | titre=RijaRamanantoanina_MiandryFoana.mp3
-[2026-07-01T10:48:12.104350] [SENDER] ? Insertion en base réussie : RijaRamanantoanina_MiandryFoana.mp3 (HTTP 200)
-[2026-07-01T10:48:12.105577400] [SENDER] Message envoyé à Programme 4 pour suppression : RijaRamanantoanina_MiandryFoana.mp3
-[2026-07-01T10:48:12.106306] [SENDER] Nouveau message reçu depuis Programme 2
-[2026-07-01T10:48:12.106975] [SENDER] Envoi vers API : ShawnMendes_Iknowwhatyoudidlastsummer.mp3 | artiste=Shawn Mendes | titre=ShawnMendes_Iknowwhatyoudidlastsummer.mp3
-[2026-07-01T10:48:12.140847800] [SENDER] ? Insertion en base réussie : ShawnMendes_Iknowwhatyoudidlastsummer.mp3 (HTTP 200)
-[2026-07-01T10:48:12.150716500] [SENDER] Message envoyé à Programme 4 pour suppression : ShawnMendes_Iknowwhatyoudidlastsummer.mp3
-[2026-07-01T10:48:12.151687400] [SENDER] Nouveau message reçu depuis Programme 2
-[2026-07-01T10:48:12.152214800] [SENDER] Envoi vers API : Wizkid_Joro.mp3 | artiste=Wizkid | titre=Wizkid_Joro.mp3
-[2026-07-01T10:48:12.192436100] [SENDER] ? Insertion en base réussie : Wizkid_Joro.mp3 (HTTP 200)
-[2026-07-01T10:48:12.195421800] [SENDER] Message envoyé à Programme 4 pour suppression : Wizkid_Joro.mp3
+[2026-07-01T14:35:24.522091600] [SENDER] Nouveau message reçu depuis Programme 2
+[2026-07-01T14:35:24.523663600] [SENDER] Envoi vers API : Fiainana kely.mp3 | artiste=Rija Ramanantoanina | titre=Fiainana kely
+[2026-07-01T14:35:24.869235800] [SENDER] ? Insertion en base réussie : Fiainana kely.mp3 (HTTP 200)
+[2026-07-01T14:35:24.879636800] [SENDER] Message envoyé à Programme 4 pour suppression : Fiainana kely.mp3
+[2026-07-01T14:35:24.881783300] [SENDER] Nouveau message reçu depuis Programme 2
+[2026-07-01T14:35:24.882310100] [SENDER] Envoi vers API : Fitiavana mamiratra.mp3 | artiste=Rija Ramanantoanina | titre=Fitiavana mamiratra
+[2026-07-01T14:35:24.918733800] [SENDER] ? Insertion en base réussie : Fitiavana mamiratra.mp3 (HTTP 200)
+[2026-07-01T14:35:24.923225900] [SENDER] Message envoyé à Programme 4 pour suppression : Fitiavana mamiratra.mp3
+[2026-07-01T14:35:24.924263100] [SENDER] Nouveau message reçu depuis Programme 2
+[2026-07-01T14:35:24.924824800] [SENDER] Envoi vers API : Hay ve.mp3 | artiste=Rija Ramanantoanina | titre=Hay ve
+[2026-07-01T14:35:24.959561800] [SENDER] ? Insertion en base réussie : Hay ve.mp3 (HTTP 200)
+[2026-07-01T14:35:24.960087100] [SENDER] Message envoyé à Programme 4 pour suppression : Hay ve.mp3
+[2026-07-01T14:35:24.961134] [SENDER] Nouveau message reçu depuis Programme 2
+[2026-07-01T14:35:24.961658400] [SENDER] Envoi vers API : Mama.MP3 | artiste=Rija Ramanantoanina | titre=Mama
+[2026-07-01T14:35:25.005233] [SENDER] ? Insertion en base réussie : Mama.MP3 (HTTP 200)
+[2026-07-01T14:35:25.005753400] [SENDER] Message envoyé à Programme 4 pour suppression : Mama.MP3
+[2026-07-01T14:35:25.006794100] [SENDER] Nouveau message reçu depuis Programme 2
+[2026-07-01T14:35:25.007322200] [SENDER] Envoi vers API : Manahy aho.MP3 | artiste=Mahaleo | titre=Manahy aho
+[2026-07-01T14:35:25.051589800] [SENDER] ? Insertion en base réussie : Manahy aho.MP3 (HTTP 200)
+[2026-07-01T14:35:25.052638400] [SENDER] Message envoyé à Programme 4 pour suppression : Manahy aho.MP3
+[2026-07-01T14:35:25.053682400] [SENDER] Nouveau message reçu depuis Programme 2
+[2026-07-01T14:35:25.054249800] [SENDER] Envoi vers API : Misy antony.mp3 | artiste=Bessa | titre=Misy antony
+[2026-07-01T14:35:25.088781200] [SENDER] ? Insertion en base réussie : Misy antony.mp3 (HTTP 200)
+[2026-07-01T14:35:25.089783600] [SENDER] Message envoyé à Programme 4 pour suppression : Misy antony.mp3
+[2026-07-01T14:35:25.090784300] [SENDER] Nouveau message reçu depuis Programme 2
+[2026-07-01T14:35:25.091424400] [SENDER] Envoi vers API : Ny itiavako anao.mp3 | artiste=Bessa | titre=Ny itiavako anao
+[2026-07-01T14:35:25.140702100] [SENDER] ? Insertion en base réussie : Ny itiavako anao.mp3 (HTTP 200)
+[2026-07-01T14:35:25.142950300] [SENDER] Message envoyé à Programme 4 pour suppression : Ny itiavako anao.mp3
+[2026-07-01T14:35:25.143457500] [SENDER] Nouveau message reçu depuis Programme 2
+[2026-07-01T14:35:25.144019400] [SENDER] Envoi vers API : Ny tena fitia.mp3 | artiste=Mahaleo | titre=Ny tena fitia
+[2026-07-01T14:35:25.196912300] [SENDER] ? Insertion en base réussie : Ny tena fitia.mp3 (HTTP 200)
+[2026-07-01T14:35:25.197415500] [SENDER] Message envoyé à Programme 4 pour suppression : Ny tena fitia.mp3
+[2026-07-01T14:35:25.198445200] [SENDER] Nouveau message reçu depuis Programme 2
+[2026-07-01T14:35:25.199499300] [SENDER] Envoi vers API : Rakojavona.MP3 | artiste=Eric Manana | titre=Rakojavona
+[2026-07-01T14:35:25.245575400] [SENDER] ? Insertion en base réussie : Rakojavona.MP3 (HTTP 200)
+[2026-07-01T14:35:25.246630300] [SENDER] Message envoyé à Programme 4 pour suppression : Rakojavona.MP3
+[2026-07-01T14:35:25.247795100] [SENDER] Nouveau message reçu depuis Programme 2
+[2026-07-01T14:35:25.248314400] [SENDER] Envoi vers API : Tambazako.mp3 | artiste=Eric Manana | titre=Tambazako
+[2026-07-01T14:35:25.296368700] [SENDER] ? Insertion en base réussie : Tambazako.mp3 (HTTP 200)
+[2026-07-01T14:35:25.297869500] [SENDER] Message envoyé à Programme 4 pour suppression : Tambazako.mp3
+[2026-07-01T14:38:47.781702400] [SENDER] Nouveau message reçu depuis Programme 2
+[2026-07-01T14:38:47.782737200] [SENDER] Envoi vers API : Fiainana kely.mp3 | artiste=Rija Ramanantoanina | titre=Fiainana kely
+[2026-07-01T14:38:48.099555900] [SENDER] ? Insertion en base réussie : Fiainana kely.mp3 (HTTP 200)
+[2026-07-01T14:38:48.110225700] [SENDER] Message envoyé à Programme 4 pour suppression : Fiainana kely.mp3
+[2026-07-01T14:38:48.112043] [SENDER] Nouveau message reçu depuis Programme 2
+[2026-07-01T14:38:48.112575400] [SENDER] Envoi vers API : Fitiavana mamiratra.mp3 | artiste=Rija Ramanantoanina | titre=Fitiavana mamiratra
+[2026-07-01T14:38:48.152110800] [SENDER] ? Insertion en base réussie : Fitiavana mamiratra.mp3 (HTTP 200)
+[2026-07-01T14:38:48.154878700] [SENDER] Message envoyé à Programme 4 pour suppression : Fitiavana mamiratra.mp3
+[2026-07-01T14:38:48.155744500] [SENDER] Nouveau message reçu depuis Programme 2
+[2026-07-01T14:38:48.156181900] [SENDER] Envoi vers API : Hay ve.mp3 | artiste=Rija Ramanantoanina | titre=Hay ve
+[2026-07-01T14:38:48.187987800] [SENDER] ? Insertion en base réussie : Hay ve.mp3 (HTTP 200)
+[2026-07-01T14:38:48.187987800] [SENDER] Message envoyé à Programme 4 pour suppression : Hay ve.mp3
+[2026-07-01T14:38:48.187987800] [SENDER] Nouveau message reçu depuis Programme 2
+[2026-07-01T14:38:48.187987800] [SENDER] Envoi vers API : Mama.MP3 | artiste=Rija Ramanantoanina | titre=Mama
+[2026-07-01T14:38:48.237715100] [SENDER] ? Insertion en base réussie : Mama.MP3 (HTTP 200)
+[2026-07-01T14:38:48.240201300] [SENDER] Message envoyé à Programme 4 pour suppression : Mama.MP3
+[2026-07-01T14:38:48.240709500] [SENDER] Nouveau message reçu depuis Programme 2
+[2026-07-01T14:38:48.241342700] [SENDER] Envoi vers API : Manahy aho.MP3 | artiste=Mahaleo | titre=Manahy aho
+[2026-07-01T14:38:48.290506700] [SENDER] ? Insertion en base réussie : Manahy aho.MP3 (HTTP 200)
+[2026-07-01T14:38:48.291557] [SENDER] Message envoyé à Programme 4 pour suppression : Manahy aho.MP3
+[2026-07-01T14:38:48.292710100] [SENDER] Nouveau message reçu depuis Programme 2
+[2026-07-01T14:38:48.293225300] [SENDER] Envoi vers API : Misy antony.mp3 | artiste=Bessa | titre=Misy antony
+[2026-07-01T14:38:48.331132300] [SENDER] ? Insertion en base réussie : Misy antony.mp3 (HTTP 200)
+[2026-07-01T14:38:48.332188100] [SENDER] Message envoyé à Programme 4 pour suppression : Misy antony.mp3
+[2026-07-01T14:38:48.333112900] [SENDER] Nouveau message reçu depuis Programme 2
+[2026-07-01T14:38:48.333620400] [SENDER] Envoi vers API : Ny itiavako anao.mp3 | artiste=Bessa | titre=Ny itiavako anao
+[2026-07-01T14:38:48.382684400] [SENDER] ? Insertion en base réussie : Ny itiavako anao.mp3 (HTTP 200)
+[2026-07-01T14:38:48.384446400] [SENDER] Message envoyé à Programme 4 pour suppression : Ny itiavako anao.mp3
+[2026-07-01T14:38:48.385178600] [SENDER] Nouveau message reçu depuis Programme 2
+[2026-07-01T14:38:48.385614300] [SENDER] Envoi vers API : Ny tena fitia.mp3 | artiste=Mahaleo | titre=Ny tena fitia
+[2026-07-01T14:38:48.440616300] [SENDER] ? Insertion en base réussie : Ny tena fitia.mp3 (HTTP 200)
+[2026-07-01T14:38:48.441665400] [SENDER] Message envoyé à Programme 4 pour suppression : Ny tena fitia.mp3
+[2026-07-01T14:38:48.442190300] [SENDER] Nouveau message reçu depuis Programme 2
+[2026-07-01T14:38:48.442715900] [SENDER] Envoi vers API : Rakojavona.MP3 | artiste=Eric Manana | titre=Rakojavona
+[2026-07-01T14:38:48.489116900] [SENDER] ? Insertion en base réussie : Rakojavona.MP3 (HTTP 200)
+[2026-07-01T14:38:48.490049600] [SENDER] Message envoyé à Programme 4 pour suppression : Rakojavona.MP3
+[2026-07-01T14:38:48.490557300] [SENDER] Nouveau message reçu depuis Programme 2
+[2026-07-01T14:38:48.491222700] [SENDER] Envoi vers API : Tambazako.mp3 | artiste=Eric Manana | titre=Tambazako
+[2026-07-01T14:38:48.535092200] [SENDER] ? Insertion en base réussie : Tambazako.mp3 (HTTP 200)
+[2026-07-01T14:38:48.536607700] [SENDER] Message envoyé à Programme 4 pour suppression : Tambazako.mp3

@@ -1,5 +1,4 @@
 [ARTISTES]
-YZIT
+jeneraly
 
 [GENRES]
-Salegy

@@ -1,42 +1,94 @@
-[2026-07-01T10:48:01.924732] [METADATA] Reçu fichier à traiter : C:\Users\miari\Documents\projetMP3\mp3\musique\Ankino.mp3
-[2026-07-01T10:48:01.942175400] [METADATA] Métadonnées extraites : artiste="Bodo" | genre="Pop" | durée=230s
-[2026-07-01T10:48:01.943748600] [METADATA] Durée max chargée : 300s
-[2026-07-01T10:48:01.964666400] [METADATA] ? Envoyé en Queue 3 (DB) : Ankino.mp3 | artiste=Bodo | titre=Ankino | durée=230s | temps=35ms
-[2026-07-01T10:48:11.911717700] [METADATA] Reçu fichier à traiter : C:\Users\miari\Documents\projetMP3\mp3\musique\Antanambao.MP3
-[2026-07-01T10:48:11.917321600] [METADATA] Métadonnées extraites : artiste="Bekoto Augustin" | genre="Folk" | durée=175s
-[2026-07-01T10:48:11.918710] [METADATA] Durée max chargée : 300s
-[2026-07-01T10:48:11.920553200] [METADATA] ? Envoyé en Queue 3 (DB) : Antanambao.MP3 | artiste=Bekoto Augustin | titre=Antanambao | durée=175s | temps=8ms
-[2026-07-01T10:48:11.921713300] [METADATA] Reçu fichier à traiter : C:\Users\miari\Documents\projetMP3\mp3\musique\IAO.MP3
-[2026-07-01T10:48:11.926607500] [METADATA] Métadonnées extraites : artiste="ROSSY" | genre="salegy" | durée=228s
-[2026-07-01T10:48:11.927668900] [METADATA] ? Genre blacklisté : "salegy" ? fichier conservé dans le répertoire musique
-[2026-07-01T10:48:11.928159100] [METADATA] Reçu fichier à traiter : C:\Users\miari\Documents\projetMP3\mp3\musique\OliviaRodrigo_Less.mp3
-[2026-07-01T10:48:11.932339800] [METADATA] Métadonnées extraites : artiste="Olivia Rodrigo" | genre="Pop" | durée=194s
-[2026-07-01T10:48:11.933233700] [METADATA] Durée max chargée : 300s
-[2026-07-01T10:48:11.934738700] [METADATA] ? Envoyé en Queue 3 (DB) : OliviaRodrigo_Less.mp3 | artiste=Olivia Rodrigo | titre=OliviaRodrigo_Less.mp3 | durée=194s | temps=6ms
-[2026-07-01T10:48:11.935489900] [METADATA] Reçu fichier à traiter : C:\Users\miari\Documents\projetMP3\mp3\musique\OliviaRodrigo_Purple.mp3
-[2026-07-01T10:48:11.939299200] [METADATA] Métadonnées extraites : artiste="Olivia Rodrigo" | genre="Pop" | durée=240s
-[2026-07-01T10:48:11.940865700] [METADATA] Durée max chargée : 300s
-[2026-07-01T10:48:11.941926900] [METADATA] ? Envoyé en Queue 3 (DB) : OliviaRodrigo_Purple.mp3 | artiste=Olivia Rodrigo | titre=OliviaRodrigo_Purple.mp3 | durée=240s | temps=6ms
-[2026-07-01T10:48:11.942456] [METADATA] Reçu fichier à traiter : C:\Users\miari\Documents\projetMP3\mp3\musique\OliviaRodrigo_TheCure_Pop_Youseemprettysadforagirlsoinlove.mp3
-[2026-07-01T10:48:11.948183700] [METADATA] Métadonnées extraites : artiste="Olivia Rodrigo" | genre="Pop" | durée=314s
-[2026-07-01T10:48:11.949717900] [METADATA] Durée max chargée : 300s
-[2026-07-01T10:48:11.951516600] [METADATA] ? Durée dépassée : 314s > max 300s pour "OliviaRodrigo_TheCure_Pop_Youseemprettysadforagirlsoinlove.mp3" ? fichier conservé dans le répertoire musique
-[2026-07-01T10:48:11.952576600] [METADATA] Reçu fichier à traiter : C:\Users\miari\Documents\projetMP3\mp3\musique\Poopy_Tahakizay.mp3
-[2026-07-01T10:48:11.958628400] [METADATA] Métadonnées extraites : artiste="Poopy" | genre="Pop" | durée=435s
-[2026-07-01T10:48:11.959684200] [METADATA] Durée max chargée : 300s
-[2026-07-01T10:48:11.959684200] [METADATA] ? Durée dépassée : 435s > max 300s pour "Poopy_Tahakizay.mp3" ? fichier conservé dans le répertoire musique
-[2026-07-01T10:48:11.960902300] [METADATA] Reçu fichier à traiter : C:\Users\miari\Documents\projetMP3\mp3\musique\RijaRamanantoanina_MiandryFoana.mp3
-[2026-07-01T10:48:11.965139700] [METADATA] Métadonnées extraites : artiste="Rija Ramanantoanina" | genre="Jazz" | durée=255s
-[2026-07-01T10:48:11.965139700] [METADATA] Durée max chargée : 300s
-[2026-07-01T10:48:11.967318500] [METADATA] ? Envoyé en Queue 3 (DB) : RijaRamanantoanina_MiandryFoana.mp3 | artiste=Rija Ramanantoanina | titre=RijaRamanantoanina_MiandryFoana.mp3 | durée=255s | temps=6ms
-[2026-07-01T10:48:11.967932200] [METADATA] Reçu fichier à traiter : C:\Users\miari\Documents\projetMP3\mp3\musique\ShawnMendes_Iknowwhatyoudidlastsummer.mp3
-[2026-07-01T10:48:11.972288] [METADATA] Métadonnées extraites : artiste="Shawn Mendes" | genre="Pop" | durée=228s
-[2026-07-01T10:48:11.973647700] [METADATA] Durée max chargée : 300s
-[2026-07-01T10:48:11.974686100] [METADATA] ? Envoyé en Queue 3 (DB) : ShawnMendes_Iknowwhatyoudidlastsummer.mp3 | artiste=Shawn Mendes | titre=ShawnMendes_Iknowwhatyoudidlastsummer.mp3 | durée=228s | temps=6ms
-[2026-07-01T10:48:11.975731200] [METADATA] Reçu fichier à traiter : C:\Users\miari\Documents\projetMP3\mp3\musique\Wizkid_Joro.mp3
-[2026-07-01T10:48:11.979826100] [METADATA] Métadonnées extraites : artiste="Wizkid" | genre="Pop" | durée=264s
-[2026-07-01T10:48:11.980864900] [METADATA] Durée max chargée : 300s
-[2026-07-01T10:48:11.981890600] [METADATA] ? Envoyé en Queue 3 (DB) : Wizkid_Joro.mp3 | artiste=Wizkid | titre=Wizkid_Joro.mp3 | durée=264s | temps=6ms
-[2026-07-01T10:48:11.982410200] [METADATA] Reçu fichier à traiter : C:\Users\miari\Documents\projetMP3\mp3\musique\Yzit_FoMijaly.mp3
-[2026-07-01T10:48:11.986557700] [METADATA] Métadonnées extraites : artiste="Yzit" | genre="Pop" | durée=236s
-[2026-07-01T10:48:11.986557700] [METADATA] ? Artiste blacklisté : "Yzit" ? fichier conservé dans le répertoire musique
+[2026-07-01T14:35:24.437081900] [METADATA] Reçu fichier à traiter : C:\Users\miari\Documents\projetMP3\mp3\musique\18 taona.mp3
+[2026-07-01T14:35:24.455103700] [METADATA] Métadonnées extraites : artiste="Jeneraly" | genre="Folk" | durée=230s
+[2026-07-01T14:35:24.456735300] [METADATA] ? Artiste blacklisté : "Jeneraly" ? fichier conservé dans le répertoire musique
+[2026-07-01T14:35:24.458858500] [METADATA] Reçu fichier à traiter : C:\Users\miari\Documents\projetMP3\mp3\musique\Fiainana kely.mp3
+[2026-07-01T14:35:24.465618700] [METADATA] Métadonnées extraites : artiste="Rija Ramanantoanina" | genre="Jazz" | durée=246s
+[2026-07-01T14:35:24.467190900] [METADATA] Durée max chargée : 360s
+[2026-07-01T14:35:24.489262600] [METADATA] ? Envoyé en Queue 3 (DB) : Fiainana kely.mp3 | artiste=Rija Ramanantoanina | titre=Fiainana kely | durée=246s | temps=27ms
+[2026-07-01T14:35:24.490314300] [METADATA] Reçu fichier à traiter : C:\Users\miari\Documents\projetMP3\mp3\musique\Fitiavana mamiratra.mp3
+[2026-07-01T14:35:24.495652] [METADATA] Métadonnées extraites : artiste="Rija Ramanantoanina" | genre="Slow" | durée=232s
+[2026-07-01T14:35:24.496695900] [METADATA] Durée max chargée : 360s
+[2026-07-01T14:35:24.498391100] [METADATA] ? Envoyé en Queue 3 (DB) : Fitiavana mamiratra.mp3 | artiste=Rija Ramanantoanina | titre=Fitiavana mamiratra | durée=232s | temps=8ms
+[2026-07-01T14:35:24.499433] [METADATA] Reçu fichier à traiter : C:\Users\miari\Documents\projetMP3\mp3\musique\Hay ve.mp3
+[2026-07-01T14:35:24.503761800] [METADATA] Métadonnées extraites : artiste="Rija Ramanantoanina" | genre="Slow" | durée=207s
+[2026-07-01T14:35:24.504807700] [METADATA] Durée max chargée : 360s
+[2026-07-01T14:35:24.505972700] [METADATA] ? Envoyé en Queue 3 (DB) : Hay ve.mp3 | artiste=Rija Ramanantoanina | titre=Hay ve | durée=207s | temps=6ms
+[2026-07-01T14:35:24.506940600] [METADATA] Reçu fichier à traiter : C:\Users\miari\Documents\projetMP3\mp3\musique\Lendrema.mp3
+[2026-07-01T14:35:24.514097300] [METADATA] Métadonnées extraites : artiste="Mahaleo" | genre="Folk" | durée=490s
+[2026-07-01T14:35:24.515135200] [METADATA] Durée max chargée : 360s
+[2026-07-01T14:35:24.517248600] [METADATA] ? Durée dépassée : 490s > max 360s pour "Lendrema" ? fichier conservé dans le répertoire musique
+[2026-07-01T14:35:24.518138700] [METADATA] Reçu fichier à traiter : C:\Users\miari\Documents\projetMP3\mp3\musique\Mama.MP3
+[2026-07-01T14:35:24.523137200] [METADATA] Métadonnées extraites : artiste="Rija Ramanantoanina" | genre="Jazz" | durée=273s
+[2026-07-01T14:35:24.524617600] [METADATA] Durée max chargée : 360s
+[2026-07-01T14:35:24.525138500] [METADATA] ? Envoyé en Queue 3 (DB) : Mama.MP3 | artiste=Rija Ramanantoanina | titre=Mama | durée=273s | temps=7ms
+[2026-07-01T14:35:24.526240300] [METADATA] Reçu fichier à traiter : C:\Users\miari\Documents\projetMP3\mp3\musique\Manahy aho.MP3
+[2026-07-01T14:35:24.531037300] [METADATA] Métadonnées extraites : artiste="Mahaleo" | genre="Slow" | durée=276s
+[2026-07-01T14:35:24.532602400] [METADATA] Durée max chargée : 360s
+[2026-07-01T14:35:24.533840900] [METADATA] ? Envoyé en Queue 3 (DB) : Manahy aho.MP3 | artiste=Mahaleo | titre=Manahy aho | durée=276s | temps=7ms
+[2026-07-01T14:35:24.534371200] [METADATA] Reçu fichier à traiter : C:\Users\miari\Documents\projetMP3\mp3\musique\Misy antony.mp3
+[2026-07-01T14:35:24.538482] [METADATA] Métadonnées extraites : artiste="Bessa" | genre="Bagasy" | durée=199s
+[2026-07-01T14:35:24.540038500] [METADATA] Durée max chargée : 360s
+[2026-07-01T14:35:24.540772700] [METADATA] ? Envoyé en Queue 3 (DB) : Misy antony.mp3 | artiste=Bessa | titre=Misy antony | durée=199s | temps=6ms
+[2026-07-01T14:35:24.541815400] [METADATA] Reçu fichier à traiter : C:\Users\miari\Documents\projetMP3\mp3\musique\Ny itiavako anao.mp3
+[2026-07-01T14:35:24.547154] [METADATA] Métadonnées extraites : artiste="Bessa" | genre="Other" | durée=300s
+[2026-07-01T14:35:24.548185100] [METADATA] Durée max chargée : 360s
+[2026-07-01T14:35:24.549242300] [METADATA] ? Envoyé en Queue 3 (DB) : Ny itiavako anao.mp3 | artiste=Bessa | titre=Ny itiavako anao | durée=300s | temps=7ms
+[2026-07-01T14:35:24.549762700] [METADATA] Reçu fichier à traiter : C:\Users\miari\Documents\projetMP3\mp3\musique\Ny tena fitia.mp3
+[2026-07-01T14:35:24.555541500] [METADATA] Métadonnées extraites : artiste="Mahaleo" | genre="Folk" | durée=154s
+[2026-07-01T14:35:24.557110200] [METADATA] Durée max chargée : 360s
+[2026-07-01T14:35:24.558034900] [METADATA] ? Envoyé en Queue 3 (DB) : Ny tena fitia.mp3 | artiste=Mahaleo | titre=Ny tena fitia | durée=154s | temps=8ms
+[2026-07-01T14:35:24.559082500] [METADATA] Reçu fichier à traiter : C:\Users\miari\Documents\projetMP3\mp3\musique\Rakojavona.MP3
+[2026-07-01T14:35:24.563336300] [METADATA] Métadonnées extraites : artiste="Eric Manana" | genre="Bagasy" | durée=275s
+[2026-07-01T14:35:24.564401700] [METADATA] Durée max chargée : 360s
+[2026-07-01T14:35:24.565487700] [METADATA] ? Envoyé en Queue 3 (DB) : Rakojavona.MP3 | artiste=Eric Manana | titre=Rakojavona | durée=275s | temps=6ms
+[2026-07-01T14:35:24.566541800] [METADATA] Reçu fichier à traiter : C:\Users\miari\Documents\projetMP3\mp3\musique\Tambazako.mp3
+[2026-07-01T14:35:24.575293200] [METADATA] Métadonnées extraites : artiste="Eric Manana" | genre="Folk" | durée=286s
+[2026-07-01T14:35:24.577134200] [METADATA] Durée max chargée : 360s
+[2026-07-01T14:35:24.578057100] [METADATA] ? Envoyé en Queue 3 (DB) : Tambazako.mp3 | artiste=Eric Manana | titre=Tambazako | durée=286s | temps=11ms
+[2026-07-01T14:36:50.545210900] [METADATA] Reçu fichier à traiter : C:\Users\miari\Documents\projetMP3\mp3\musique\18 taona.mp3
+[2026-07-01T14:36:50.562213600] [METADATA] Métadonnées extraites : artiste="Jeneraly" | genre="Folk" | durée=230s
+[2026-07-01T14:36:50.563235600] [METADATA] ? Artiste blacklisté : "Jeneraly" ? fichier conservé dans le répertoire musique
+[2026-07-01T14:36:50.565488900] [METADATA] Reçu fichier à traiter : C:\Users\miari\Documents\projetMP3\mp3\musique\Lendrema.mp3
+[2026-07-01T14:36:50.575235] [METADATA] Métadonnées extraites : artiste="Mahaleo" | genre="Folk" | durée=490s
+[2026-07-01T14:36:50.577334800] [METADATA] Durée max chargée : 360s
+[2026-07-01T14:36:50.579844100] [METADATA] ? Durée dépassée : 490s > max 360s pour "Lendrema" ? fichier conservé dans le répertoire musique
+[2026-07-01T14:38:47.723459600] [METADATA] Reçu fichier à traiter : C:\Users\miari\Documents\projetMP3\mp3\musique\Fiainana kely.mp3
+[2026-07-01T14:38:47.730062300] [METADATA] Métadonnées extraites : artiste="Rija Ramanantoanina" | genre="Jazz" | durée=246s
+[2026-07-01T14:38:47.731439100] [METADATA] Durée max chargée : 360s
+[2026-07-01T14:38:47.750764900] [METADATA] ? Envoyé en Queue 3 (DB) : Fiainana kely.mp3 | artiste=Rija Ramanantoanina | titre=Fiainana kely | durée=246s | temps=25ms
+[2026-07-01T14:38:47.751814900] [METADATA] Reçu fichier à traiter : C:\Users\miari\Documents\projetMP3\mp3\musique\Fitiavana mamiratra.mp3
+[2026-07-01T14:38:47.755999900] [METADATA] Métadonnées extraites : artiste="Rija Ramanantoanina" | genre="Slow" | durée=232s
+[2026-07-01T14:38:47.757038500] [METADATA] Durée max chargée : 360s
+[2026-07-01T14:38:47.758602600] [METADATA] ? Envoyé en Queue 3 (DB) : Fitiavana mamiratra.mp3 | artiste=Rija Ramanantoanina | titre=Fitiavana mamiratra | durée=232s | temps=6ms
+[2026-07-01T14:38:47.759121500] [METADATA] Reçu fichier à traiter : C:\Users\miari\Documents\projetMP3\mp3\musique\Hay ve.mp3
+[2026-07-01T14:38:47.762206700] [METADATA] Métadonnées extraites : artiste="Rija Ramanantoanina" | genre="Slow" | durée=207s
+[2026-07-01T14:38:47.763803400] [METADATA] Durée max chargée : 360s
+[2026-07-01T14:38:47.764938800] [METADATA] ? Envoyé en Queue 3 (DB) : Hay ve.mp3 | artiste=Rija Ramanantoanina | titre=Hay ve | durée=207s | temps=5ms
+[2026-07-01T14:38:47.765648200] [METADATA] Reçu fichier à traiter : C:\Users\miari\Documents\projetMP3\mp3\musique\Mama.MP3
+[2026-07-01T14:38:47.770017400] [METADATA] Métadonnées extraites : artiste="Rija Ramanantoanina" | genre="Jazz" | durée=273s
+[2026-07-01T14:38:47.771055600] [METADATA] Durée max chargée : 360s
+[2026-07-01T14:38:47.772102900] [METADATA] ? Envoyé en Queue 3 (DB) : Mama.MP3 | artiste=Rija Ramanantoanina | titre=Mama | durée=273s | temps=6ms
+[2026-07-01T14:38:47.772637400] [METADATA] Reçu fichier à traiter : C:\Users\miari\Documents\projetMP3\mp3\musique\Manahy aho.MP3
+[2026-07-01T14:38:47.777312900] [METADATA] Métadonnées extraites : artiste="Mahaleo" | genre="Slow" | durée=276s
+[2026-07-01T14:38:47.778352900] [METADATA] Durée max chargée : 360s
+[2026-07-01T14:38:47.779427500] [METADATA] ? Envoyé en Queue 3 (DB) : Manahy aho.MP3 | artiste=Mahaleo | titre=Manahy aho | durée=276s | temps=5ms
+[2026-07-01T14:38:47.779950] [METADATA] Reçu fichier à traiter : C:\Users\miari\Documents\projetMP3\mp3\musique\Misy antony.mp3
+[2026-07-01T14:38:47.783414400] [METADATA] Métadonnées extraites : artiste="Bessa" | genre="Bagasy" | durée=199s
+[2026-07-01T14:38:47.784252200] [METADATA] Durée max chargée : 360s
+[2026-07-01T14:38:47.785782500] [METADATA] ? Envoyé en Queue 3 (DB) : Misy antony.mp3 | artiste=Bessa | titre=Misy antony | durée=199s | temps=6ms
+[2026-07-01T14:38:47.786288100] [METADATA] Reçu fichier à traiter : C:\Users\miari\Documents\projetMP3\mp3\musique\Ny itiavako anao.mp3
+[2026-07-01T14:38:47.790523300] [METADATA] Métadonnées extraites : artiste="Bessa" | genre="Other" | durée=300s
+[2026-07-01T14:38:47.791566600] [METADATA] Durée max chargée : 360s
+[2026-07-01T14:38:47.792603] [METADATA] ? Envoyé en Queue 3 (DB) : Ny itiavako anao.mp3 | artiste=Bessa | titre=Ny itiavako anao | durée=300s | temps=6ms
+[2026-07-01T14:38:47.793644700] [METADATA] Reçu fichier à traiter : C:\Users\miari\Documents\projetMP3\mp3\musique\Ny tena fitia.mp3
+[2026-07-01T14:38:47.799135900] [METADATA] Métadonnées extraites : artiste="Mahaleo" | genre="Folk" | durée=154s
+[2026-07-01T14:38:47.800822400] [METADATA] Durée max chargée : 360s
+[2026-07-01T14:38:47.801866600] [METADATA] ? Envoyé en Queue 3 (DB) : Ny tena fitia.mp3 | artiste=Mahaleo | titre=Ny tena fitia | durée=154s | temps=7ms
+[2026-07-01T14:38:47.802906100] [METADATA] Reçu fichier à traiter : C:\Users\miari\Documents\projetMP3\mp3\musique\Rakojavona.MP3
+[2026-07-01T14:38:47.806650800] [METADATA] Métadonnées extraites : artiste="Eric Manana" | genre="Bagasy" | durée=275s
+[2026-07-01T14:38:47.807652400] [METADATA] Durée max chargée : 360s
+[2026-07-01T14:38:47.809475] [METADATA] ? Envoyé en Queue 3 (DB) : Rakojavona.MP3 | artiste=Eric Manana | titre=Rakojavona | durée=275s | temps=6ms
+[2026-07-01T14:38:47.810234500] [METADATA] Reçu fichier à traiter : C:\Users\miari\Documents\projetMP3\mp3\musique\Tambazako.mp3
+[2026-07-01T14:38:47.814933100] [METADATA] Métadonnées extraites : artiste="Eric Manana" | genre="Folk" | durée=286s
+[2026-07-01T14:38:47.816510200] [METADATA] Durée max chargée : 360s
+[2026-07-01T14:38:47.817467900] [METADATA] ? Envoyé en Queue 3 (DB) : Tambazako.mp3 | artiste=Eric Manana | titre=Tambazako | durée=286s | temps=7ms
