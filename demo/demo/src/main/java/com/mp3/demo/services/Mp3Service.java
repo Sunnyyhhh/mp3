@@ -66,10 +66,6 @@ public class Mp3Service {
         return mp3Repository.save(mp3);
     }
 
-    /**
-     * Sauvegarde un MP3 uploadé manuellement depuis le formulaire web.
-     * Utilise UNIQUEMENT les champs du formulaire — les métadonnées du fichier sont ignorées.
-     */
     public Mp3 sauvegarderManuel(MultipartFile file, String titre,
                                   String artiste, String genre) throws Exception {
         validerFichierMp3(file);
@@ -94,9 +90,6 @@ public class Mp3Service {
         return mp3Repository.save(mp3);
     }
 
-    /**
-     * Met à jour les champs titre, artiste, genre d'un MP3 (null = inchangé).
-     */
     public Mp3 update(Long id, String titre, String artiste, String genre) {
         Mp3 mp3 = findById(id);
         if (titre   != null) mp3.setTitre(titre.trim());
@@ -104,8 +97,6 @@ public class Mp3Service {
         if (genre   != null) mp3.setGenre(genre.trim());
         return mp3Repository.save(mp3);
     }
-
-    // ── Helpers ──────────────────────────────────────────────────────────────
 
     private void validerFichierMp3(MultipartFile file) {
         String nom = file.getOriginalFilename();

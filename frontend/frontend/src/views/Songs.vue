@@ -1,6 +1,5 @@
 <template>
   <div class="page">
-    <!-- Navbar -->
     <nav class="navbar">
       <div class="nav-logo"> MP3 Manager</div>
       <div class="nav-links">
@@ -17,7 +16,7 @@
       <h2>Mes Chansons <span class="badge">{{ songs.length }}</span></h2>
 
       <div class="create-card">
-        <h3>➕ Ajouter une chanson</h3>
+        <h3> Ajouter une chanson</h3>
         <div class="form-row">
           <div class="field file-field">
             <label>Fichier MP3</label>
@@ -85,13 +84,13 @@
 
           <div class="song-actions">
             <template v-if="editingId !== song.id">
-              <button class="btn-edit" @click.stop="startEdit(song)">✏️</button>
+              <button class="song-genre" @click.stop="startEdit(song)">Modifier</button>
             </template>
             <template v-else>
               <button class="btn-save" @click.stop="saveEdit(song.id)">✔</button>
               <button class="btn-cancel" @click.stop="cancelEdit">✖</button>
             </template>
-            <button class="btn-delete" @click.stop="remove(song.id)">🗑</button>
+            <button  class="song-genre" @click.stop="remove(song.id)">Supprimer</button>
           </div>
         </div>
 

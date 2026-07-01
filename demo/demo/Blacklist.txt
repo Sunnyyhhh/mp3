@@ -1,9 +1,4 @@
-# Blacklist unique — artistes et genres
-# Format : sections [ARTISTES] et [GENRES], un nom par ligne, insensible à la casse
-# Les lignes commençant par # sont des commentaires
-
 [ARTISTES]
-Olivia RodriGO
 YZIT
 
 [GENRES]

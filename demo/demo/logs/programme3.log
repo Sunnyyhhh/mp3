@@ -1,65 +1,28 @@
-[2026-06-30T19:22:28.929507700] [SENDER] Nouveau message reçu depuis Programme 2
-[2026-06-30T19:22:28.930543500] [SENDER] Envoi vers API : Ankino.mp3 | artiste=Bodo | titre=Ankino
-[2026-06-30T19:22:29.267023] [SENDER] Envoi réussi : Ankino.mp3 (HTTP 200)
-[2026-06-30T19:22:29.270028500] [SENDER] Fichier supprimé du répertoire source : Ankino.mp3
-[2026-06-30T19:22:29.271610500] [SENDER] Nouveau message reçu depuis Programme 2
-[2026-06-30T19:22:29.272307800] [SENDER] Envoi vers API : Antanambao.MP3 | artiste=Bekoto Augustin | titre=Antanambao
-[2026-06-30T19:22:29.306274800] [SENDER] Envoi réussi : Antanambao.MP3 (HTTP 200)
-[2026-06-30T19:22:29.308505500] [SENDER] Fichier supprimé du répertoire source : Antanambao.MP3
-[2026-06-30T19:22:29.310139400] [SENDER] Nouveau message reçu depuis Programme 2
-[2026-06-30T19:22:29.310643500] [SENDER] Envoi vers API : Poopy_Tahakizay.mp3 | artiste=Poopy | titre=Poopy_Tahakizay.mp3
-[2026-06-30T19:22:29.368205100] [SENDER] Envoi réussi : Poopy_Tahakizay.mp3 (HTTP 200)
-[2026-06-30T19:22:29.373998400] [SENDER] Fichier supprimé du répertoire source : Poopy_Tahakizay.mp3
-[2026-06-30T19:22:29.374995900] [SENDER] Nouveau message reçu depuis Programme 2
-[2026-06-30T19:22:29.375505100] [SENDER] Envoi vers API : RijaRamanantoanina_MiandryFoana.mp3 | artiste=Rija Ramanantoanina | titre=RijaRamanantoanina_MiandryFoana.mp3
-[2026-06-30T19:22:29.416314300] [SENDER] Envoi réussi : RijaRamanantoanina_MiandryFoana.mp3 (HTTP 200)
-[2026-06-30T19:22:29.418628700] [SENDER] Fichier supprimé du répertoire source : RijaRamanantoanina_MiandryFoana.mp3
-[2026-06-30T19:22:29.419684200] [SENDER] Nouveau message reçu depuis Programme 2
-[2026-06-30T19:22:29.420216400] [SENDER] Envoi vers API : ShawnMendes_Iknowwhatyoudidlastsummer.mp3 | artiste=Shawn Mendes | titre=ShawnMendes_Iknowwhatyoudidlastsummer.mp3
-[2026-06-30T19:22:29.456519100] [SENDER] Envoi réussi : ShawnMendes_Iknowwhatyoudidlastsummer.mp3 (HTTP 200)
-[2026-06-30T19:22:29.460900200] [SENDER] Fichier supprimé du répertoire source : ShawnMendes_Iknowwhatyoudidlastsummer.mp3
-[2026-06-30T19:22:29.462256200] [SENDER] Nouveau message reçu depuis Programme 2
-[2026-06-30T19:22:29.462789100] [SENDER] Envoi vers API : Wizkid_Joro.mp3 | artiste=Wizkid | titre=Wizkid_Joro.mp3
-[2026-06-30T19:22:29.507438100] [SENDER] Envoi réussi : Wizkid_Joro.mp3 (HTTP 200)
-[2026-06-30T19:22:29.508865500] [SENDER] Fichier supprimé du répertoire source : Wizkid_Joro.mp3
-[2026-07-01T09:37:12.529189600] [SENDER] Nouveau message reçu depuis Programme 2
-[2026-07-01T09:37:12.531192400] [SENDER] Fichier introuvable, on ignore : C:\Users\miari\Documents\projetMP3\mp3\musique\Ankino.mp3
-[2026-07-01T09:37:12.531890600] [SENDER] Nouveau message reçu depuis Programme 2
-[2026-07-01T09:37:12.532394700] [SENDER] Fichier introuvable, on ignore : C:\Users\miari\Documents\projetMP3\mp3\musique\Antanambao.MP3
-[2026-07-01T09:37:12.560630300] [SENDER] Nouveau message reçu depuis Programme 2
-[2026-07-01T09:37:12.561161900] [SENDER] Envoi vers API : RijaRamanantoanina_MiandryFoana.mp3 | artiste=Rija Ramanantoanina | titre=RijaRamanantoanina_MiandryFoana.mp3
-[2026-07-01T09:37:12.674420100] [SENDER] Erreur lors de l'envoi de RijaRamanantoanina_MiandryFoana.mp3 : C:\Users\miari\Documents\projetMP3\mp3\musique\RijaRamanantoanina_MiandryFoana.mp3 (Le fichier spécifié est introuvable) ? fichier conservé pour retraitement
-[2026-07-01T09:37:12.674420100] [SENDER] Nouveau message reçu depuis Programme 2
-[2026-07-01T09:37:12.674420100] [SENDER] Fichier introuvable, on ignore : C:\Users\miari\Documents\projetMP3\mp3\musique\ShawnMendes_Iknowwhatyoudidlastsummer.mp3
-[2026-07-01T09:37:12.676428900] [SENDER] Nouveau message reçu depuis Programme 2
-[2026-07-01T09:37:12.677230400] [SENDER] Fichier introuvable, on ignore : C:\Users\miari\Documents\projetMP3\mp3\musique\Wizkid_Joro.mp3
-[2026-07-01T09:46:07.910418] [SENDER] Nouveau message reçu depuis Programme 2
-[2026-07-01T09:46:07.912017100] [SENDER] Fichier introuvable, on ignore : C:\Users\miari\Documents\projetMP3\mp3\musique\Ankino.mp3
-[2026-07-01T09:46:07.913059200] [SENDER] Nouveau message reçu depuis Programme 2
-[2026-07-01T09:46:07.913582800] [SENDER] Fichier introuvable, on ignore : C:\Users\miari\Documents\projetMP3\mp3\musique\Antanambao.MP3
-[2026-07-01T09:46:07.914632200] [SENDER] Nouveau message reçu depuis Programme 2
-[2026-07-01T09:46:07.915147200] [SENDER] Fichier introuvable, on ignore : C:\Users\miari\Documents\projetMP3\mp3\musique\RijaRamanantoanina_MiandryFoana.mp3
-[2026-07-01T09:46:07.916203400] [SENDER] Nouveau message reçu depuis Programme 2
-[2026-07-01T09:46:07.916682500] [SENDER] Fichier introuvable, on ignore : C:\Users\miari\Documents\projetMP3\mp3\musique\ShawnMendes_Iknowwhatyoudidlastsummer.mp3
-[2026-07-01T09:46:07.917737100] [SENDER] Nouveau message reçu depuis Programme 2
-[2026-07-01T09:46:07.918798300] [SENDER] Fichier introuvable, on ignore : C:\Users\miari\Documents\projetMP3\mp3\musique\Wizkid_Joro.mp3
-[2026-07-01T09:54:15.297487200] [SENDER] Nouveau message reçu depuis Programme 2
-[2026-07-01T09:54:15.298591900] [SENDER] Envoi vers API : Ankino.mp3 | artiste=Bodo | titre=Ankino
-[2026-07-01T09:54:15.617098100] [SENDER] ? Insertion en base réussie : Ankino.mp3 (HTTP 200)
-[2026-07-01T09:54:15.627170700] [SENDER] Message envoyé à Programme 4 pour suppression : Ankino.mp3
-[2026-07-01T09:54:15.628779600] [SENDER] Nouveau message reçu depuis Programme 2
-[2026-07-01T09:54:15.629343] [SENDER] Envoi vers API : Antanambao.MP3 | artiste=Bekoto Augustin | titre=Antanambao
-[2026-07-01T09:54:15.668722800] [SENDER] ? Insertion en base réussie : Antanambao.MP3 (HTTP 200)
-[2026-07-01T09:54:15.670678900] [SENDER] Message envoyé à Programme 4 pour suppression : Antanambao.MP3
-[2026-07-01T09:54:15.671724] [SENDER] Nouveau message reçu depuis Programme 2
-[2026-07-01T09:54:15.672834700] [SENDER] Envoi vers API : RijaRamanantoanina_MiandryFoana.mp3 | artiste=Rija Ramanantoanina | titre=RijaRamanantoanina_MiandryFoana.mp3
-[2026-07-01T09:54:15.719084500] [SENDER] ? Insertion en base réussie : RijaRamanantoanina_MiandryFoana.mp3 (HTTP 200)
-[2026-07-01T09:54:15.720485800] [SENDER] Message envoyé à Programme 4 pour suppression : RijaRamanantoanina_MiandryFoana.mp3
-[2026-07-01T09:54:15.721242100] [SENDER] Nouveau message reçu depuis Programme 2
-[2026-07-01T09:54:15.721864400] [SENDER] Envoi vers API : ShawnMendes_Iknowwhatyoudidlastsummer.mp3 | artiste=Shawn Mendes | titre=ShawnMendes_Iknowwhatyoudidlastsummer.mp3
-[2026-07-01T09:54:15.760737100] [SENDER] ? Insertion en base réussie : ShawnMendes_Iknowwhatyoudidlastsummer.mp3 (HTTP 200)
-[2026-07-01T09:54:15.761738] [SENDER] Message envoyé à Programme 4 pour suppression : ShawnMendes_Iknowwhatyoudidlastsummer.mp3
-[2026-07-01T09:54:15.762703900] [SENDER] Nouveau message reçu depuis Programme 2
-[2026-07-01T09:54:15.763336900] [SENDER] Envoi vers API : Wizkid_Joro.mp3 | artiste=Wizkid | titre=Wizkid_Joro.mp3
-[2026-07-01T09:54:15.806811200] [SENDER] ? Insertion en base réussie : Wizkid_Joro.mp3 (HTTP 200)
-[2026-07-01T09:54:15.807816200] [SENDER] Message envoyé à Programme 4 pour suppression : Wizkid_Joro.mp3
+[2026-07-01T10:48:01.993446900] [SENDER] Nouveau message reçu depuis Programme 2
+[2026-07-01T10:48:01.993446900] [SENDER] Envoi vers API : Ankino.mp3 | artiste=Bodo | titre=Ankino
+[2026-07-01T10:48:02.353809400] [SENDER] ? Insertion en base réussie : Ankino.mp3 (HTTP 200)
+[2026-07-01T10:48:02.364664100] [SENDER] Message envoyé à Programme 4 pour suppression : Ankino.mp3
+[2026-07-01T10:48:11.922223700] [SENDER] Nouveau message reçu depuis Programme 2
+[2026-07-01T10:48:11.923109] [SENDER] Envoi vers API : Antanambao.MP3 | artiste=Bekoto Augustin | titre=Antanambao
+[2026-07-01T10:48:11.967318500] [SENDER] ? Insertion en base réussie : Antanambao.MP3 (HTTP 200)
+[2026-07-01T10:48:11.968622800] [SENDER] Message envoyé à Programme 4 pour suppression : Antanambao.MP3
+[2026-07-01T10:48:11.969769200] [SENDER] Nouveau message reçu depuis Programme 2
+[2026-07-01T10:48:11.970304] [SENDER] Envoi vers API : OliviaRodrigo_Less.mp3 | artiste=Olivia Rodrigo | titre=OliviaRodrigo_Less.mp3
+[2026-07-01T10:48:12.016790800] [SENDER] ? Insertion en base réussie : OliviaRodrigo_Less.mp3 (HTTP 200)
+[2026-07-01T10:48:12.016790800] [SENDER] Message envoyé à Programme 4 pour suppression : OliviaRodrigo_Less.mp3
+[2026-07-01T10:48:12.022049300] [SENDER] Nouveau message reçu depuis Programme 2
+[2026-07-01T10:48:12.022821700] [SENDER] Envoi vers API : OliviaRodrigo_Purple.mp3 | artiste=Olivia Rodrigo | titre=OliviaRodrigo_Purple.mp3
+[2026-07-01T10:48:12.058732700] [SENDER] ? Insertion en base réussie : OliviaRodrigo_Purple.mp3 (HTTP 200)
+[2026-07-01T10:48:12.062747800] [SENDER] Message envoyé à Programme 4 pour suppression : OliviaRodrigo_Purple.mp3
+[2026-07-01T10:48:12.064094500] [SENDER] Nouveau message reçu depuis Programme 2
+[2026-07-01T10:48:12.064649600] [SENDER] Envoi vers API : RijaRamanantoanina_MiandryFoana.mp3 | artiste=Rija Ramanantoanina | titre=RijaRamanantoanina_MiandryFoana.mp3
+[2026-07-01T10:48:12.104350] [SENDER] ? Insertion en base réussie : RijaRamanantoanina_MiandryFoana.mp3 (HTTP 200)
+[2026-07-01T10:48:12.105577400] [SENDER] Message envoyé à Programme 4 pour suppression : RijaRamanantoanina_MiandryFoana.mp3
+[2026-07-01T10:48:12.106306] [SENDER] Nouveau message reçu depuis Programme 2
+[2026-07-01T10:48:12.106975] [SENDER] Envoi vers API : ShawnMendes_Iknowwhatyoudidlastsummer.mp3 | artiste=Shawn Mendes | titre=ShawnMendes_Iknowwhatyoudidlastsummer.mp3
+[2026-07-01T10:48:12.140847800] [SENDER] ? Insertion en base réussie : ShawnMendes_Iknowwhatyoudidlastsummer.mp3 (HTTP 200)
+[2026-07-01T10:48:12.150716500] [SENDER] Message envoyé à Programme 4 pour suppression : ShawnMendes_Iknowwhatyoudidlastsummer.mp3
+[2026-07-01T10:48:12.151687400] [SENDER] Nouveau message reçu depuis Programme 2
+[2026-07-01T10:48:12.152214800] [SENDER] Envoi vers API : Wizkid_Joro.mp3 | artiste=Wizkid | titre=Wizkid_Joro.mp3
+[2026-07-01T10:48:12.192436100] [SENDER] ? Insertion en base réussie : Wizkid_Joro.mp3 (HTTP 200)
+[2026-07-01T10:48:12.195421800] [SENDER] Message envoyé à Programme 4 pour suppression : Wizkid_Joro.mp3

@@ -50,7 +50,7 @@
           :disabled="selectedIds.size < 2 || merging"
           @click="merge"
         >
-          {{ merging ? 'Fusion en cours...' : '🔀 Fusionner' }}
+          {{ merging ? 'Fusion en cours...' : ' Fusionner' }}
         </button>
       </div>
 

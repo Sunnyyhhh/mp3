@@ -70,8 +70,7 @@ public class Mp3Controller {
     }
 
     /**
-     * POST /mp3/upload — Appelé par Programme 3 (pipeline automatique).
-     * Utilise les métadonnées extraites passées en paramètres de requête.
+     * POST /mp3/upload 
      */
     @PostMapping("/upload")
     public Mp3 upload(

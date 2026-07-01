@@ -23,9 +23,6 @@ public class PlaylistService {
     private final Mp3Repository mp3Repository;
     private final UtilisateurRepository utilisateurRepository;
 
-    // ==============================
-    // CRUD Playlist
-    // ==============================
 
     public Playlist create(String nom, Integer dureeCible, Long utilisateurId) {
         Utilisateur utilisateur = utilisateurRepository.findById(utilisateurId)
@@ -55,20 +52,11 @@ public class PlaylistService {
         playlistRepository.deleteById(id);
     }
 
-    // ==============================
-    // Confirmer
-    // ==============================
-
     public Playlist confirmer(Long playlistId) {
         Playlist playlist = findById(playlistId);
         playlist.setStatut("CONFIRMEE");
         return playlistRepository.save(playlist);
     }
-
-    // ==============================
-    // Fusionner plusieurs playlists
-    // Déduplique par mp3.id, crée une nouvelle playlist CONFIRMEE directement
-    // ==============================
 
     public Playlist fusionner(List<Long> ids, Long utilisateurId) {
         if (ids == null || ids.size() < 2) {
@@ -78,8 +66,6 @@ public class PlaylistService {
         Utilisateur utilisateur = utilisateurRepository.findById(utilisateurId)
                 .orElseThrow(() -> new RuntimeException("Utilisateur introuvable"));
 
-        // Récupérer tous les morceaux des playlists sources, dans l'ordre
-        // et dédupliquer par mp3.id (on garde la première occurrence)
         List<Mp3> mp3Uniques = new ArrayList<>();
         Set<Long> mp3IdsVus = new LinkedHashSet<>();
 
@@ -93,17 +79,14 @@ public class PlaylistService {
             }
         }
 
-        // Calculer la durée totale fusionnée
         int dureeTotale = mp3Uniques.stream()
                 .mapToInt(mp3 -> mp3.getDuree() != null ? mp3.getDuree() : 0)
                 .sum();
 
-        // Construire le nom depuis les noms des playlists sources
         String nomFusion = ids.stream()
                 .map(id -> findById(id).getNom())
                 .collect(Collectors.joining(" + "));
 
-        // Créer la nouvelle playlist (CONFIRMEE directement, non modifiable)
         Playlist fusion = Playlist.builder()
                 .nom("Fusion : " + nomFusion)
                 .dureeCible(dureeTotale)
@@ -113,7 +96,6 @@ public class PlaylistService {
 
         fusion = playlistRepository.save(fusion);
 
-        // Ajouter les morceaux dédupliqués
         int ordre = 1;
         for (Mp3 mp3 : mp3Uniques) {
             PlaylistMp3 pm = PlaylistMp3.builder()
@@ -127,11 +109,7 @@ public class PlaylistService {
         return fusion;
     }
 
-    // ==============================
-    // Suggestion automatique
-    // ==============================
-
-    public List<PlaylistMp3> suggerer(Long playlistId) {
+    /*public List<PlaylistMp3> suggerer(Long playlistId) {
         Playlist playlist = findById(playlistId);
         verifierBrouillon(playlist);
 
@@ -156,10 +134,6 @@ public class PlaylistService {
 
         return result;
     }
-
-    // ==============================
-    // Suggestion avec filtres
-    // ==============================
 
     public List<PlaylistMp3> suggererParFiltres(Long playlistId, List<String> artistes, List<String> genres) {
         Playlist playlist = findById(playlistId);
@@ -195,11 +169,109 @@ public class PlaylistService {
         }
 
         return result;
+    }*/
+    public List<PlaylistMp3> suggerer(Long playlistId) {
+        Playlist playlist = findById(playlistId);
+        verifierBrouillon(playlist);
+        viderPlaylist(playlistId);
+
+        List<Mp3> candidats = mp3Repository.findAll()
+                .stream()
+                .filter(mp3 -> mp3.getDuree() != null && mp3.getDuree() > 0)
+                .toList();
+
+        return enregistrerMeilleurMix(playlist, candidats);
     }
 
-    // ==============================
-    // Ajouter/Supprimer morceau
-    // ==============================
+    public List<PlaylistMp3> suggererParFiltres(Long playlistId, List<String> artistes, List<String> genres) {
+        Playlist playlist = findById(playlistId);
+        verifierBrouillon(playlist);
+        viderPlaylist(playlistId);
+
+        List<Mp3> candidats = mp3Repository.findAll()
+                .stream()
+                .filter(mp3 -> mp3.getDuree() != null && mp3.getDuree() > 0)
+                .filter(mp3 -> {
+                    boolean artisteOk = artistes.isEmpty() ||
+                            artistes.stream().anyMatch(a -> a.equalsIgnoreCase(mp3.getArtiste()));
+                    boolean genreOk = genres.isEmpty() ||
+                            genres.stream().anyMatch(g -> g.equalsIgnoreCase(mp3.getGenre()));
+                    return artisteOk && genreOk;
+                })
+                .toList();
+
+        return enregistrerMeilleurMix(playlist, candidats);
+    }
+
+    /**
+     * Cherche, parmi les candidats, le sous-ensemble dont la somme des durées
+     * est la plus proche possible de dureeCible SANS la dépasser (knapsack 0/1).
+     * Puis persiste le résultat comme morceaux de la playlist.
+     */
+    private List<PlaylistMp3> enregistrerMeilleurMix(Playlist playlist, List<Mp3> candidats) {
+        List<Mp3> meilleurMix = trouverMeilleurMix(candidats, playlist.getDureeCible());
+
+        List<PlaylistMp3> result = new ArrayList<>();
+        int ordre = 1;
+        for (Mp3 mp3 : meilleurMix) {
+            PlaylistMp3 pm = PlaylistMp3.builder()
+                    .playlist(playlist).mp3(mp3).ordre(ordre++).build();
+            playlistMp3Repository.save(pm);
+            result.add(pm);
+        }
+        return result;
+    }
+
+    /**
+     * Knapsack 0/1 : trouve le sous-ensemble de mp3 dont la somme des durées
+     * est maximale sans dépasser dureeCible (= la plus proche possible en dessous).
+     * dp[i][c] = true si, en utilisant les i premiers candidats, on peut atteindre
+     * exactement une somme de durée c (c <= dureeCible).
+     */
+    private List<Mp3> trouverMeilleurMix(List<Mp3> candidats, Integer dureeCible) {
+        int capacite = (dureeCible == null || dureeCible <= 0) ? 0 : dureeCible;
+        int n = candidats.size();
+
+        if (capacite == 0 || n == 0) {
+            return new ArrayList<>();
+        }
+
+        boolean[][] dp = new boolean[n + 1][capacite + 1];
+        dp[0][0] = true;
+
+        for (int i = 1; i <= n; i++) {
+            int duree = candidats.get(i - 1).getDuree();
+            for (int c = 0; c <= capacite; c++) {
+                dp[i][c] = dp[i - 1][c];
+                if (!dp[i][c] && c >= duree && dp[i - 1][c - duree]) {
+                    dp[i][c] = true;
+                }
+            }
+        }
+
+        // Cherche la plus grande somme atteignable <= capacite
+        int meilleureSomme = 0;
+        for (int c = capacite; c >= 0; c--) {
+            if (dp[n][c]) {
+                meilleureSomme = c;
+                break;
+            }
+        }
+
+        // Reconstruction du sous-ensemble
+        List<Mp3> resultat = new ArrayList<>();
+        int c = meilleureSomme;
+        for (int i = n; i >= 1; i--) {
+            if (c > 0 && !dp[i - 1][c]) {
+                Mp3 mp3 = candidats.get(i - 1);
+                resultat.add(mp3);
+                c -= mp3.getDuree();
+            }
+        }
+
+        Collections.reverse(resultat);
+        return resultat;
+    }
 
     public PlaylistMp3 ajouterMorceau(Long playlistId, Long mp3Id) {
         Playlist playlist = findById(playlistId);
@@ -223,10 +295,6 @@ public class PlaylistService {
         playlistMp3Repository.delete(pm);
     }
 
-    // ==============================
-    // Morceaux
-    // ==============================
-
     public List<PlaylistMp3> getMorceaux(Long playlistId) {
         return playlistMp3Repository.findAll()
                 .stream()
@@ -234,10 +302,6 @@ public class PlaylistService {
                 .sorted(Comparator.comparingInt(PlaylistMp3::getOrdre))
                 .toList();
     }
-
-    // ==============================
-    // ZIP
-    // ==============================
 
     public byte[] telechargerZip(Long playlistId) throws IOException {
         List<PlaylistMp3> morceaux = getMorceaux(playlistId);
