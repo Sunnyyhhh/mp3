@@ -8,9 +8,8 @@ import org.springframework.stereotype.Service;
 
 import java.io.*;
 import java.nio.file.Files;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+import java.util.stream.Collectors;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
@@ -52,13 +51,12 @@ public class PlaylistService {
     }
 
     public void delete(Long id) {
-        // Supprimer d'abord les morceaux
         viderPlaylist(id);
         playlistRepository.deleteById(id);
     }
 
     // ==============================
-    // Confirmer la playlist (verrouiller)
+    // Confirmer
     // ==============================
 
     public Playlist confirmer(Long playlistId) {
@@ -68,8 +66,69 @@ public class PlaylistService {
     }
 
     // ==============================
-    // Suggestion automatique (respecte durée cible, sans filtre)
-    // Remplace les morceaux existants seulement si BROUILLON
+    // Fusionner plusieurs playlists
+    // Déduplique par mp3.id, crée une nouvelle playlist CONFIRMEE directement
+    // ==============================
+
+    public Playlist fusionner(List<Long> ids, Long utilisateurId) {
+        if (ids == null || ids.size() < 2) {
+            throw new RuntimeException("Il faut au moins 2 playlists pour fusionner");
+        }
+
+        Utilisateur utilisateur = utilisateurRepository.findById(utilisateurId)
+                .orElseThrow(() -> new RuntimeException("Utilisateur introuvable"));
+
+        // Récupérer tous les morceaux des playlists sources, dans l'ordre
+        // et dédupliquer par mp3.id (on garde la première occurrence)
+        List<Mp3> mp3Uniques = new ArrayList<>();
+        Set<Long> mp3IdsVus = new LinkedHashSet<>();
+
+        for (Long playlistId : ids) {
+            List<PlaylistMp3> morceaux = getMorceaux(playlistId);
+            for (PlaylistMp3 pm : morceaux) {
+                Long mp3Id = pm.getMp3().getId();
+                if (mp3IdsVus.add(mp3Id)) {
+                    mp3Uniques.add(pm.getMp3());
+                }
+            }
+        }
+
+        // Calculer la durée totale fusionnée
+        int dureeTotale = mp3Uniques.stream()
+                .mapToInt(mp3 -> mp3.getDuree() != null ? mp3.getDuree() : 0)
+                .sum();
+
+        // Construire le nom depuis les noms des playlists sources
+        String nomFusion = ids.stream()
+                .map(id -> findById(id).getNom())
+                .collect(Collectors.joining(" + "));
+
+        // Créer la nouvelle playlist (CONFIRMEE directement, non modifiable)
+        Playlist fusion = Playlist.builder()
+                .nom("Fusion : " + nomFusion)
+                .dureeCible(dureeTotale)
+                .statut("CONFIRMEE")
+                .utilisateur(utilisateur)
+                .build();
+
+        fusion = playlistRepository.save(fusion);
+
+        // Ajouter les morceaux dédupliqués
+        int ordre = 1;
+        for (Mp3 mp3 : mp3Uniques) {
+            PlaylistMp3 pm = PlaylistMp3.builder()
+                    .playlist(fusion)
+                    .mp3(mp3)
+                    .ordre(ordre++)
+                    .build();
+            playlistMp3Repository.save(pm);
+        }
+
+        return fusion;
+    }
+
+    // ==============================
+    // Suggestion automatique
     // ==============================
 
     public List<PlaylistMp3> suggerer(Long playlistId) {
@@ -99,7 +158,7 @@ public class PlaylistService {
     }
 
     // ==============================
-    // Suggestion avec filtres artistes + genres (respecte durée cible)
+    // Suggestion avec filtres
     // ==============================
 
     public List<PlaylistMp3> suggererParFiltres(Long playlistId, List<String> artistes, List<String> genres) {
@@ -139,7 +198,7 @@ public class PlaylistService {
     }
 
     // ==============================
-    // Ajouter une chanson manuellement (BROUILLON seulement)
+    // Ajouter/Supprimer morceau
     // ==============================
 
     public PlaylistMp3 ajouterMorceau(Long playlistId, Long mp3Id) {
@@ -149,7 +208,6 @@ public class PlaylistService {
         Mp3 mp3 = mp3Repository.findById(mp3Id)
                 .orElseThrow(() -> new RuntimeException("MP3 introuvable"));
 
-        // Calculer le prochain ordre
         int ordre = getMorceaux(playlistId).size() + 1;
 
         PlaylistMp3 pm = PlaylistMp3.builder()
@@ -157,10 +215,6 @@ public class PlaylistService {
 
         return playlistMp3Repository.save(pm);
     }
-
-    // ==============================
-    // Supprimer un morceau de la suggestion (BROUILLON seulement)
-    // ==============================
 
     public void supprimerMorceau(Long playlistMp3Id) {
         PlaylistMp3 pm = playlistMp3Repository.findById(playlistMp3Id)
@@ -177,12 +231,12 @@ public class PlaylistService {
         return playlistMp3Repository.findAll()
                 .stream()
                 .filter(pm -> pm.getPlaylist().getId().equals(playlistId))
-                .sorted((a, b) -> a.getOrdre() - b.getOrdre())
+                .sorted(Comparator.comparingInt(PlaylistMp3::getOrdre))
                 .toList();
     }
 
     // ==============================
-    // ZIP (disponible même si CONFIRMEE)
+    // ZIP
     // ==============================
 
     public byte[] telechargerZip(Long playlistId) throws IOException {
@@ -203,7 +257,7 @@ public class PlaylistService {
     }
 
     // ==============================
-    // Helpers privés
+    // Helpers
     // ==============================
 
     private void verifierBrouillon(Playlist playlist) {

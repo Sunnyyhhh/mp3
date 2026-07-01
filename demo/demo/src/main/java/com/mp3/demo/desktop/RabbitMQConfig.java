@@ -16,7 +16,10 @@ public class RabbitMQConfig {
     // Noms des queues
     // =========================================================
     public static final String QUEUE_SCANNER_TO_METADATA = "queue.scanner.to.metadata";
-    public static final String QUEUE_METADATA_TO_SENDER  = "queue.metadata.to.sender";
+    /** Queue 3 : chansons ayant passé blacklist + durée → insertion en base */
+    public static final String QUEUE_MP3_TO_DB           = "queue.mp3.to.db";
+    /** Queue 4 : chansons ayant passé blacklist + durée → suppression du dossier musique */
+    public static final String QUEUE_MP3_TO_DELETE       = "queue.mp3.to.delete";
 
     // =========================================================
     // Noms des exchanges
@@ -27,62 +30,58 @@ public class RabbitMQConfig {
     // Routing keys
     // =========================================================
     public static final String ROUTING_SCANNER_TO_METADATA = "mp3.scanner.metadata";
-    public static final String ROUTING_METADATA_TO_SENDER  = "mp3.metadata.sender";
+    public static final String ROUTING_MP3_TO_DB           = "mp3.to.db";
+    public static final String ROUTING_MP3_TO_DELETE       = "mp3.to.delete";
 
     // =========================================================
-    // Déclaration des queues (durable = true : survivent au redémarrage RabbitMQ)
+    // Déclaration des queues
     // =========================================================
 
     @Bean
     public Queue queueScannerToMetadata() {
-        return QueueBuilder
-                .durable(QUEUE_SCANNER_TO_METADATA)
-                .build();
+        return QueueBuilder.durable(QUEUE_SCANNER_TO_METADATA).build();
     }
 
     @Bean
-    public Queue queueMetadataToSender() {
-        return QueueBuilder
-                .durable(QUEUE_METADATA_TO_SENDER)
-                .build();
+    public Queue queueMp3ToDb() {
+        return QueueBuilder.durable(QUEUE_MP3_TO_DB).build();
+    }
+
+    @Bean
+    public Queue queueMp3ToDelete() {
+        return QueueBuilder.durable(QUEUE_MP3_TO_DELETE).build();
     }
 
     // =========================================================
-    // Déclaration de l'Exchange (Direct Exchange)
-    // Un seul exchange pour toute l'application MP3
+    // Exchange
     // =========================================================
 
     @Bean
     public DirectExchange exchangeMp3() {
-        return ExchangeBuilder
-                .directExchange(EXCHANGE_MP3)
-                .durable(true)
-                .build();
+        return ExchangeBuilder.directExchange(EXCHANGE_MP3).durable(true).build();
     }
 
     // =========================================================
-    // Bindings : relie chaque queue à l'exchange via une routing key
+    // Bindings
     // =========================================================
 
     @Bean
     public Binding bindingScannerToMetadata(Queue queueScannerToMetadata, DirectExchange exchangeMp3) {
-        return BindingBuilder
-                .bind(queueScannerToMetadata)
-                .to(exchangeMp3)
-                .with(ROUTING_SCANNER_TO_METADATA);
+        return BindingBuilder.bind(queueScannerToMetadata).to(exchangeMp3).with(ROUTING_SCANNER_TO_METADATA);
     }
 
     @Bean
-    public Binding bindingMetadataToSender(Queue queueMetadataToSender, DirectExchange exchangeMp3) {
-        return BindingBuilder
-                .bind(queueMetadataToSender)
-                .to(exchangeMp3)
-                .with(ROUTING_METADATA_TO_SENDER);
+    public Binding bindingMp3ToDb(Queue queueMp3ToDb, DirectExchange exchangeMp3) {
+        return BindingBuilder.bind(queueMp3ToDb).to(exchangeMp3).with(ROUTING_MP3_TO_DB);
+    }
+
+    @Bean
+    public Binding bindingMp3ToDelete(Queue queueMp3ToDelete, DirectExchange exchangeMp3) {
+        return BindingBuilder.bind(queueMp3ToDelete).to(exchangeMp3).with(ROUTING_MP3_TO_DELETE);
     }
 
     // =========================================================
     // Convertisseur JSON
-    // Les messages seront sérialisés/désérialisés en JSON automatiquement
     // =========================================================
 
     @Bean
@@ -91,8 +90,7 @@ public class RabbitMQConfig {
     }
 
     // =========================================================
-    // RabbitTemplate : utilisé pour ENVOYER des messages (Prog 1 et Prog 2)
-    // On y branche le convertisseur JSON
+    // RabbitTemplate
     // =========================================================
 
     @Bean
@@ -103,22 +101,17 @@ public class RabbitMQConfig {
     }
 
     // =========================================================
-    // ListenerContainerFactory : utilisé pour RECEVOIR des messages (Prog 2 et Prog 3)
-    // On y branche le convertisseur JSON
+    // ListenerContainerFactory
     // =========================================================
 
     @Bean
     public SimpleRabbitListenerContainerFactory rabbitListenerContainerFactory(
             ConnectionFactory connectionFactory) {
-
         SimpleRabbitListenerContainerFactory factory = new SimpleRabbitListenerContainerFactory();
         factory.setConnectionFactory(connectionFactory);
         factory.setMessageConverter(jsonMessageConverter());
-
-        // Nombre de messages traités en parallèle (1 = séquentiel, safe pour commencer)
         factory.setConcurrentConsumers(1);
         factory.setMaxConcurrentConsumers(3);
-
         return factory;
     }
 }

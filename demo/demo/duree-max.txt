@@ -1,0 +1,2 @@
+#duree max en sec
+300
