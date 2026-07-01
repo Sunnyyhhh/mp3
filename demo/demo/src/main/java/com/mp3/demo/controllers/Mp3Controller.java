@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.multipart.MultipartFile;
+
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -27,21 +28,25 @@ public class Mp3Controller {
     @Value("${app.storage.path}")
     private String storagePath;
 
+    // GET /mp3
     @GetMapping
     public List<Mp3> getAll() {
         return mp3Service.findAll();
     }
 
+    // GET /mp3/{id}
     @GetMapping("/{id}")
     public Mp3 getById(@PathVariable Long id) {
         return mp3Service.findById(id);
     }
 
+    // DELETE /mp3/{id}
     @DeleteMapping("/{id}")
     public void delete(@PathVariable Long id) {
         mp3Service.delete(id);
     }
 
+    // GET /mp3/{id}/stream
     @GetMapping("/{id}/stream")
     public ResponseEntity<org.springframework.core.io.Resource> stream(@PathVariable Long id) throws Exception {
         Mp3 mp3 = mp3Service.findById(id);
@@ -64,73 +69,44 @@ public class Mp3Controller {
                 .body(resource);
     }
 
+    /**
+     * POST /mp3/upload — Appelé par Programme 3 (pipeline automatique).
+     * Utilise les métadonnées extraites passées en paramètres de requête.
+     */
     @PostMapping("/upload")
-    public Mp3 upload(@RequestParam("file") MultipartFile file) throws Exception {
-        Path path = Paths.get(storagePath);
-        if (!Files.exists(path)) {
-            Files.createDirectories(path);
-        }
+    public Mp3 upload(
+            @RequestParam("file")    MultipartFile file,
+            @RequestParam(value = "titre",   defaultValue = "") String titre,
+            @RequestParam(value = "artiste", defaultValue = "") String artiste,
+            @RequestParam(value = "album",   defaultValue = "") String album,
+            @RequestParam(value = "genre",   defaultValue = "") String genre
+    ) throws Exception {
+        return mp3Service.sauvegarder(file, titre, artiste, album, genre);
+    }
 
-        String originalFileName = file.getOriginalFilename();
-        if (originalFileName == null || !originalFileName.toLowerCase().endsWith(".mp3")) {
-            throw new RuntimeException("Fichier invalide (MP3 uniquement)");
-        }
+    /**
+     * POST /mp3/upload-manuel — Appelé depuis le formulaire web.
+     */
+    @PostMapping("/upload-manuel")
+    public Mp3 uploadManuel(
+            @RequestParam("file")    MultipartFile file,
+            @RequestParam("titre")   String titre,
+            @RequestParam("artiste") String artiste,
+            @RequestParam(value = "genre", defaultValue = "") String genre
+    ) throws Exception {
+        return mp3Service.sauvegarderManuel(file, titre, artiste, genre);
+    }
 
-        String fileName = System.currentTimeMillis() + "_" + originalFileName;
-        Path destination = path.resolve(fileName);
-        Files.copy(file.getInputStream(), destination, java.nio.file.StandardCopyOption.REPLACE_EXISTING);
-
-        String artiste = "";
-        String titre = "";
-        String genre = "";
-        String album = "";
-        int duree = 0;
-
-        try {
-            com.mpatric.mp3agic.Mp3File mp3File = new com.mpatric.mp3agic.Mp3File(destination.toFile());
-            duree = (int) mp3File.getLengthInSeconds();
-
-            if (mp3File.hasId3v2Tag()) {
-                com.mpatric.mp3agic.ID3v2 tag = mp3File.getId3v2Tag();
-                titre   = tag.getTitle()            != null ? tag.getTitle()            : "";
-                artiste = tag.getArtist()           != null ? tag.getArtist()           : "";
-                album   = tag.getAlbum()            != null ? tag.getAlbum()            : "";
-                genre   = tag.getGenreDescription() != null ? tag.getGenreDescription() : "";
-            } else if (mp3File.hasId3v1Tag()) {
-                com.mpatric.mp3agic.ID3v1 tag = mp3File.getId3v1Tag();
-                titre   = tag.getTitle()            != null ? tag.getTitle()            : "";
-                artiste = tag.getArtist()           != null ? tag.getArtist()           : "";
-                album   = tag.getAlbum()            != null ? tag.getAlbum()            : "";
-                genre   = tag.getGenreDescription() != null ? tag.getGenreDescription() : "";
-            }
-        } catch (Exception e) {
-            System.out.println("Erreur metadata: " + e.getMessage());
-        }
-
-        if (titre.isEmpty() || artiste.isEmpty()) {
-            String nameWithoutExt = originalFileName.replace(".mp3", "").replace(".MP3", "");
-            String[] parts = nameWithoutExt.split("_", 2);
-            if (parts.length == 2) {
-                if (artiste.isEmpty()) artiste = parts[0].trim();
-                if (titre.isEmpty())   titre   = parts[1].trim();
-            } else {
-                if (titre.isEmpty()) titre = nameWithoutExt.trim();
-            }
-        }
-
-        Mp3 mp3 = Mp3.builder()
-                .nomFichier(fileName)
-                .artiste(artiste)
-                .titre(titre)
-                .genre(genre)
-                .album(album)
-                .duree(duree)
-                .cheminStockage(destination.toString())
-                .taille(file.getSize())
-                .dateUpload(LocalDateTime.now())
-                .statut("UPLOADED")
-                .build();
-
-        return mp3Service.save(mp3);
+    /**
+     * PUT /mp3/{id} 
+     */
+    @PutMapping("/{id}")
+    public Mp3 update(
+            @PathVariable Long id,
+            @RequestParam(value = "titre",   required = false) String titre,
+            @RequestParam(value = "artiste", required = false) String artiste,
+            @RequestParam(value = "genre",   required = false) String genre
+    ) {
+        return mp3Service.update(id, titre, artiste, genre);
     }
 }

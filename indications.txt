@@ -10,3 +10,42 @@ mettre un filtre par genre + artiste quand on cree la playlist OK
 mettre la possibilite d'ajouter une chanson a la main avant de vrmt generer la playlist
     cpg si la duree depasse ou ne respecte pas les criteres ok
 
+
+
+
+Alea : 
+partie web : 
+fonctionnalite dans la liste des playlist
+ajouter liste de playlist pour l'user
+donner la possibilite a l'user de faire une fusion de playlist (fitambaran playlist A avec playlist B)
+on peut fusionner plusieurs playlists
+
+liste avec checkBox et mettre un bouton fusionner 
+on enleve les doublons
+
+
+partie desktop : 
+azo le liste anle mp3 de micreer fichier 1 misy chiffres ao anatiny 
+le chiffre duree exprimee en s (ex : 180 ) 
+=> ze mihoatran 180 s de tsy alefany fa ajanona ao anaty repertoire (tsy fafana)
+
+
+mettre une derniere queue qui liste les mp3 qui vont etre envoyees (passer test blacklist)
+
+tsy fafana le anaty blacklist
+
+
+p3 = 
+p4 = misupprimer
+
+bon je voudrais que tu me donnes mtnt les fichiers qu on a besoin de changer juste et les changements a faire 
+je voudrais ne pas supprimer un mp3 du repertoire musique meme si la chanson est blacklist de genre / artiste
+je voudrais mettre un nouveau fichier txt avec une duree en secondes pres de Blacklist.txt stp et pdt l'analyse des mp3 si une chanson depasse la duree dans ce fichier,
+on ne prend pas cette chanson genre on ne la mets pas en base mais on ne la supprime pas non plus du repertoire musique (ex chanson 10min or dans txt c est 360s alors on garde juste dans musique on supprime pas )
+ensuite je voudrais separer le seconde queue stp ( du coup mtnt il y aura 4 queues => queue 3 juste pour liste les mp3 qui vont etre mis en base (ont passe le test blacklist + duree) 
+et queue 4 pour supprimer les mp3 du dossier musique )
+dans la partie web , mettre un checkbox dans la liste des playlists pour chaque playlist , ajouter un bouton fusionner playlist 
+gestion des doublons => on enleve les doublons (cette playlist ne sera plus modifiable mais sera juste creee) 
+
+ajoute un CRUD de mp3 mais avec des champs titre , artiste , genre et upload pour la chanson (on prend en compte les donnees du formulaire 
+et non pas les metadata dans le fichier uploade)

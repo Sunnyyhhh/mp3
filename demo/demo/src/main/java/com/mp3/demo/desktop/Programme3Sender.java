@@ -6,6 +6,7 @@ import org.apache.hc.client5.http.impl.classic.CloseableHttpClient;
 import org.apache.hc.client5.http.impl.classic.HttpClients;
 import org.apache.hc.core5.http.ContentType;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Profile;
 import org.springframework.messaging.handler.annotation.Payload;
@@ -18,16 +19,17 @@ import java.time.LocalDateTime;
 import java.util.Map;
 
 /**
- * Programme 3 — Envoi vers l'API backend
+ * Programme 3 — Envoi vers l'API backend (insertion en base)
  *
- * - Écoute la queue RabbitMQ : queue.metadata.to.sender
- * - Reçoit un objet JSON avec le chemin du fichier + métadonnées
- * - Upload le fichier MP3 vers l'API backend via HTTP POST multipart
- * - Si succès (HTTP 200) : supprime le fichier du répertoire source
- * - Si erreur : conserve le fichier pour retraitement ultérieur
+ * - Écoute : queue.mp3.to.db
+ * - Reçoit : JSON avec chemin + métadonnées d'un MP3 ayant passé blacklist et durée max
+ * - Upload  : POST multipart vers /mp3/upload
+ * - Déclenche la suppression (Queue 4 → Programme 4) UNIQUEMENT
+ *   après confirmation du succès HTTP 200 de l'insertion en base.
+ *   → garantit l'ordre : insertion en base AVANT suppression du fichier.
  *
  * Profil Spring : sender
- * Lancement     : java -jar demo.jar --spring.profiles.active=sender
+ * Lancement    : java -jar demo.jar --spring.profiles.active=sender
  */
 @Component
 @Profile("sender")
@@ -35,15 +37,16 @@ public class Programme3Sender {
 
     private static final String LOG_FILE = "logs/programme3.log";
 
-    // URL de l'API backend — définie dans application-sender.properties
     @Value("${app.api.upload.url:http://localhost:8080/mp3/upload}")
     private String apiUploadUrl;
 
-    /**
-     * Méthode déclenchée automatiquement dès qu'un message arrive dans la queue.
-     * Spring désérialise automatiquement le JSON en Map grâce au Jackson2JsonMessageConverter.
-     */
-    @RabbitListener(queues = RabbitMQConfig.QUEUE_METADATA_TO_SENDER)
+    private final RabbitTemplate rabbitTemplate;
+
+    public Programme3Sender(RabbitTemplate rabbitTemplate) {
+        this.rabbitTemplate = rabbitTemplate;
+    }
+
+    @RabbitListener(queues = RabbitMQConfig.QUEUE_MP3_TO_DB)
     public void traiter(@Payload Map<String, Object> data) {
         log("Nouveau message reçu depuis Programme 2");
 
@@ -66,7 +69,6 @@ public class Programme3Sender {
 
         try (CloseableHttpClient httpClient = HttpClients.createDefault()) {
 
-            // Construction de l'URL avec les paramètres métadonnées
             String url = apiUploadUrl
                     + "?titre="   + encode(titre)
                     + "&artiste=" + encode(artiste)
@@ -75,33 +77,26 @@ public class Programme3Sender {
 
             HttpPost post = new HttpPost(url);
 
-            // Corps multipart avec le fichier MP3
             var entity = MultipartEntityBuilder.create()
-                    .addBinaryBody(
-                            "file",
-                            fichier,
-                            ContentType.create("audio/mpeg"),
-                            fichier.getName()
-                    )
+                    .addBinaryBody("file", fichier, ContentType.create("audio/mpeg"), fichier.getName())
                     .build();
 
             post.setEntity(entity);
 
-            // Exécution de la requête
             int statusCode = httpClient.execute(post, response -> response.getCode());
 
             if (statusCode == 200) {
-                log("Envoi réussi : " + fichier.getName() + " (HTTP " + statusCode + ")");
+                log("✅ Insertion en base réussie : " + fichier.getName() + " (HTTP " + statusCode + ")");
 
-                // Supprimer le fichier original après envoi réussi
-                if (fichier.delete()) {
-                    log("Fichier supprimé du répertoire source : " + fichier.getName());
-                } else {
-                    log("Avertissement : impossible de supprimer " + fichier.getName());
-                }
-
+                // Suppression déclenchée uniquement après succès confirmé de l'insertion
+                rabbitTemplate.convertAndSend(
+                        RabbitMQConfig.EXCHANGE_MP3,
+                        RabbitMQConfig.ROUTING_MP3_TO_DELETE,
+                        chemin
+                );
+                log("Message envoyé à Programme 4 pour suppression : " + fichier.getName());
             } else {
-                log("Échec envoi (HTTP " + statusCode + ") : "
+                log("⚠️ Échec insertion (HTTP " + statusCode + ") : "
                         + fichier.getName() + " → fichier conservé pour retraitement");
             }
 
